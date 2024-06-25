@@ -1,4 +1,3 @@
-# 🏗️ ML model builder template
 
 A simple Streamlit app that lets you build simple ML models with scikit-learn. 
 
