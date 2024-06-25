@@ -6,18 +6,6 @@ import time
 import zipfile
 
 
-"""
-for the Gemini model initiation
-model = GModel(
-    project="local-vehicle-415415", # replace with your project id
-    location="us-central1", # keep this as is
-    credentials_path="service_acc_key.json" # replace with your service account key file
-)
-
-response = model.generate_text("What is the meaning of life")
-print(response)
-
-"""
 
 # Page title
 st.set_page_config(page_title='Cobalt', page_icon='🤖')
@@ -62,6 +50,19 @@ Working with cached data
         file_name='delaney_solubility_with_descriptors.csv',
         mime='text/csv',
     )
+"""
+
+"""
+for the Gemini model initiation
+model = GModel(
+    project="local-vehicle-415415", # replace with your project id
+    location="us-central1", # keep this as is
+    credentials_path="service_acc_key.json" # replace with your service account key file
+)
+
+response = model.generate_text("What is the meaning of life")
+print(response)
+
 """
     # Select example data
  
