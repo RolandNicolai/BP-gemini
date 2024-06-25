@@ -1,9 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import altair as alt
 import time
-import zipfile
+import google.generativeai as genai
 
 import hmac
 import streamlit as st
@@ -48,8 +47,6 @@ if not check_password():
     st.stop()
 
 # Main Streamlit app starts here
-st.write("Here goes your normal Streamlit app...")
-st.button("Click me")
 
 # Page title
 st.set_page_config(page_title='Cobalt', page_icon='🤖')
@@ -72,9 +69,12 @@ with st.expander('Om assistenten'):
 # Sidebar for accepting input parameters
 with st.sidebar:
     # Load data
-    st.header('1.1. Input data')
+    st.header('1.1. API Nøgle')
+    gemini_api_key = st.text_input("Gemini API Key", key="chatbot_api_key", type="password")
+    genai.configure(api_key= gemini_api_key)
 
-    st.markdown('**1. Use custom data**')
+    
+    st.markdown('**1. Upload Fil**')
     uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
     if uploaded_file is not None:
         df = pd.read_csv(uploaded_file, index_col=False)
