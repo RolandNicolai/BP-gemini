@@ -1,1 +1,2 @@
-.streamlit/secrets.toml
+# Ignore secrets file
+BP-gemini.streamlit/secrets.toml
