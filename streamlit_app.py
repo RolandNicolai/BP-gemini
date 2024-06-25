@@ -59,9 +59,8 @@ with st.expander('Om assistenten'):
   st.warning('Find service account key: https://www.youtube.com/watch?v=I8W-4oq1onY&t=99s')
 
   st.markdown('**Under the hood**')
-  st.markdown('Data sets:')
-  st.code('''- Drug solubility data set
-  ''', language='markdown')
+  st.markdown('Om')
+  st.code('''Empty''', language='markdown')
   
 
 
