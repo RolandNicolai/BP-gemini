@@ -1,1 +1,4 @@
 secrets.toml
+[passwords]
+# Follow the rule: username = "password"
+nicolai.rolandbonnier.com = "Florida1906"
