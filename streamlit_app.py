@@ -55,8 +55,8 @@ with st.expander('Om assistenten'):
   st.markdown('**Hvad kan denne assistent?**')
   st.info('This app allow users to build a machine learning (ML) model in an end-to-end workflow. Particularly, this encompasses data upload, data pre-processing, ML model building and post-model analysis.')
 
-  st.markdown('**Hvordan bruger jeg denne applikation?**')
-  st.warning('To engage with the app, go to the sidebar and 1. Select a data set and 2. Adjust the model parameters by adjusting the various slider widgets. As a result, this would initiate the ML model building process, display the model results as well as allowing users to download the generated models and accompanying data.')
+  st.markdown('**Opret en API nøgle**')
+  st.warning('Find service account key: https://www.youtube.com/watch?v=I8W-4oq1onY&t=99s')
 
   st.markdown('**Under the hood**')
   st.markdown('Data sets:')
