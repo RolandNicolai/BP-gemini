@@ -48,8 +48,8 @@ with st.sidebar:
         df = pd.read_csv(uploaded_file, index_col=False)
 
 
-  """
-  Working with cached data
+"""
+Working with cached data
     # Download example data
     @st.cache_data
     def convert_df(input_df):
