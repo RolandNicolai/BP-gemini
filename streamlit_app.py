@@ -115,7 +115,7 @@ button = st.button("Generate")
 
 if button and user_prompt:
     with st.spinner('Wait for it...'):
-    time.sleep(5)
+        time.sleep(5)
     queryModel_response = queryModel.generate_content(
           [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english]
           User question: {user_prompt}
