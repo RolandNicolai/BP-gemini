@@ -96,7 +96,7 @@ def generate():
     )
 
     for response in responses:
-        st.markdown(response.text, end="")
+        st.markdown(response.text)
 
 
 generation_config = {
