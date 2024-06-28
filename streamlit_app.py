@@ -92,13 +92,11 @@ generation_config = {
 queryModel = GenerativeModel(
     "gemini-1.5-pro-001",
     generation_config=generation_config,
-    system_instruction="you are aaaaa",
 )
 
 answerModel = GenerativeModel(
     "gemini-1.5-pro-001",
     generation_config=generation_config,
-    system_instruction="you are aaaaa",
 )
 
 #queryModel_response = queryModel_response.text
@@ -128,7 +126,9 @@ if button and user_prompt:
           in where statements use lower() when necessary to avoid lower/uppercase issues
 
           """],
-    generation_config={"temperature": 0},
+    generation_config= generation_config,
+    system_instruction="you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english",
+
     )
     queryModel_response_text = queryModel_response.text
     st.subheader("Respons før cleaning af query")
