@@ -97,6 +97,7 @@ answerModel = GenerativeModel(
 #user_prompt_test = st.text_input("User prompt:")
 #button_test = st.button("Generate")
 
+client = bigquery.Client(credentials=credentials)
 
 project = "bonnier-deliverables"
 dataset = "dummy_dataset"
@@ -182,7 +183,6 @@ if button and user_prompt:
 
 maximum_bytes_billable = 100000000 # = 100 Mb
 
-client = bigquery.Client(credentials=credentials)
 
 job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
 query_job = client.query("SELECT     Brand,     SUM(Sessions) AS TotalSessions,     SUM(Clicks) AS TotalClicks,     SUM(Purchases) AS TotalPurchases,     (SAFE_DIVIDE(SUM(Clicks), SUM(Sessions))) AS ClicksPerSession   FROM     `bonnier-deliverables.dummy_dataset.dummy_data`   WHERE CAST(Date as STRING) LIKE '2023%'   GROUP BY 1", location = "EU", job_config=job_config)
