@@ -92,7 +92,10 @@ user_prompt = st.text_input("User prompt:")
 button = st.button("Generate")
 
 if button and user_prompt:
-    response = model.generate_content(user_prompt, generation_config={"temperature": 0},)
+    response = model.generate_content(user_prompt, 
+                                      generation_config={"temperature": 0},
+                                      stream=True,
+    )
     st.subheader("Svar: ")
     st.markdown(response.text)
 
