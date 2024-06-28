@@ -101,6 +101,8 @@ if button and user_prompt:
 
 
 
+client = bigquery.Client(credentials=credentials)
+
 
 
  
