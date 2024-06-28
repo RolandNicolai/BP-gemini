@@ -108,7 +108,7 @@ if button and user_prompt:
     "top_p": 0.95,
     }
 
-st.markdown(generate())
+    generate()
 
 
 
