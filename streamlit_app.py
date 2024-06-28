@@ -140,7 +140,7 @@ if button and user_prompt:
     st.subheader("Under the hood")
     with st.expander('Se query'):
         st.markdown(queryModel_response.text)
-    my_bar.progress(percent_complete + 1, text=progress_text)
+    my_bar.progress(percent_complete + 1/2.5, text=progress_text)
     
     
     #st.subheader("Respons efter cleaning af query")
