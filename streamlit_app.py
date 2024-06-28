@@ -85,20 +85,16 @@ model = GenerativeModel(
     "gemini-1.5-pro-001",
 )
 
-queryModel_response = model.generate_content(
-      [f"""Hi!
-      """],
-      generation_config={"temperature": 0},
-  )
+
 #queryModel_response = queryModel_response.text
 
 user_prompt = st.text_input("User prompt:")
 button = st.button("Generate")
 
 if button and user_prompt:
-    response = chat_session.send_message(user_prompt)
+    response = model.generate_content(user_prompt, generation_config={"temperature": 0},)
     st.subheader("Svar: ")
-    st.markdown(queryModel_response.text)
+    st.markdown(response.text)
 
 
 
