@@ -84,12 +84,22 @@ credentials = service_account.Credentials.from_service_account_info(
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
+generation_config = {
+  "temperature": ,
+
+  "max_output_tokens": 8192,
+  #"response_mime_type": "text/plain",
+}
 queryModel = GenerativeModel(
     "gemini-1.5-pro-001",
+    generation_config=generation_config,
+    system_instruction="you are aaaaa",
 )
 
 answerModel = GenerativeModel(
     "gemini-1.5-pro-001",
+    generation_config=generation_config,
+    system_instruction="you are aaaaa",
 )
 
 #queryModel_response = queryModel_response.text
