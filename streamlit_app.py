@@ -174,13 +174,14 @@ if button and user_prompt:
 
         st.subheader("AnswerModel Response")
         answerModel_response = answerModel.generate_content(
-            [f""" Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
+            [f"""[System instruction: you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish]
+            Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
             plain language about where the information in your response is coming from in the database and how much was billed:
             project: {project}
             dataset: {dataset}
             table: {table}.
             query billed in Mb: {bytes_billed_result}
-            Only use information that you learn from BigQuery:"{api_response}".
+            Only use information that you learn from BigQuery:´´´{api_response}´´´.
             Do not make up information. Always present numbers in list formats """],
         generation_config={"temperature": 0},
         )
