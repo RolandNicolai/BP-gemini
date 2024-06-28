@@ -95,7 +95,7 @@ def generate():
     stream=True,
     )
 
-    response_text = responses.text  # Replace with response.text
+    response_text = response.text  # Replace with response.text
     st.markdown(f"{response_text}")
 
 
