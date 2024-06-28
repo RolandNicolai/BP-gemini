@@ -88,7 +88,6 @@ model = GenerativeModel(
 )
 queryModel = GenerativeModel(
     "gemini-1.5-pro-001",
-    system_instruction=["""you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english"""]
 )
 
 answerModel = GenerativeModel(
@@ -115,7 +114,7 @@ table = st.secrets["table"]
 user_prompt = st.text_input("User prompt:")
 button = st.button("Generate")
 
-if button_test and user_prompt:
+if button and user_prompt:
     queryModel_response = queryModel.generate_content(
           [f"""User question: {user_prompt}
           Instruction: write a script always only using the following dataset, table and field names.
