@@ -94,8 +94,8 @@ answerModel = GenerativeModel(
 
 #queryModel_response = queryModel_response.text
 
-user_prompt_test = st.text_input("User prompt:")
-button_test = st.button("Generate")
+#user_prompt_test = st.text_input("User prompt:")
+#button_test = st.button("Generate")
 
 
 project = "bonnier-deliverables"
