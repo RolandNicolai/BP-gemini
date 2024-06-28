@@ -116,7 +116,8 @@ button = st.button("Generate")
 
 if button and user_prompt:
     queryModel_response = queryModel.generate_content(
-          [f"""User question: {user_prompt}
+          [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english]
+          User question: {user_prompt}
           Instruction: write a script always only using the following dataset, table and field names.
           project: {project}
           dataset: {dataset}
@@ -127,7 +128,6 @@ if button and user_prompt:
 
           """],
     generation_config= generation_config,
-    system_instruction="you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english",
 
     )
     queryModel_response_text = queryModel_response.text
