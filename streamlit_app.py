@@ -86,20 +86,109 @@ vertexai.init(project=st.secrets["project"], location=st.secrets["location"], cr
 model = GenerativeModel(
     "gemini-1.5-pro-001",
 )
+queryModel = GenerativeModel(
+    "gemini-1.5-pro-001",
+    system_instruction=["""you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english"""]
+  )
 
+answerModel = GenerativeModel(
+    "gemini-1.5-pro-001",
+    system_instruction=["""you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish"""]
+  )
 
 #queryModel_response = queryModel_response.text
 
-user_prompt = st.text_input("User prompt:")
-button = st.button("Generate")
+user_prompt_test = st.text_input("User prompt:")
+button_test = st.button("Generate")
 
-if button and user_prompt:
-    response = model.generate_content(user_prompt, 
+if button_test and user_prompt:
+    response = model.generate_content(user_prompt_test, 
                                       generation_config={"temperature": 0}, 
     )
     st.subheader("Svar: ")
     st.markdown(response.text)
 
+project = st.secrets["project"]
+dataset = st.secrets["dataset"]
+table = st.secrets["table"]
+
+user_prompt = st.text_input("User prompt:")
+button = st.button("Generate")
+
+if button_test and user_prompt:
+    queryModel_response = queryModel.generate_content(
+          [f"""User question: {user_prompt}
+          Instruction: write a script always only using the following dataset, table and field names.
+          project: {project}
+          dataset: {dataset}
+          table: {table}
+
+          field names: [Date, Brand, Market, Sessions, Clicks, Purchases].
+          in where statements use lower() when necessary to avoid lower/uppercase issues
+
+          """],
+    generation_config={"temperature": 0},
+    )
+    queryModel_response_text = queryModel_response.text
+    st.subheader("Respons før cleaning af query")
+    st.markdown(queryModel_response.text)
+    
+    
+    st.subheader("Respons efter cleaning af query")
+
+    cleaned_query = (
+    queryModel_response_text
+    .replace("\\n", " ")
+    .replace("\n", " ")
+    .replace("\\", "")
+    .replace("```","")
+    .replace("sql", "")
+    )
+    print(cleaned_query)
+
+    dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
+
+# Start the query, passing in the extra configuration.
+    dryRun_query_job = client.query(
+        (cleaned_query),
+        job_config=dryRun_job_config,
+        location = "EU",
+    )  # Make an API request.
+
+    bytes_billed = dryRun_query_job.total_bytes_processed
+
+  #Sætter maksimum på bytes som kan queries (100 mb)
+  #BigQuery API kald
+    if bytes_billed < maximum_bytes_billable:
+        job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
+        query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
+        api_response = query_job.result()
+        bytes_billed = query_job.total_bytes_billed
+        bytes_billed_result = (bytes_billed / 1.048576e6)
+        api_response = str([dict(row) for row in api_response])
+        api_response = api_response.replace("\\", "").replace("\n", "")
+        st.subheader("Respons fra BigQuery API kald")
+        st.markdown(api_response.text)
+        st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
+
+        st.subheader("AnswerModel Response")
+        answerModel_response = answerModel.generate_content(
+            [f""" Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
+            plain language about where the information in your response is coming from in the database and how much was billed:
+            project: {project}
+            dataset: {dataset}
+            table: {table}.
+            query billed in Mb: {bytes_billed_result}
+            Only use information that you learn from BigQuery:"{api_response}".
+            Do not make up information. Always present numbers in list formats """],
+        generation_config={"temperature": 0},
+        )
+        answerModel_response = answerModel_response.text
+        st.markdown(answerModel_response.text)
+    else:
+        print('Query exceeds billing quota')
+
+### big query test API
 
 maximum_bytes_billable = 100000000 # = 100 Mb
 
