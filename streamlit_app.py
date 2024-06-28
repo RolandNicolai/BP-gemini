@@ -70,15 +70,8 @@ with st.expander('Om assistenten'):
 # Sidebar for accepting input parameters
 with st.sidebar:
     # Load data
-    st.header('1.1. API Nøgle')
-    gemini_api_key = st.text_input("Gemini API Key", key="chatbot_api_key", type="password")
-    #genai.configure(api_key= gemini_api_key)
+    st.header('1. Kom i gang med assistenten')
 
-    
-    st.markdown('**1. Upload Fil**')
-    uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
-    if uploaded_file is not None:
-        df = pd.read_csv(uploaded_file, index_col=False)
 
 
 credentials = service_account.Credentials.from_service_account_info(
@@ -99,8 +92,14 @@ queryModel_response = model.generate_content(
   )
 #queryModel_response = queryModel_response.text
 
-st.subheader("Svar: ")
-st.markdown(queryModel_response.text)
+user_prompt = st.text_input("User prompt:")
+button = st.button("Generate")
+
+if button and user_prompt:
+    response = chat_session.send_message(user_prompt)
+    st.subheader("Svar: ")
+    st.markdown(queryModel_response.text)
+
 
 
 
