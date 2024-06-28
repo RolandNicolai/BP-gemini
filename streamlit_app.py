@@ -81,33 +81,23 @@ credentials = service_account.Credentials.from_service_account_info(
 
 
 
+vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
+model = GenerativeModel(
+    "gemini-1.5-pro-001",
+)
+
+
+#queryModel_response = queryModel_response.text
+
 user_prompt = st.text_input("User prompt:")
 button = st.button("Generate")
 
-def generate():
-    vertexai.init(project = st.secrets["project"], location=st.secrets["location"], credentials=credentials)
-    model = GenerativeModel(
-        "gemini-1.5-pro-001",
-    )
-    responses = model.generate_content(
-    user_prompt,
-    generation_config=generation_config,
-    stream=True,
-    )
-
-    response_text = response.text  # Replace with response.text
-    st.markdown(f"{response_text}")
-
-
-generation_config = {
-    "max_output_tokens": 8192,
-    "temperature": 1,
-    "top_p": 0.95,
-}
-
-
 if button and user_prompt:
-    generate()
+    response = model.generate_content(user_prompt, 
+                                      generation_config={"temperature": 0}, 
+    )
+    st.subheader("Svar: ")
+    st.markdown(response.text)
 
 
 
@@ -116,4 +106,3 @@ if button and user_prompt:
  
 
 # Initiate the model building process
-
