@@ -50,7 +50,7 @@ if not check_password():
 
 # Main Streamlit app starts here
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
-st.logo(LOGO_URL_LARGE, link="https://bonnierpublications.com/en/bonnier-publications-2/", None)
+st.logo(LOGO_URL_LARGE, link="https://bonnierpublications.com/en/bonnier-publications-2/")
 
 # Page title
 st.set_page_config(page_title='Cobalt', page_icon='⚙️')
