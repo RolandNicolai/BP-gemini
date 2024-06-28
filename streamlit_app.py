@@ -106,14 +106,16 @@ answerModel = GenerativeModel(
 client = bigquery.Client(credentials=credentials)
 maximum_bytes_billable = 100000000 # = 100 Mb
 
-project = "bonnier-deliverables"
+project = st.secrets["project"]
 dataset = st.secrets["dataset"]
-table = "dummy_data"
+table = st.secrets["table"]
 
 user_prompt = st.text_input("User prompt:")
 button = st.button("Generate")
 
 if button and user_prompt:
+    with st.spinner('Wait for it...'):
+    time.sleep(5)
     queryModel_response = queryModel.generate_content(
           [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english]
           User question: {user_prompt}
