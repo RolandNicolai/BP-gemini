@@ -4,7 +4,7 @@ import numpy as np
 import time
 #import google.generativeai as genai
 import vertexai
-from vertexai.generative_models import GenerativeModel
+from vertexai.generative_models import generative_models
 from google.oauth2 import service_account
 import hmac
 import streamlit as st
@@ -88,9 +88,20 @@ credentials = service_account.Credentials.from_service_account_info(
 
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
-model = GenerativeModel(
+model = generative_models(
     "gemini-1.5-pro-001",
 )
+
+queryModel_response = model.generate_content(
+      [f"""Hi!
+      """],
+      generation_config={"temperature": 0},
+  )
+queryModel_response = queryModel_response.text
+print("")
+print("\033[1mRespons før cleaning af query\033[0m")
+print("")
+print(queryModel_response)
 
 
 
