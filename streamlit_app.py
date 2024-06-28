@@ -102,35 +102,9 @@ queryModel_response = model.generate_content(
 st.subheader("Svar: ")
 st.markdown(queryModel_response.text)
 
-"""
-Working with cached data
-    # Download example data
-    @st.cache_data
-    def convert_df(input_df):
-        return input_df.to_csv(index=False).encode('utf-8')
-    example_csv = pd.read_csv('https://raw.githubusercontent.com/dataprofessor/data/master/delaney_solubility_with_descriptors.csv')
-    csv = convert_df(example_csv)
-    st.download_button(
-        label="Download example CSV",
-        data=csv,
-        file_name='delaney_solubility_with_descriptors.csv',
-        mime='text/csv',
-    )
-"""
 
-"""
-for the Gemini model initiation
-model = GModel(
-    project="local-vehicle-415415", # replace with your project id
-    location="us-central1", # keep this as is
-    credentials_path="service_acc_key.json" # replace with your service account key file
-)
 
-response = model.generate_text("What is the meaning of life")
-print(response)
 
-"""
-    # Select example data
  
 
 # Initiate the model building process
