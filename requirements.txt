@@ -2,4 +2,4 @@ streamlit
 pandas
 scikit-learn
 altair
-vertexai.generative_models
+google-cloud-aiplatform==1.42.0
