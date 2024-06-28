@@ -115,7 +115,7 @@ button = st.button("Generate")
 
 if button and user_prompt:
     with st.spinner('Opretter query...'):
-        time.sleep(10)
+        time.sleep(3)
     queryModel_response = queryModel.generate_content(
           [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english]
           User question: {user_prompt}
@@ -163,8 +163,8 @@ if button and user_prompt:
   #Sætter maksimum på bytes som kan queries (100 mb)
   #BigQuery API kald
     if bytes_billed < maximum_bytes_billable:
-        with st.spinner('Opretter query...'):
-            time.sleep(10)
+        with st.spinner('Genererer svar fra data...'):
+            time.sleep(3)
         job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
         query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
         api_response = query_job.result()
