@@ -173,7 +173,7 @@ if button and user_prompt:
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
 
-        st.subheader("AnswerModel Response")
+        st.subheader("Assistent svar 🎈")
         answerModel_response = answerModel.generate_content(
             [f"""[System instruction: you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish]
             Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
@@ -184,7 +184,7 @@ if button and user_prompt:
             query billed in Mb: {bytes_billed_result}
             Only use information that you learn from BigQuery:´´´{api_response}´´´.
             Do not make up information. Always present numbers in list formats """],
-        generation_config={"temperature": 0},
+        generation_config = generation_config,
         )
         answerModel_response = answerModel_response.text
         st.markdown(answerModel_response)
