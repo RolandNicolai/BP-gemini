@@ -41,7 +41,7 @@ def check_password():
     # Show inputs for username + password.
     login_form()
     if "password_correct" in st.session_state:
-        st.error("😕 Ukendt bruger og/eller adgangskode")
+        st.error("😕 Ukendt bruger eller adgangskode")
     return False
 
 
@@ -51,8 +51,8 @@ if not check_password():
 # Main Streamlit app starts here
 
 # Page title
-st.set_page_config(page_title='Cobalt', page_icon='🤖')
-st.title('🤖 Cobalt Assistant')
+st.set_page_config(page_title='Cobalt', page_icon='⚙️')
+st.title('Cobalt Assistant')
 
 with st.expander('Om assistenten'):
   st.markdown('**Hvad kan denne assistent?**')
