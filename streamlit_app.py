@@ -119,7 +119,6 @@ my_bar = st.progress(0, text=progress_text)
 if button and user_prompt:
     for percent_complete in range(100):
             time.sleep(0.01)
-            my_bar.progress(percent_complete + 1, text=progress_text)
     with st.spinner('Opretter query...'):
         time.sleep(3)
     queryModel_response = queryModel.generate_content(
@@ -141,6 +140,7 @@ if button and user_prompt:
     st.subheader("Under the hood")
     with st.expander('Se query'):
         st.markdown(queryModel_response.text)
+    my_bar.progress(percent_complete + 0.33, text=progress_text)
     
     
     #st.subheader("Respons efter cleaning af query")
