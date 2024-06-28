@@ -89,12 +89,12 @@ model = GenerativeModel(
 queryModel = GenerativeModel(
     "gemini-1.5-pro-001",
     system_instruction=["""you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english"""]
-  )
+)
 
 answerModel = GenerativeModel(
     "gemini-1.5-pro-001",
     system_instruction=["""you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish"""]
-  )
+)
 
 #queryModel_response = queryModel_response.text
 
