@@ -85,7 +85,7 @@ credentials = service_account.Credentials.from_service_account_info(
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
 generation_config = {
-  "temperature": ,
+  "temperature": 0,
 
   "max_output_tokens": 8192,
   #"response_mime_type": "text/plain",
