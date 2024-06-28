@@ -130,7 +130,7 @@ if button and user_prompt:
 
     )
     queryModel_response_text = queryModel_response.text
-    #st.subheader("Query")
+    st.subheader("Under the hood")
     with st.expander('Se query'):
         st.markdown(queryModel_response.text)
     
@@ -169,8 +169,9 @@ if button and user_prompt:
         api_response = str([dict(row) for row in api_response])
         api_response = api_response.replace("\\", "").replace("\n", "")
         st.subheader("Respons fra BigQuery API kald")
-        st.markdown(api_response)
-        st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
+        with st.expander('Se BigQuery API respons'):
+            st.markdown(api_response)
+            st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
 
         st.subheader("AnswerModel Response")
         answerModel_response = answerModel.generate_content(
