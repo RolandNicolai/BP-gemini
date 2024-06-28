@@ -130,11 +130,12 @@ if button and user_prompt:
 
     )
     queryModel_response_text = queryModel_response.text
-    st.subheader("Respons før cleaning af query")
+    #st.subheader("Query")
+    with st.expander('Se query'):
     st.markdown(queryModel_response.text)
     
     
-    st.subheader("Respons efter cleaning af query")
+    #st.subheader("Respons efter cleaning af query")
 
     cleaned_query = (
     queryModel_response_text
