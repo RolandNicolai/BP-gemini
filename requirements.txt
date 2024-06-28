@@ -3,3 +3,4 @@ pandas
 scikit-learn
 altair
 google-cloud-aiplatform==1.42.0
+google-cloud-bigquery==3.25.0
