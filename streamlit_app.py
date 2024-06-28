@@ -193,17 +193,4 @@ if button and user_prompt:
 ### big query test API
 
 
-
-job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
-query_job = client.query("SELECT     Brand,     SUM(Sessions) AS TotalSessions,     SUM(Clicks) AS TotalClicks,     SUM(Purchases) AS TotalPurchases,     (SAFE_DIVIDE(SUM(Clicks), SUM(Sessions))) AS ClicksPerSession   FROM     `bonnier-deliverables.dummy_dataset.dummy_data`   WHERE CAST(Date as STRING) LIKE '2023%'   GROUP BY 1", location = "EU", job_config=job_config)
-api_response = query_job.result()
-bytes_billed = query_job.total_bytes_billed
-bytes_billed_result = (bytes_billed / 1.048576e6)
-api_response = str([dict(row) for row in api_response])
-api_response = api_response.replace("\\", "").replace("\n", "")
-
-st.write("Query result", api_response)
-
-
-
 # Initiate the model building process
