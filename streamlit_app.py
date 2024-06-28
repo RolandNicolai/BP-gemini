@@ -53,7 +53,7 @@ st.logo(LOGO_URL_LARGE, link="https://bonnierpublications.com/en/bonnier-publica
 
 # Page title
 st.set_page_config(page_title='BP assistant', page_icon='⚙️')
-st.title('BP Assistant')
+st.title('Performance Marketing Assistant')
 
 with st.expander('Om assistenten'):
   st.markdown('**Hvad kan denne assistent?**')
