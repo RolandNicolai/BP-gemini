@@ -113,7 +113,8 @@ bytes_billed_result = (bytes_billed / 1.048576e6)
 api_response = str([dict(row) for row in api_response])
 api_response = api_response.replace("\\", "").replace("\n", "")
 
-st.markdown(api_response.text)
+st.write("Query result", api_response)
+
 
 
 # Initiate the model building process
