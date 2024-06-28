@@ -160,7 +160,7 @@ if button and user_prompt:
         api_response = str([dict(row) for row in api_response])
         api_response = api_response.replace("\\", "").replace("\n", "")
         st.subheader("Respons fra BigQuery API kald")
-        st.markdown(api_response.text)
+        st.markdown(api_response)
         st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
 
         st.subheader("AnswerModel Response")
