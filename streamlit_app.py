@@ -3,6 +3,7 @@ import pandas as pd
 import numpy as np
 import time
 import google.generativeai as genai
+from vertexai.generative_models import GenerativeModel
 import hmac
 import streamlit as st
 
