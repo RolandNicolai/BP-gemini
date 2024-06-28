@@ -98,12 +98,9 @@ queryModel_response = model.generate_content(
       generation_config={"temperature": 0},
   )
 queryModel_response = queryModel_response.text
-print("")
-print("\033[1mRespons før cleaning af query\033[0m")
-print("")
-print(queryModel_response)
 
-
+st.subheader("Svar: ")
+st.markdown(queryModel_response.text)
 
 """
 Working with cached data
