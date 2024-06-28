@@ -98,9 +98,9 @@ user_prompt_test = st.text_input("User prompt:")
 button_test = st.button("Generate")
 
 
-project = st.secrets["project"]
-dataset = st.secrets["dataset"]
-table = st.secrets["table"]
+project = "bonnier-deliverables"
+dataset = "dummy_dataset"
+table = "dummy_data"
 
 user_prompt = st.text_input("User prompt:")
 button = st.button("Generate")
