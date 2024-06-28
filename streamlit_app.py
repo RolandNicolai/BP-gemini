@@ -107,7 +107,7 @@ client = bigquery.Client(credentials=credentials)
 maximum_bytes_billable = 100000000 # = 100 Mb
 
 project = "bonnier-deliverables"
-dataset = "dummy_dataset"
+dataset = st.secrets["dataset"]
 table = "dummy_data"
 
 user_prompt = st.text_input("User prompt:")
