@@ -43,7 +43,6 @@ def check_password():
         st.error("😕 Ukendt bruger eller adgangskode")
     return False
 
-
 if not check_password():
     st.stop()
 
