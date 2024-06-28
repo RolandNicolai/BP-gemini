@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import time
-import google.generativeai as genai
+#import google.generativeai as genai
 from vertexai.generative_models import GenerativeModel
 from google.oauth2 import service_account
 import hmac
