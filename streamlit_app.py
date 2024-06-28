@@ -101,6 +101,7 @@ if button and user_prompt:
     st.markdown(response.text)
 
 
+maximum_bytes_billable = 100000000 # = 100 Mb
 
 client = bigquery.Client(credentials=credentials)
 
