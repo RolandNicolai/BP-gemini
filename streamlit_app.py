@@ -70,9 +70,9 @@ with st.expander('Om assistenten'):
 
 
 # Sidebar for accepting input parameters
-with st.sidebar:
+#with st.sidebar:
     # Load data
-    st.header('1. Kom i gang med assistenten')
+    #st.header('1. Kom i gang med assistenten')
 
 
 
