@@ -84,10 +84,11 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
 )
 
-vertexai.init(
-    project=project,
-    location=location,
-    credentials=credentials
+
+
+vertexai.init(project=project, location=location, credentials=credentials)
+model = GenerativeModel(
+    "gemini-1.5-pro-001",
 )
 
 
