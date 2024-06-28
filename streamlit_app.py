@@ -71,7 +71,7 @@ with st.sidebar:
     # Load data
     st.header('1.1. API Nøgle')
     gemini_api_key = st.text_input("Gemini API Key", key="chatbot_api_key", type="password")
-    genai.configure(api_key= gemini_api_key)
+    #genai.configure(api_key= gemini_api_key)
 
     
     st.markdown('**1. Upload Fil**')
