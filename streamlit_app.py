@@ -176,7 +176,7 @@ if button and user_prompt:
         generation_config={"temperature": 0},
         )
         answerModel_response = answerModel_response.text
-        st.markdown(answerModel_response.text)
+        st.markdown(answerModel_response)
     else:
         print('Query exceeds billing quota')
 
