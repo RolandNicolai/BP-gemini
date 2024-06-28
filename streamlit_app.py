@@ -98,6 +98,7 @@ answerModel = GenerativeModel(
 #button_test = st.button("Generate")
 
 client = bigquery.Client(credentials=credentials)
+maximum_bytes_billable = 100000000 # = 100 Mb
 
 project = "bonnier-deliverables"
 dataset = "dummy_dataset"
@@ -181,7 +182,6 @@ if button and user_prompt:
 
 ### big query test API
 
-maximum_bytes_billable = 100000000 # = 100 Mb
 
 
 job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
