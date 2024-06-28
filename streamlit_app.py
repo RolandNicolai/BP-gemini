@@ -95,8 +95,8 @@ def generate():
     stream=True,
     )
 
-    for response in responses:
-        st.markdown(response.text)
+    #for response in responses:
+    st.markdown(responses.text)
 
 
 generation_config = {
