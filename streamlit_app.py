@@ -97,7 +97,7 @@ queryModel_response = model.generate_content(
       """],
       generation_config={"temperature": 0},
   )
-queryModel_response = queryModel_response.text
+#queryModel_response = queryModel_response.text
 
 st.subheader("Svar: ")
 st.markdown(queryModel_response.text)
