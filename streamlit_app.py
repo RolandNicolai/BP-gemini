@@ -80,6 +80,15 @@ with st.sidebar:
         df = pd.read_csv(uploaded_file, index_col=False)
 
 
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["vertexAI_service_account"]
+)
+
+vertexai.init(
+    project=project,
+    location=location,
+    credentials=credentials
+)
 
 
 
