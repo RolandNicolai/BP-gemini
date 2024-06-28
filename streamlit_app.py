@@ -97,12 +97,6 @@ answerModel = GenerativeModel(
 user_prompt_test = st.text_input("User prompt:")
 button_test = st.button("Generate")
 
-if button_test and user_prompt:
-    response = model.generate_content(user_prompt_test, 
-                                      generation_config={"temperature": 0}, 
-    )
-    st.subheader("Svar: ")
-    st.markdown(response.text)
 
 project = st.secrets["project"]
 dataset = st.secrets["dataset"]
