@@ -52,8 +52,8 @@ LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications
 st.logo(LOGO_URL_LARGE, link="https://bonnierpublications.com/en/bonnier-publications-2/")
 
 # Page title
-st.set_page_config(page_title='Cobalt', page_icon='⚙️')
-st.title('Cobalt Assistant')
+st.set_page_config(page_title='BP assistant', page_icon='⚙️')
+st.title('BP Assistant')
 
 with st.expander('Om assistenten'):
   st.markdown('**Hvad kan denne assistent?**')
