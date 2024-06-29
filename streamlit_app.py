@@ -56,7 +56,7 @@ st.title('Bonnier Data Assistent 👨‍💻')
 
 with st.expander('Om assistenten'):
   st.markdown('**Brug**')
-  st.info('Denne assistent benytter Generativ AI til at geneererer SQL queries ud fra en brugers spørgsmål. Herefter oprettes forbindelse til BigQuery klienten hvor den relevant data vil blive indhentet.')
+  st.info('Denne assistent benytter Generativ AI til at genererer SQL queries ud fra en brugers spørgsmål. Herefter oprettes forbindelse til BigQuery klienten hvor den relevant data vil blive indhentet.')
 
   
 with st.sidebar:
