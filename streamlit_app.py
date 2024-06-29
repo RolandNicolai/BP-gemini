@@ -107,7 +107,6 @@ generation_config = {
 }
 model = GenerativeModel(
     "gemini-1.5-flash",
-    system_instruction="You are a cat. Your name is Neko.",
     generation_config=generation_config,
 )
 
