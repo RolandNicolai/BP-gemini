@@ -70,8 +70,8 @@ with st.sidebar:
 # Set variables based on the selected option
     if option == 'dummy data 1':
         project = st.secrets["project"]
-        datasæt = st.secrets["dataset"]
-        tabel = st.secrets["table"]
+        dataset = st.secrets["dataset"]
+        table = st.secrets["table"]
         fieldNames = '[Date, Brand, Market, Sessions, Clicks, Purchases]'
     else:
     # Set default values or other values for Option 2
@@ -80,10 +80,10 @@ with st.sidebar:
         table = 'default_table'
 
 # Display the selected option and corresponding variables
-st.write(f'You selected: {option}')
-st.write(f'Project: {project}')
-st.write(f'Dataset: {dataset}')
-st.write(f'Table: {table}')
+st.write(f'Du har valgt: {option}')
+st.write(f'Projekt: {project}')
+st.write(f'Datasæt: {dataset}')
+st.write(f'Tabel: {table}')
 
 # Sidebar for accepting input parameters
 #with st.sidebar:
