@@ -65,10 +65,10 @@ with st.expander('Om assistenten'):
   
 with st.sidebar:
     # Dropdown list with options
-    option = st.selectbox('1. Vælg et datasæt', ['dummy data 1', 'dummy data 2'])
+    option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'dummy data 2'])
 
 # Set variables based on the selected option
-    if option == 'dummy data 1':
+    if option == 'dummy dataset':
         project = st.secrets["project"]
         dataset = st.secrets["dataset"]
         table = st.secrets["table"]
