@@ -106,7 +106,7 @@ generation_config = {
   #"response_mime_type": "text/plain",
 }
 model = GenerativeModel(
-    "gemini-1.5-flash",
+    "gemini-1.5-pro-001",
     generation_config=generation_config,
 )
 
@@ -133,7 +133,7 @@ if button and user_prompt:
     with st.spinner('Opretter query...'):
         time.sleep(3)
     queryModel_response = model.generate_content(
-          [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english]
+          [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the SQL query from a question. You are given a user question and instructions. Always only handle queries in english]
           User question: {user_prompt}
           Instruction: write a script always only using the following dataset, table and field names.
           project: {project}
