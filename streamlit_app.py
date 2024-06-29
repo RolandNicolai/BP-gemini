@@ -65,13 +65,14 @@ with st.expander('Om assistenten'):
   
 with st.sidebar:
     # Dropdown list with options
-    option = st.selectbox('Choose an option:', ['Option 1', 'Option 2'])
+    option = st.selectbox('1. Vælg et datasæt', ['dummy data 1', 'dummy data 2'])
 
 # Set variables based on the selected option
-    if option == 'Option 1':
-        project = 'bonnier'
-        dataset = 'abe'
-        table = 'xe'
+    if option == 'dummy data 1':
+        project = st.secrets["project"]
+        datasæt = st.secrets["dataset"]
+        tabel = st.secrets["table"]
+        fieldNames = '[Date, Brand, Market, Sessions, Clicks, Purchases]'
     else:
     # Set default values or other values for Option 2
         project = 'default_project'
@@ -139,7 +140,7 @@ if button and user_prompt:
           dataset: {dataset}
           table: {table}
 
-          field names: [Date, Brand, Market, Sessions, Clicks, Purchases].
+          field names: {fieldNames}.
           in where statements use lower() when necessary to avoid lower/uppercase issues
 
           """],
