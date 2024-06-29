@@ -58,10 +58,6 @@ with st.expander('Om assistenten'):
   st.markdown('**Brug**')
   st.info('Denne assistent benytter Generativ AI til at geneererer SQL queries ud fra en brugers spørgsmål. Herefter oprettes forbindelse til BigQuery klienten hvor den relevant data vil blive indhentet.')
 
-  st.markdown('**Hvem kan bruge dette værktøj?**')
-  st.warning('empty')
-
-  st.code('''Empty''', language='markdown')
   
 with st.sidebar:
     # Dropdown list with options
