@@ -98,6 +98,14 @@ answerModel = GenerativeModel(
     generation_config=generation_config,
 )
 
+model = GenerativeModel(
+    model_name="gemini-1.5-flash-001",
+    system_instruction=[
+        "You are a helpful language translator.",
+        "Your mission is to translate text in English to French.",
+    ],
+)
+
 #queryModel_response = queryModel_response.text
 
 #user_prompt_test = st.text_input("User prompt:")
