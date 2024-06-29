@@ -88,24 +88,12 @@ generation_config = {
   "max_output_tokens": 8192,
   #"response_mime_type": "text/plain",
 }
-queryModel = GenerativeModel(
-    "gemini-1.5-pro-001",
-    generation_config=generation_config,
-)
-
-answerModel = GenerativeModel(
-    "gemini-1.5-pro-001",
-    generation_config=generation_config,
-)
-
-
 model = GenerativeModel(
-    model_name="gemini-1.5-flash-001",
-    system_instruction=[
-        "You are a helpful language translator.",
-        "Your mission is to translate text in English to French.",
-    ],
+    "gemini-1.5-pro-001",
+    generation_config=generation_config,
 )
+
+
 
 #queryModel_response = queryModel_response.text
 
@@ -126,7 +114,7 @@ button = st.button("Generate")
 if button and user_prompt:
     with st.spinner('Opretter query...'):
         time.sleep(3)
-    queryModel_response = queryModel.generate_content(
+    queryModel_response = model.generate_content(
           [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the query. You are given a user question and instructions. Always only handle queries in english]
           User question: {user_prompt}
           Instruction: write a script always only using the following dataset, table and field names.
@@ -187,8 +175,7 @@ if button and user_prompt:
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
 
-        st.subheader("Assistent svar 🎈")
-        answerModel_response = answerModel.generate_content(
+        answerModel_response = model.generate_content(
             [f"""[System instruction: you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish]
             Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
             plain language about where the information in your response is coming from in the database and how much was billed:
@@ -201,6 +188,7 @@ if button and user_prompt:
         generation_config = generation_config,
         )
         answerModel_response = answerModel_response.text
+        st.subheader("Assistent svar 🎈")
         st.markdown(answerModel_response)
     else:
         print('Query exceeds billing quota')
