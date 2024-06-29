@@ -118,9 +118,9 @@ model = GenerativeModel(
 client = bigquery.Client(credentials=credentials)
 maximum_bytes_billable = 100000000 # = 100 Mb
 
-project = st.secrets["project"]
-dataset = st.secrets["dataset"]
-table = st.secrets["table"]
+#project = st.secrets["project"]
+#dataset = st.secrets["dataset"]
+#table = st.secrets["table"]
 
 user_prompt = st.text_input("Stil et spørgsmål")
 button = st.button("Søg")
