@@ -63,7 +63,26 @@ with st.expander('Om assistenten'):
 
   st.code('''Empty''', language='markdown')
   
+with st.sidebar:
+    # Dropdown list with options
+    option = st.selectbox('Choose an option:', ['Option 1', 'Option 2'])
 
+# Set variables based on the selected option
+    if option == 'Option 1':
+        project = 'bonnier'
+        dataset = 'abe'
+        table = 'xe'
+    else:
+    # Set default values or other values for Option 2
+        project = 'default_project'
+        dataset = 'default_dataset'
+        table = 'default_table'
+
+# Display the selected option and corresponding variables
+st.write(f'You selected: {option}')
+st.write(f'Project: {project}')
+st.write(f'Dataset: {dataset}')
+st.write(f'Table: {table}')
 
 # Sidebar for accepting input parameters
 #with st.sidebar:
