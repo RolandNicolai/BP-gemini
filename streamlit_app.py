@@ -190,7 +190,7 @@ if button and user_prompt:
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
         with st.spinner('Genererer svar fra data...'):
-            time.sleep(3)
+            time.sleep(8)
         answerModel_response = model.generate_content(
             [f"""[System instruction: you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish]
             Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
