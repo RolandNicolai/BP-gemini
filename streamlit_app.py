@@ -85,6 +85,7 @@ st.write(f'Projekt: {project}')
 st.write(f'Datasæt: {dataset}')
 st.write(f'Tabel: {table}')
 st.write(f'Attributer: {fieldNames}')
+st.code(f'Attributer: {fieldNames}', language='markdown')
 
 # Sidebar for accepting input parameters
 #with st.sidebar:
