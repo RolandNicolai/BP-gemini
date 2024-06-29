@@ -84,6 +84,7 @@ st.write(f'Du har valgt: {option}')
 st.write(f'Projekt: {project}')
 st.write(f'Datasæt: {dataset}')
 st.write(f'Tabel: {table}')
+st.write(f'Attributer: {fieldNames}')
 
 # Sidebar for accepting input parameters
 #with st.sidebar:
