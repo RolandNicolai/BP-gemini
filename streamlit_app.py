@@ -55,14 +55,12 @@ st.set_page_config(page_title='SQL', page_icon='👨‍💻')
 st.title('Bonnier Data Assistent 👨‍💻')
 
 with st.expander('Om assistenten'):
-  st.markdown('**Hvad kan denne assistent?**')
-  st.info('This app allow users to build a machine learning (ML) model in an end-to-end workflow. Particularly, this encompasses data upload, data pre-processing, ML model building and post-model analysis.')
+  st.markdown('**Brug**')
+  st.info('Denne assistent benytter Generativ AI til at geneererer SQL queries ud fra en brugers spørgsmål. Herefter oprettese der forbindelse til BigQuery hvor den relevant data vil blive indhentet.')
 
-  st.markdown('**Opret en API nøgle**')
-  st.warning('Find service account key: https://www.youtube.com/watch?v=I8W-4oq1onY&t=99s')
+  st.markdown('**Hvem kan bruge dette værktøj?**')
+  st.warning('empty')
 
-  st.markdown('**Under the hood**')
-  st.markdown('Om')
   st.code('''Empty''', language='markdown')
   
 
