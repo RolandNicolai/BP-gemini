@@ -77,7 +77,7 @@ with st.sidebar:
 
 # Display the selected option and corresponding variables
 st.subheader("Info om valgt datakilde")
-with st.expander('Se query'):
+with st.expander('Se info'):
     st.write(f'Du har valgt: {option}')
     st.code(f'Projekt: {project}', language='markdown')
     st.code(f'Datasæt: {dataset}', language='markdown')
