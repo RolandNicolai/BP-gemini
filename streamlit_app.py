@@ -106,7 +106,7 @@ generation_config = {
   #"response_mime_type": "text/plain",
 }
 model = GenerativeModel(
-    "gemini-1.5-pro-001",
+    "gemini-1.5-flash",
     generation_config=generation_config,
 )
 
