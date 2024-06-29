@@ -98,6 +98,7 @@ answerModel = GenerativeModel(
     generation_config=generation_config,
 )
 
+
 model = GenerativeModel(
     model_name="gemini-1.5-flash-001",
     system_instruction=[
