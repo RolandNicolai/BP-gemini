@@ -124,7 +124,8 @@ maximum_bytes_billable = 100000000 # = 100 Mb
 #dataset = st.secrets["dataset"]
 #table = st.secrets["table"]
 
-user_prompt = st.text_input("Stil et spørgsmål")
+st.subheader("Find data")
+user_prompt = st.text_input("")
 button = st.button("Søg")
 
 
