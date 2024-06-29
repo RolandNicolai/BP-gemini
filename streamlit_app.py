@@ -76,11 +76,13 @@ with st.sidebar:
         table = 'default_table'
 
 # Display the selected option and corresponding variables
-st.write(f'Du har valgt: {option}')
-st.code(f'Projekt: {project}', language='markdown')
-st.code(f'Datasæt: {dataset}', language='markdown')
-st.code(f'Tabel: {table}', language='markdown')
-st.code(f'Attributer: {fieldNames}', language='markdown')
+st.subheader("Info om valgt datakilde")
+with st.expander('Se query'):
+    st.write(f'Du har valgt: {option}')
+    st.code(f'Projekt: {project}', language='markdown')
+    st.code(f'Datasæt: {dataset}', language='markdown')
+    st.code(f'Tabel: {table}', language='markdown')
+    st.code(f'Attributer: {fieldNames}', language='markdown')
 
 # Sidebar for accepting input parameters
 #with st.sidebar:
