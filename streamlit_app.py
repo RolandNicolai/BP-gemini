@@ -81,10 +81,9 @@ with st.sidebar:
 
 # Display the selected option and corresponding variables
 st.write(f'Du har valgt: {option}')
-st.write(f'Projekt: {project}')
-st.write(f'Datasæt: {dataset}')
-st.write(f'Tabel: {table}')
-st.write(f'Attributer: {fieldNames}')
+st.code(f'Projekt: {project}', language='markdown')
+st.code(f'Datasæt: {dataset}', language='markdown')
+st.code(f'Tabel: {table}', language='markdown')
 st.code(f'Attributer: {fieldNames}', language='markdown')
 
 # Sidebar for accepting input parameters
