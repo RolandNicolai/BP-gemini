@@ -107,8 +107,8 @@ project = st.secrets["project"]
 dataset = st.secrets["dataset"]
 table = st.secrets["table"]
 
-user_prompt = st.text_input("User prompt:")
-button = st.button("Generate")
+user_prompt = st.text_input("Stil et spørgsmål")
+button = st.button("Søg")
 
 
 if button and user_prompt:
@@ -161,7 +161,7 @@ if button and user_prompt:
   #Sætter maksimum på bytes som kan queries (100 mb)
   #BigQuery API kald
     if bytes_billed < maximum_bytes_billable:
-        with st.spinner('Genererer svar fra data...'):
+        with st.spinner('Henter data fra BigQuery...'):
             time.sleep(3)
         job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
         query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
@@ -174,7 +174,8 @@ if button and user_prompt:
         with st.expander('Se BigQuery API respons'):
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
-
+        with st.spinner('Genererer svar fra data...'):
+            time.sleep(3)
         answerModel_response = model.generate_content(
             [f"""[System instruction: you are a professional data analyst. You are given a user question and the answer to the question. Always only handle answers and responses in danish]
             Please give a concise, high-level summary with relevant information for the following user question: {user_prompt} followed by detail in
