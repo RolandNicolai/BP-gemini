@@ -125,7 +125,7 @@ maximum_bytes_billable = 100000000 # = 100 Mb
 #table = st.secrets["table"]
 
 st.subheader("Stil et spørgsmål til assistenten")
-user_prompt = st.text_input("Spørgsmål")
+user_prompt = st.text_input("Indtast spørgsmål herunder")
 button = st.button("Søg")
 
 
