@@ -85,11 +85,13 @@ with st.sidebar:
         table = st.secrets["kpi_table"]
         fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid]"
         descriptions ="""
-        Description of the available field names:\n[antal] = an interger equalling the number of sales
-        \n[Dato]: equals a date field\n[publication_name]: equals a brand name which can be used in where statements in order to filter the right brand
+        Description of the available field names:
+        \n[antal] = an interger used to count the total number of sales
+        \n[Dato]: equals a date field
+        \n[publication_name]: equals a brand name which can be used in where statements in order to filter the right brand
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
         \n[country]: equals a country/market and can only be one of [DK, NO, SE, or FI] 
-        \n[activity_type]: equals the source of a sale and can be either [egne sites, internet]
+        \n[activity_type]: equals the source of a sale and can be either [egne sites, internet] this field is not used unless excplitly asked for by the user
         \n[ownedPaid]: the field is used to define whether a sale has been conducted from an owned or paid channel, field can only be either [owned, paid]"""
 
     else:
