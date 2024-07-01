@@ -83,13 +83,13 @@ with st.sidebar:
         project = st.secrets["project"]
         dataset = st.secrets["kpi_dataset"]
         table = st.secrets["kpi_table"]
-        fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchase]"
+        fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchases]"
         descriptions ="""
         Description of the available field names:
         always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
         \n[purchase] = the total number of purchases, must be refered to as purchase
         \n[Dato]: equals a date field
-        \n[publication_name]: equals a brand name which can be used in where statements in order to filter the right brand
+        \n[publication_name]: equals a name which can be used in where statements in order to filter the right brand
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
         \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
         \n[activity_type]: can be  either [egne sites, internet] only used when user explicitly needs information on activity_type
