@@ -97,17 +97,17 @@ with st.sidebar:
         always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
         \n[purchases]: the total number of purchases, must be refered to as purchases
         \n[Dato]: equals a date field
-        \n[publication_name]: equals a name which can be used in where statements in order to filter the right brand
+        \n[publication_name]: equals a name which can be used in where statements in order to filter brands
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
         \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
         \n[activity_type]: can be  either [egne sites, internet] only used when user explicitly needs information on activity_type
         \n[ownedPaid]: the field is used to define whether a sale has been conducted from an owned or paid channel, field can only be either [owned, paid]
         \nexample of query ['hvor mange salg havde GDS i juni 2024']
         '''SQL: SELECT
-        sum(purchase)
+        sum(purchases)
         FROM
         `bonnier-deliverables.dummy_dataset.dummy_data`
-        WHERE lower(Brand) = 'gds'
+        WHERE lower(publication_name) = 'gds'
         '''
         """
 
