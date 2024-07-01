@@ -248,16 +248,6 @@ if button and user_prompt:
         answerModel_response = answerModel_response.text
         st.subheader("Assistent svar 🎈")
         st.markdown(answerModel_response)
-
-        chartModel_response = model.generate_content(
-            [f"""use the following streamlit framework structure:  st.line_chart(df, x="col1", y=["col2", "col3"], color=["#FF0000", "#0000FF"] # Optional)
-            then output only the information within parenthesis  from the following json data:´´´{api_response}´´´.
-            Do not make up information."""],
-        generation_config = generation_config,
-        )
-        chartModel_response = chartModel_response.text
-        st.subheader("Assistent svar")
-        st.markdown(chartModel_response)
     else:
         print('Query exceeds billing quota')
 
