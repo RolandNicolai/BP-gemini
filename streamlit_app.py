@@ -171,7 +171,7 @@ if button and user_prompt:
     .replace("```","")
     .replace("sql", "")
     )
-    print(cleaned_query)
+    #print(cleaned_query)
 
     dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
 
