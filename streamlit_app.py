@@ -87,7 +87,7 @@ with st.sidebar:
         descriptions ="""
         Description of the available field names:
         always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
-        \n[purchase] = the total number of purchases, must be refered to as purchase
+        \n[purchases] = the total number of purchases, must be refered to as purchase
         \n[Dato]: equals a date field
         \n[publication_name]: equals a name which can be used in where statements in order to filter the right brand
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
@@ -168,7 +168,7 @@ if button and user_prompt:
         time.sleep(3)
     queryModel_response = model.generate_content(
           [f""" [System instruction: Always only handle SQL queries in english]
-          from the following user question:'{user_prompt}' always only use the fieldNames: {fieldNames} to create a BigQuery sql using the following field descriptions
+          from the following user question:'{user_prompt}' always only use the fieldNames: {fieldNames} to create a BigQuery sql using the following field descriptions\n{descriptions}
           Instruction: write the script always only using the following dataset, table and field names.
           project: {project}
           dataset: {dataset}
