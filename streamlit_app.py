@@ -174,7 +174,7 @@ if button and user_prompt:
           dataset: {dataset}
           table: {table}
 
-          in where statements use lower() when necessary to avoid lower/uppercase issues
+          in where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date
 
           """],
     generation_config= generation_config,
