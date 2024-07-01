@@ -70,7 +70,7 @@ with st.sidebar:
 
 
     # Dropdown list with options
-    option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'dummy data 2'])
+    option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'kpi dataset'])
 
 # Set variables based on the selected option
     if option == 'dummy dataset':
@@ -78,6 +78,10 @@ with st.sidebar:
         dataset = st.secrets["dataset"]
         table = st.secrets["table"]
         fieldNames = '[Date, Brand, Market, Sessions, Clicks, Purchases]'
+    elif option == 'kpi dataset':
+        project = st.secrets["project"]
+        dataset = st.secrets["kpi_dataset"]
+        table = st.secrets["kpi_table"]
     else:
     # Set default values or other values for Option 2
         project = 'default_project'
