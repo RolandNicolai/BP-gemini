@@ -61,22 +61,6 @@ with st.expander('Om assistenten'):
 
   
 with st.sidebar:
-    st.write(f'Eksempler på spørgsmål ang. data')
-    st.write(f'Dummy datasæt')
-    st.write(f'- Hvor mange sessions var der på de forskellige brands i hhv. 1 og 4 quarter af 2023')
-    st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
-    st.write(f'KPI datasæt')
-    st.write(f'- hvordan fordelte salgende sig på de forskellige brands og mediekoder i juni 2024?')
-    st.write(f'- hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
-    st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel')
-    st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
-
-    #hvor mange salg havde HIS i 2024 på mediekoden redteaser
-
-
-
-
-
     # Dropdown list with options
     option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'kpi dataset'])
 
@@ -116,6 +100,18 @@ with st.sidebar:
         project = 'default_project'
         dataset = 'default_dataset'
         table = 'default_table'
+    st.write(f'Eksempler på spørgsmål ang. data')
+    st.write(f'Dummy datasæt')
+    st.write(f'- Hvor mange sessions var der på de forskellige brands i hhv. 1 og 4 quarter af 2023')
+    st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
+    st.write(f'KPI datasæt')
+    st.write(f'- hvordan fordelte salgende sig på de forskellige brands og mediekoder i juni 2024?')
+    st.write(f'- hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
+    st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel')
+    st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
+
+
+
 
 # Display the selected option and corresponding variables
 st.subheader("Info om valgt datakilde")
