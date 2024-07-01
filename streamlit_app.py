@@ -4,6 +4,7 @@ from google.cloud import bigquery
 import hmac
 import streamlit as st
 import pandas as pd
+from pandas import DataFrame
 import numpy as np
 import time
 import vertexai
