@@ -80,7 +80,7 @@ with st.sidebar:
         Description of the available field names:
         always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
         \n[purchases]: the total number of purchases, must be refered to as purchases
-        \n[Dato]: equals a date field
+        \n[Dato]: the date field
         \n[publication_name]: equals a name which can be used in where statements in order to filter brands
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
         \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
