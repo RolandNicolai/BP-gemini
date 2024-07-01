@@ -93,7 +93,7 @@ with st.sidebar:
         descriptions ="""
         Description of the available field names:
         always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
-        \n[purchases] = the total number of purchases, must be refered to as purchase
+        \n[purchases]: the total number of purchases, must be refered to as purchases
         \n[Dato]: equals a date field
         \n[publication_name]: equals a name which can be used in where statements in order to filter the right brand
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
@@ -243,7 +243,6 @@ if button and user_prompt:
             table: {table}.
             query billed in Mb: {bytes_billed_result}
             Only use information that you learn from BigQuery:´´´{api_response}´´´.
-            {descriptions}
             Do not make up information. Always present numbers in list formats """],
         generation_config = generation_config,
         )
