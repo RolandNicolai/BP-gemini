@@ -60,6 +60,14 @@ with st.expander('Om assistenten'):
 
   
 with st.sidebar:
+    st.write(f'Eksempler på spørgsmål ang. data')
+    st.write(f'- Hvor mange sessions var der på de forskellige brands i hhv. 1 og 4 quarter af 2023')
+    st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
+
+
+
+
+
     # Dropdown list with options
     option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'dummy data 2'])
 
