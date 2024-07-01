@@ -224,7 +224,7 @@ if button and user_prompt:
             Do not make up information."""],
         generation_config = generation_config,
         )
-        chartModel_response = answerModel_response.text
+        chartModel_response = chartModel_response.text
         st.subheader("Assistent svar")
         st.markdown(chartModel_response)
     else:
