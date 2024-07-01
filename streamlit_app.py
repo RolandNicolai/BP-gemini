@@ -172,8 +172,9 @@ if button and user_prompt:
         time.sleep(3)
     queryModel_response = model.generate_content(
           [f""" [System instruction: Always only handle SQL queries in english]
-          from the following user question:'{user_prompt}' always only use the fieldNames: {fieldNames} to create a BigQuery sql using the following field descriptions\n{descriptions}
-          Instruction: write the script always only using the following dataset, table and field names.
+          from the following user question:'{user_prompt}' always only use the fieldNames: {fieldNames} to create a BigQuery sql.
+          Always use information that you learn from the description of fields in BigQuery:\n{descriptions}
+          Write the script always only using the following dataset, table and field names.
           project: {project}
           dataset: {dataset}
           table: {table}
