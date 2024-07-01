@@ -167,14 +167,13 @@ if button and user_prompt:
     with st.spinner('Opretter query...'):
         time.sleep(3)
     queryModel_response = model.generate_content(
-          [f""" [System instruction: you are a professional data engineer with a proficiency in BigQuery SQL, only output the SQL query from a question. You are given a user question and instructions. Always only handle queries in english]
-          User question: {user_prompt}
-          Instruction: write a script always only using the following dataset, table and field names.
+          [f""" [System instruction: Always only handle SQL queries in english]
+          from the following user question:'{user_prompt}' always only use the fieldNames: {fieldNames} to create a BigQuery sql using the following field descriptions
+          Instruction: write the script always only using the following dataset, table and field names.
           project: {project}
           dataset: {dataset}
           table: {table}
 
-          field names: {fieldNames}.
           in where statements use lower() when necessary to avoid lower/uppercase issues
 
           """],
