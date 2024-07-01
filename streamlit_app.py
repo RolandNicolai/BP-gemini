@@ -106,6 +106,7 @@ with st.sidebar:
     st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
     st.write(f'KPI datasæt')
     st.write(f'- sorter salg på brands fra stigende til faldende i juni 2024')
+    st.write(f'- giv mig et overview over salg i 2024 fordelt på måned')
     st.write(f'- hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
     st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel')
     st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
