@@ -90,8 +90,8 @@ with st.sidebar:
         \n[Dato]: equals a date field
         \n[publication_name]: equals a brand name which can be used in where statements in order to filter the right brand
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
-        \n[country]: equals a country/market and can only be one of [DK, NO, SE, or FI] 
-        \n[activity_type]: equals the source of a sale and can be either [egne sites, internet] this field is not used unless excplitly asked for by the user
+        \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
+        \n[activity_type]: can be only either [egne sites, internet] this field is not used unless excplitly asked for by the user
         \n[ownedPaid]: the field is used to define whether a sale has been conducted from an owned or paid channel, field can only be either [owned, paid]"""
 
     else:
