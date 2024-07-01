@@ -86,7 +86,7 @@ with st.sidebar:
         fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchase]"
         descriptions ="""
         Description of the available field names:
-        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [antal] when asked about sales 
+        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
         \n[purchase] = the total number of purchases, must be refered to as purchase
         \n[Dato]: equals a date field
         \n[publication_name]: equals a brand name which can be used in where statements in order to filter the right brand
