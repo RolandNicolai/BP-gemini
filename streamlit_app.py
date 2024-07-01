@@ -197,6 +197,7 @@ if button and user_prompt:
         api_response = str([dict(row) for row in api_response])
         api_response = api_response.replace("\\", "").replace("\n", "")
         st.subheader("Respons fra BigQuery API kald")
+        df = client.query_and_wait(cleaned_query).to_dataframe()
         with st.expander('Se BigQuery API respons'):
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
