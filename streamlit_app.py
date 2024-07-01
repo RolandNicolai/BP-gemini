@@ -87,7 +87,7 @@ with st.sidebar:
         descriptions ="""
         Description of the available field names:
         always use the following field descriptions and field_information as guidance when creating the queries, always use the field [antal] when asked about sales 
-        \n[antal] = the total number of sales
+        \n[antal] = the total number of purchases, must be refered to as [antal]
         \n[Dato]: equals a date field
         \n[publication_name]: equals a brand name which can be used in where statements in order to filter the right brand
         \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
