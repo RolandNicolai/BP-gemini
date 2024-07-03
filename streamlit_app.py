@@ -117,6 +117,13 @@ with st.sidebar:
         \n[GP_activity]: float - Gross Profit on activity
         \n[ROI]: float - Return on Investment.
         \n[Premium_cost]: float - Cost of the premium
+        \nexample of query ['hvad var Net lifetime per marked']
+        '''SQL: SELECT
+        Country,
+        sum(Net_Lifetime)
+        FROM
+        `bonnier-deliverables.dummy_dataset.dummy_data`
+        GROUP BY 1
         """
 
     else:
