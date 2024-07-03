@@ -101,7 +101,7 @@ with st.sidebar:
         fieldNames = "[Country, Activity_type, No_in_offer, Price, Handling, Total_price, Total_price_currency, Response, Lifetime, Net_Lifetime, Media_cost, Cost_per_subscriber, Net_CPO, GP_activity, ROI, Premium_cost]"
         descriptions ="""
         Description of the available field names:
-        \n[Country]: string - The country where the offer was made.
+        \n[Country]: string - The country where the offer was made. Only use the abbreviations in [DK, NO, SE, or FI] 
         \n[Activity_type]: string - Type of activity.
         \n[No_in_offer]: integer - Number of items in the offer.
         \n[Price]: float - Price of the offer.
