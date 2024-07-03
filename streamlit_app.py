@@ -230,7 +230,7 @@ if button and user_prompt:
         st.subheader("Respons fra BigQuery API kald")
         #df = client.query_and_wait(cleaned_query).to_dataframe()
         with st.expander('Se BigQuery API respons'):
-            st.markdown(api_response)
+            st.markdown(api_response_str)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
             rows = [dict(row) for row in api_response]
             df = pd.DataFrame(rows) # tilføjet
