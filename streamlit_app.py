@@ -132,6 +132,8 @@ with st.sidebar:
         dataset = 'default_dataset'
         table = 'default_table'
     st.write(f'Eksempler på spørgsmål ang. data')
+    st.write(f'Kalkule dataset')
+    st.write(f'- hvad var den gennemsnitlige ROI for hvert marked?')
     st.write(f'Dummy datasæt')
     st.write(f'- Hvor mange sessions var der på de forskellige brands i hhv. 1 og 4 quarter af 2023')
     st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
