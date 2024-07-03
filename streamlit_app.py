@@ -62,7 +62,7 @@ with st.expander('Om assistenten'):
   
 with st.sidebar:
     # Dropdown list with options
-    option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'kpi dataset'])
+    option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'kpi dataset', 'kalkule dataset'])
 
 # Set variables based on the selected option
     if option == 'dummy dataset':
@@ -93,6 +93,30 @@ with st.sidebar:
         `bonnier-deliverables.dummy_dataset.dummy_data`
         WHERE lower(publication_name) = 'gds'
         '''
+        """
+    elif option == 'kalkule dataset':
+        project = st.secrets["project"]
+        dataset = st.secrets["kalkule_dataset"]
+        table = st.secrets["kalkule_table"]
+        fieldNames = "[Country, Activity_type, No_in_offer, Price, Handling, Total_price, Total_price_currency, Response, Lifetime, Net_Lifetime, Media_cost, Cost_per_subscriber, Net_CPO, GP_activity, ROI, Premium_cost]"
+        descriptions ="""
+        Description of the available field names:
+        \n[Country]: string - The country where the offer was made.
+        \n[Activity_type]: string - Type of activity.
+        \n[No_in_offer]: integer - Number of items in the offer.
+        \n[Price]: float - Price of the offer.
+        \n[Handling]: float - Handling cost. 
+        \n[Total_price]: float - Total price of the offer.
+        \n[Total_price_currency]: float - Currency of the total price.
+        \n[Response]: integer - Number of responses to the offer. 
+        \n[Lifetime]: float - Lifetime value. 
+        \n[Net_Lifetime]: float - Net lifetime value
+        \n[Media_cost]: float - Media cost
+        \n[Cost_per_subscriber]: float - Cost per subscriber  
+        \n[Net_CPO]: float - Net Cost Per Order. 
+        \n[GP_activity]: float - Gross Profit on activity
+        \n[ROI]: float - Return on Investment.
+        \n[Premium_cost]: float - Cost of the premium
         """
 
     else:
