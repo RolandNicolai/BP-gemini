@@ -225,7 +225,6 @@ if button and user_prompt:
         api_response = query_job.result()
         bytes_billed = query_job.total_bytes_billed
         bytes_billed_result = (bytes_billed / 1.048576e6)
-        rows = [dict(row) for row in api_response]
         api_response = str([dict(row) for row in api_response])
         api_response = api_response.replace("\\", "").replace("\n", "")
         st.subheader("Respons fra BigQuery API kald")
@@ -233,7 +232,7 @@ if button and user_prompt:
         with st.expander('Se BigQuery API respons'):
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
-            df = pd.DataFrame(rows) # tilføjet
+            df = pd.DataFrame(api_response) # tilføjet
             df_cleaned = df.applymap(lambda x: x if not isinstance(x, dict) else str(x)) # tilføjet
             st.dataframe(df_cleaned) # tilføjet
 
