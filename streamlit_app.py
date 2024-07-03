@@ -226,12 +226,12 @@ if button and user_prompt:
         bytes_billed = query_job.total_bytes_billed
         bytes_billed_result = (bytes_billed / 1.048576e6)
         rows = [dict(row) for row in api_response]
-        api_response_str = str([dict(row) for row in api_response])
-        api_response_str = api_response_str.replace("\\", "").replace("\n", "")
+        api_response = str([dict(row) for row in api_response])
+        api_response = api_response.replace("\\", "").replace("\n", "")
         st.subheader("Respons fra BigQuery API kald")
         #df = client.query_and_wait(cleaned_query).to_dataframe()
         with st.expander('Se BigQuery API respons'):
-            st.markdown(api_response_str)
+            st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
             df = pd.DataFrame(rows) # tilføjet
             df_cleaned = df.applymap(lambda x: x if not isinstance(x, dict) else str(x)) # tilføjet
@@ -247,7 +247,7 @@ if button and user_prompt:
             dataset: {dataset}
             table: {table}.
             query billed in Mb: {bytes_billed_result}
-            Only use information that you learn from BigQuery:´´´{api_response_str}´´´.
+            Only use information that you learn from BigQuery:´´´{api_response}´´´.
             Do not make up information. Always present numbers in list formats """],
         generation_config = generation_config,
         )
