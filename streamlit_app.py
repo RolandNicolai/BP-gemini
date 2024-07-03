@@ -225,8 +225,8 @@ if button and user_prompt:
         api_response = query_job.result()
         bytes_billed = query_job.total_bytes_billed
         bytes_billed_result = (bytes_billed / 1.048576e6)
-        api_response = str([dict(row) for row in api_response])
-        api_response = api_response.replace("\\", "").replace("\n", "")
+        api_response_str = str([dict(row) for row in api_response])
+        api_response_str = api_response_str.replace("\\", "").replace("\n", "")
         st.subheader("Respons fra BigQuery API kald")
         #df = client.query_and_wait(cleaned_query).to_dataframe()
         with st.expander('Se BigQuery API respons'):
@@ -247,7 +247,7 @@ if button and user_prompt:
             dataset: {dataset}
             table: {table}.
             query billed in Mb: {bytes_billed_result}
-            Only use information that you learn from BigQuery:´´´{api_response}´´´.
+            Only use information that you learn from BigQuery:´´´{api_response_str}´´´.
             Do not make up information. Always present numbers in list formats """],
         generation_config = generation_config,
         )
