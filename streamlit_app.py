@@ -232,6 +232,11 @@ if button and user_prompt:
         with st.expander('Se BigQuery API respons'):
             st.markdown(api_response)
             st.text("This query processes {:.2f} Mb".format(bytes_billed_result))
+            rows = [dict(row) for row in api_response]
+            df = pd.DataFrame(rows) # tilføjet
+            df_cleaned = df.applymap(lambda x: x if not isinstance(x, dict) else str(x)) # tilføjet
+            st.dataframe(df_cleaned) # tilføjet
+
         with st.spinner('Genererer svar fra data...'):
             time.sleep(8)
         answerModel_response = model.generate_content(
