@@ -128,8 +128,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     api_requests_and_responses.append(
                         [response.function_call.name, params]
                     )
+                except AttributeError:
+                function_calling_in_process = False
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
         #st.bar_chart(chart_data.set_index('Market'))
 
         
-        st.session_state.messages.append({"role": "assistant", "content": response.text})
+    st.session_state.messages.append({"role": "assistant", "content": response.text})
