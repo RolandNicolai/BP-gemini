@@ -134,7 +134,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             if line.strip().startswith('```python') or line.strip().endswith('```'):
                                 continue
                         code_lines.append(line)
-                    return '\n'.join(code_lines).strip()
+                        return '\n'.join(code_lines).strip()
                 cleaned_script = extract_code(params["query"])
 
 
