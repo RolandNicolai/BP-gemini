@@ -166,7 +166,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         [line for line in cleaned_script.split('\n')
                         if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
-                        cleaned_script = extract_code(cleaned_script)
+                        cleaned_script = extract_code(params["query"])
 
                     except Exception as e:
                         api_response = f"{str(e)}"
