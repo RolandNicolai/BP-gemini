@@ -25,6 +25,7 @@ generation_config = {
 model = GenerativeModel(
     "gemini-1.5-pro-001",
     generation_config=generation_config,
+    stream=True,
 )
 
 
