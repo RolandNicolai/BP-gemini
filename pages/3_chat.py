@@ -128,6 +128,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         print(response)
         api_requests_and_responses = []
         function_calling_in_process = True
+        cleaned_script = ""
         while function_calling_in_process:
             try:
                 params = {}
@@ -178,10 +179,13 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         
         #time.sleep(3)
-        execute = True
-        exec(cleaned_script, globals())
+        #exec(cleaned_script, globals())
 
         full_response = response.text
+        try:
+            exec(cleaned_script, globals())
+        except Exception as e:
+            st.error(f"An error occurred while executing the script: {e}")
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
             with st.expander("Function calls, parameters, and responses:"):
