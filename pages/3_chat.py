@@ -1,6 +1,6 @@
 import streamlit as st
 from google.oauth2 import service_account
-from vertexai.generative_models import GenerativeModel
+from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
 import vertexai
 from google.cloud import bigquery
 import pandas as pd
@@ -23,16 +23,7 @@ client = bigquery.Client(credentials=credentials)
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
-generation_config = {
-  "temperature": 0,
 
-  "max_output_tokens": 8192,
-  #"response_mime_type": "text/plain",
-}
-model = GenerativeModel(
-    "gemini-1.5-flash-001",
-    generation_config=generation_config,
-)
 
 #gemini-1.5-flash-001
 #gemini-1.5-pro-001
@@ -55,6 +46,48 @@ df_cleaned = df.applymap(lambda x: x if not isinstance(x, dict) else str(x))
 
 # Display the DataFrame in Streamlit
 st.dataframe(df_cleaned)
+
+project = st.secrets["project"]
+dataset = st.secrets["dataset"]
+table = st.secrets["table"]
+fieldNames = '[Date, Brand, Market, Sessions, Clicks, Purchases]'
+descriptions = ""
+
+
+chart_script_func = FunctionDeclaration(
+    name="chart_script",
+    description="Create streamlit charts using the streamlit python library ",
+    parameters={
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": f"From the user prompt from the user question: {prompt} generate a Python script on a single line that will help give quantitative answers to the user's question. In the python script, always use the fully qualified dataframe df_cleaned and field names {fieldNames}.",
+            }
+        },
+        "required": [
+            "query",
+        ],
+    },
+)
+
+python_chart_tool = Tool(
+    function_declarations=[
+        chart_script_func,
+    ],
+)
+
+generation_config = {
+  "temperature": 0,
+
+  "max_output_tokens": 8192,
+  #"response_mime_type": "text/plain",
+}
+model = GenerativeModel(
+    "gemini-1.5-flash-001",
+    generation_config=generation_config,
+    tools=[python_chart_tool],
+)
 
 
 if "vertex_model" not in st.session_state:
