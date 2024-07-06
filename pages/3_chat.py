@@ -127,20 +127,31 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(params)
 
                 if response.function_call.name == "chart_script":
-                    def extract_code(script):
-                        lines = script.split('\n')
-                        code_lines = []
-                        for line in lines:
-                            if line.strip().startswith('```python') or line.strip().endswith('```'):
-                                continue
-                        code_lines.append(line)
-                        return '\n'.join(code_lines).strip()
-                cleaned_script = extract_code(params["query"])
+                    try:
+                         cleaned_script = (
+                            params["query"]
+                            .replace("\\n", " ")
+                            .replace("\n", "")
+                            .replace("\\", "")
+                        )
+                        cleaned_script = '\n'.join(
+                            [line for line in cleaned_script.split('\n')
+                            if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
+                        ).strip()
+                    except Exception as e:
+                        api_response = f"{str(e)}"
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, response]
+                        )
+
+                print(response.function_call.name)
+
 
 
                 api_requests_and_responses.append(
                         [response.function_call.name, params, response]
                     )
+        
             except AttributeError:
                 function_calling_in_process = False
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
