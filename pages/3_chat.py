@@ -27,36 +27,36 @@ model = GenerativeModel(
     generation_config=generation_config,
 )
 
-# Set a default model
-if "gemini_model" not in st.session_state:
-    st.session_state.model = GenerativeModel("gemini-1.5-pro-001")
-    #st.session_state["gemini_model"] = "gemini-1.5-pro-001"
 
-# Initialize chat history
+# TODO(developer): Update and un-comment below line
+# project_id = "PROJECT_ID"
+
+#response = model.generate_content("What's a good name for a flower shop that specializes in selling bouquets of dried flowers?")
+
+# Initialize the generative model
+#model = GenerativeModel(model_name="gemini-1.5-flash-001")
+
+# Check and initialize session state variables
+if "vertex_model" not in st.session_state:
+    st.session_state["vertex_model"] = model
+
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display chat messages from history on app rerun
+# Display existing messages
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
 
-# Accept user input
-if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
-    # Add user message to chat history
+# Handle user input
+if prompt := st.chat_input("What is up?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
-        # Display assistant response in chat message container
+
+    # Generate response using Vertex AI model
     with st.chat_message("assistant"):
-        stream = model.generate_content(
-            model=st.session_state["gemini_model"],
-            messages=[
-                {"role": m["role"], "content": m["content"]}
-                for m in st.session_state.messages
-            ],
-            stream=True,
-        )
-        response = st.write_stream(stream)
-    st.session_state.messages.append({"role": "assistant", "content": response})
+        response = st.session_state["vertex_model"].generate_content(prompt)
+        st.markdown(response.text)
+        
+    st.session_state.messages.append({"role": "assistant", "content": response.text})
