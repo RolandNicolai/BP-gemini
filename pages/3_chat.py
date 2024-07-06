@@ -121,12 +121,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             coming from in the database. Only use information that you learn
             from BigQuery, do not make up information.
             """
-        execute = False
 
         response = chat.send_message(prompt)
         response = response.candidates[0].content.parts[0]
-        while execute:
-            exec(cleaned_script, globals())
+
         print(response)
         api_requests_and_responses = []
         function_calling_in_process = True
@@ -181,6 +179,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         
         #time.sleep(3)
         execute = True
+        exec(cleaned_script, globals())
 
         full_response = response.text
         with message_placeholder.container():
