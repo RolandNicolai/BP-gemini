@@ -149,6 +149,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\n", " ")
                             .replace("\n", "")
                             .replace("\\", "")
+                            .replace("```python", "")
+                            .replace("```", "")
                         )
                         cleaned_script = '\n'.join(
                         [line for line in cleaned_script.split('\n')
