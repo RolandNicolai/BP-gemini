@@ -91,6 +91,19 @@ model = GenerativeModel(
     tools=[python_chart_tool],
 )
 
+def execute_and_visualize(script):
+    try:
+        # Create a local namespace dictionary for the exec() call
+        local_namespace = {}
+        exec(script, globals(), local_namespace)
+        # Retrieve the generated figure
+        fig = local_namespace.get("fig", None)
+        if fig:
+            st.pyplot(fig)
+        else:
+            st.error("The script did not generate a valid figure.")
+    except Exception as e:
+        st.error(f"An error occurred while executing the script: {e}")
 
 if "vertex_model" not in st.session_state:
     st.session_state["vertex_model"] = model
@@ -182,8 +195,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #exec(cleaned_script, globals())
 
         full_response = response.text
-        try:
-            exec(cleaned_script, globals())
+        execute_and_visualize(cleaned_script)
+
+
         except Exception as e:
             st.error(f"An error occurred while executing the script: {e}")
         with message_placeholder.container():
