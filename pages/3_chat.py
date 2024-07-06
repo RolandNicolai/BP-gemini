@@ -28,8 +28,9 @@ model = GenerativeModel(
 )
 
 # Set a default model
-if "openai_model" not in st.session_state:
-    st.session_state["openai_model"] = "gpt-3.5-turbo"
+if "gemini_model" not in st.session_state:
+    st.session_state.model = GenerativeModel("gemini-1.5-pro-001")
+    st.session_state["gemini_model"] = "gemini-1.5-pro-001"
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -47,3 +48,15 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
     # Display user message in chat message container
     with st.chat_message("user"):
         st.markdown(prompt)
+        # Display assistant response in chat message container
+    with st.chat_message("assistant"):
+        stream = client.chat.completions.create(
+            model=st.session_state["gemini_model"],
+            messages=[
+                {"role": m["role"], "content": m["content"]}
+                for m in st.session_state.messages
+            ],
+            stream=True,
+        )
+        response = st.write_stream(stream)
+    st.session_state.messages.append({"role": "assistant", "content": response})
