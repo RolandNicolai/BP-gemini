@@ -162,6 +162,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         
             except AttributeError:
                 function_calling_in_process = False
+
+        
+        time.sleep(3)
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
         #st.bar_chart(chart_data.set_index('Market'))
 
