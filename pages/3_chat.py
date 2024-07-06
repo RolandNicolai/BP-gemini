@@ -62,7 +62,7 @@ chart_script_func = FunctionDeclaration(
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"From the user prompt from the user question: {prompt} generate a Python script on a single line that will help give quantitative answers to the user's question. In the python script, always use the fully qualified dataframe df_cleaned and field names {fieldNames}.",
+                "description": f"Python script on a single line that will help give quantitative answers to the user's question. In the python script, always use the fully qualified dataframe df_cleaned and field names.",
             }
         },
         "required": [
