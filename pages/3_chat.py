@@ -30,7 +30,7 @@ model = GenerativeModel(
 # Set a default model
 if "gemini_model" not in st.session_state:
     st.session_state.model = GenerativeModel("gemini-1.5-pro-001")
-    st.session_state["gemini_model"] = "gemini-1.5-pro-001"
+    #st.session_state["gemini_model"] = "gemini-1.5-pro-001"
 
 # Initialize chat history
 if "messages" not in st.session_state:
