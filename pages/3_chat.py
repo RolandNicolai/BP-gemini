@@ -133,7 +133,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         print(response)
         api_requests_and_responses = []
         function_calling_in_process = True
-        cleaned_script = ""
         while function_calling_in_process:
             try:
                 params = {}
