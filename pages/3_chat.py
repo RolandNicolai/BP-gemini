@@ -97,6 +97,17 @@ def execute_and_visualize(script):
     except Exception as e:
         st.error(f"An error occurred while executing the script: {e}")
 
+
+def extract_code(script):
+    lines = script.split('\n')
+    code_lines = []
+    for line in lines:
+        if line.strip().startswith('```python') or line.strip().endswith('```'):
+            continue
+        code_lines.append(line)
+    return '\n'.join(code_lines).strip()
+cleaned_script = extract_code(queryModel_response_text)
+
 if "vertex_model" not in st.session_state:
     st.session_state["vertex_model"] = model
 
@@ -156,6 +167,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         [line for line in cleaned_script.split('\n')
                         if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
+                        extract_code(cleaned_script)
+
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
