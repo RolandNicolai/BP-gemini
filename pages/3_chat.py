@@ -112,6 +112,14 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         response = st.session_state["vertex_model"].generate_content(prompt)
         st.markdown(response.text)
         response = response.candidates[0].content.parts[0]
+            if "chart_script" in response.text:
+        chart_query = response.text.split("chart_script:")[1].strip()
+        # Generate the chart using the provided function and tool
+        chart_response = python_chart_tool.execute_function(
+            "chart_script", parameters={"query": chart_query}
+        )
+        # Display the chart script output
+        exec(chart_response["query"])
 
         print(response)
         function_calling_in_process = True
@@ -131,13 +139,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     )
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
         #st.bar_chart(chart_data.set_index('Market'))
-    if "chart_script" in response.text:
-        chart_query = response.text.split("chart_script:")[1].strip()
-        # Generate the chart using the provided function and tool
-        chart_response = python_chart_tool.execute_function(
-            "chart_script", parameters={"query": chart_query}
-        )
-        # Display the chart script output
-        exec(chart_response["query"])
+
         
     st.session_state.messages.append({"role": "assistant", "content": response.text})
