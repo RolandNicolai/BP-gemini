@@ -1,7 +1,7 @@
 from vertexai.generative_models import GenerativeModel
 from google.oauth2 import service_account
 import vertexai
-import streeamlit as st
+import streamlit as st
 
 st.title("ChatGPT-like clone (Vertex AI)")
 
