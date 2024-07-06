@@ -128,13 +128,13 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                 if response.function_call.name == "chart_script":
                     try:
-                         cleaned_script = (
+                        cleaned_script = (
                             params["query"]
                             .replace("\\n", " ")
                             .replace("\n", "")
                             .replace("\\", "")
                         )
-                        cleaned_script = '\n'.join(
+                            cleaned_script = '\n'.join(
                         [line for line in cleaned_script.split('\n')
                         if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
