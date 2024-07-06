@@ -166,7 +166,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         [line for line in cleaned_script.split('\n')
                         if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
-                        cleaned_script = extract_code(params["query"])
+                        cleaned_script_1 = extract_code(params["query"])
 
                     except Exception as e:
                         api_response = f"{str(e)}"
@@ -200,7 +200,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #exec(cleaned_script, globals())
 
         full_response = response.text
-        execute_and_visualize(cleaned_script)
+        execute_and_visualize(cleaned_script_1)
 
 
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
