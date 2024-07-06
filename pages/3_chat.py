@@ -91,11 +91,9 @@ model = GenerativeModel(
     tools=[python_chart_tool],
 )
 
-def execute_and_visualize(script):
-    try:
-        exec(script, globals())
-    except Exception as e:
-        st.error(f"An error occurred while executing the script: {e}")
+def execute_generated_code(code):
+    global df_cleaned, st, pd
+    exec(code, globals())
 
 
 def extract_code(script):
