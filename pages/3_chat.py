@@ -158,7 +158,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
 
                 print(cleaned_script)
-                execute = True
 
 
                 response = chat.send_message(
@@ -181,7 +180,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         
         #time.sleep(3)
-        
+        execute = True
+
         full_response = response.text
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
