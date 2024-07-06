@@ -3,6 +3,9 @@ from google.oauth2 import service_account
 from vertexai.generative_models import GenerativeModel
 import vertexai
 from google.cloud import bigquery
+import pandas as pd
+from pandas import DataFrame
+import numpy as np
 
 
 
