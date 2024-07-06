@@ -64,7 +64,7 @@ chart_script_func = FunctionDeclaration(
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"Python script on a single line that will help. Always use the dataframe called df_cleaned to create a variable named chart data followed by st.bar_chart(chart_data) or st.line_chart(chart_data)",
+                "description": f"Python script on a single line that will help answer user's question. Always use the dataframe called df_cleaned and field names: [Date, Brand, Market, Sessions, Clicks, Purchases] to create a variable named chart data followed by st.bar_chart(chart_data) or st.line_chart(chart_data)",
             }
         },
         "required": [
@@ -202,7 +202,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             execute_generated_code(cleaned_script_1)
         except Exception as e:
             st.error(f"Error executing the script: {e}")
-        execute_and_visualize(cleaned_script_1)
 
 
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
