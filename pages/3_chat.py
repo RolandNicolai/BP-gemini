@@ -134,7 +134,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\n", "")
                             .replace("\\", "")
                         )
-                            cleaned_script = '\n'.join(
+                        cleaned_script = '\n'.join(
                         [line for line in cleaned_script.split('\n')
                         if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
