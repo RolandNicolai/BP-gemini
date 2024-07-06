@@ -10,6 +10,7 @@ import time
 import vertexai
 import streamlit as st
 
+
 def check_password():
     """Returns `True` if the user had a correct password."""
 
