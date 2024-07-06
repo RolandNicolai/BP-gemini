@@ -1,6 +1,7 @@
 import streamlit as st
 from google.oauth2 import service_account
 from vertexai.generative_models import GenerativeModel
+import vertexai
 
 
 st.title("VertexAI assistant")
