@@ -126,6 +126,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                 if response.function_call.name == "chart_script":
 
+                    api_requests_and_responses.append(
                         [response.function_call.name, params]
                     )
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
