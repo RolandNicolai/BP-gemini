@@ -111,10 +111,16 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
     # Generate response using Vertex AI model
     with st.chat_message("assistant"):
+        message_placeholder = st.empty()
         full_response = ""
-        #response = st.session_state["vertex_model"].generate_content(prompt)
-        #st.markdown(response.text)
+
         chat = model.start_chat()
+        prompt += """
+            Please give a concise, high-level summary followed by detail in
+            plain language about where the information in your response is
+            coming from in the database. Only use information that you learn
+            from BigQuery, do not make up information.
+            """
         response = chat.send_message(prompt)
         response = response.candidates[0].content.parts[0]
         print(response)
@@ -176,4 +182,4 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #st.bar_chart(chart_data.set_index('Market'))
 
         
-    st.session_state.messages.append({"role": "assistant", "content": full_response})
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
