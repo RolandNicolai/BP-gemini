@@ -50,7 +50,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         st.markdown(prompt)
         # Display assistant response in chat message container
     with st.chat_message("assistant"):
-        stream = client.chat.completions.create(
+        stream = model.generate_content(
             model=st.session_state["gemini_model"],
             messages=[
                 {"role": m["role"], "content": m["content"]}
