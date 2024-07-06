@@ -144,8 +144,16 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, response]
                         )
 
-                print(response.function_call.name)
+                print(cleaned_script)
 
+                response = chat.send_message(
+                    Part.from_function_response(
+                        name=response.function_call.name,
+                        response={
+                            "content": cleaned_script,
+                        },
+                    ),
+                )
 
 
                 api_requests_and_responses.append(
