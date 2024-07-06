@@ -126,7 +126,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 if response.function_call.name == "chart_script":
 
                     api_requests_and_responses.append(
-                        [response.function_call.name, params]
+                        [response.function_call.name, params, response]
                     )
             except AttributeError:
                 function_calling_in_process = False
