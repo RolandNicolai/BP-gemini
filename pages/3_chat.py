@@ -25,7 +25,6 @@ generation_config = {
 model = GenerativeModel(
     "gemini-1.5-pro-001",
     generation_config=generation_config,
-    stream=True,
 )
 
 
@@ -57,7 +56,8 @@ if prompt := st.chat_input("What is up?"):
 
     # Generate response using Vertex AI model
     with st.chat_message("assistant"):
-        response = st.session_state["vertex_model"].generate_content(prompt)
+        response = st.session_state["vertex_model"].generate_content(prompt,
+                                                                    stream=True,)
         st.markdown(response.text)
         
     st.session_state.messages.append({"role": "assistant", "content": response.text})
