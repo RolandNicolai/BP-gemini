@@ -127,6 +127,16 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(params)
 
                 if response.function_call.name == "chart_script":
+                        def extract_code(script):
+                            lines = script.split('\n')
+                            code_lines = []
+                            for line in lines:
+                                if line.strip().startswith('```python') or line.strip().endswith('```'):
+                                    continue
+                            code_lines.append(line)
+                        return '\n'.join(code_lines).strip()
+                    cleaned_script = extract_code(params["query"])
+
 
                     api_requests_and_responses.append(
                         [response.function_call.name, params, response]
