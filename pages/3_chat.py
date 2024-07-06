@@ -167,7 +167,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 function_calling_in_process = False
 
         
-        time.sleep(3)
+        #time.sleep(3)
         
         full_response = response.text
 
