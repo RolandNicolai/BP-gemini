@@ -156,6 +156,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         },
                     ),
                 )
+                response = response.candidates[0].content.parts[0]
 
 
                 api_requests_and_responses.append(
@@ -167,8 +168,11 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         
         time.sleep(3)
+        
+        full_response = response.text
+
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
         #st.bar_chart(chart_data.set_index('Market'))
 
         
-    st.session_state.messages.append({"role": "assistant", "content": response.text})
+    st.session_state.messages.append({"role": "assistant", "content": full_response})
