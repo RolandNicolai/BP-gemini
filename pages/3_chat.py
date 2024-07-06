@@ -125,7 +125,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         response = response.candidates[0].content.parts[0]
         print(response)
         api_requests_and_responses = []
-        exec(cleaned_script, globals()),
         function_calling_in_process = True
         while function_calling_in_process:
             try:
@@ -155,6 +154,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
 
                 print(cleaned_script)
+                exec(cleaned_script, globals())
+
 
                 response = chat.send_message(
                     Part.from_function_response(
