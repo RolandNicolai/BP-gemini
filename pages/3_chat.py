@@ -135,8 +135,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\", "")
                         )
                         cleaned_script = '\n'.join(
-                            [line for line in cleaned_script.split('\n')
-                            if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
+                        [line for line in cleaned_script.split('\n')
+                        if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
                     except Exception as e:
                         api_response = f"{str(e)}"
