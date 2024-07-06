@@ -64,7 +64,7 @@ chart_script_func = FunctionDeclaration(
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"Python script on a single line that will help answer answer user's questions with line or barcharts. Always use the dataframe called df_cleaned and field names: [Date, Brand, Market, Sessions, Clicks, Purchases] to create a variable named chart data followed by st.bar_chart(chart_data) or st.line_chart(chart_data)",
+                "description": f"Python script on a single line that will help answer answer user's questions with line or barcharts. Always use the existing dataframe called df_cleaned and field names: [Date, Brand, Market, Sessions, Clicks, Purchases] to create a variable named chart data followed by st.bar_chart(chart_data) or st.line_chart(chart_data)",
             }
         },
         "required": [
