@@ -198,13 +198,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         execute_and_visualize(cleaned_script)
 
 
-        except Exception as e:
-            st.error(f"An error occurred while executing the script: {e}")
-        with message_placeholder.container():
-            st.markdown(full_response.replace("$", "\$"))  # noqa: W605
-            with st.expander("Function calls, parameters, and responses:"):
-                st.markdown(cleaned_script)
-
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
         #st.bar_chart(chart_data.set_index('Market'))
 
