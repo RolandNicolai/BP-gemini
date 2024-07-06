@@ -111,7 +111,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
     with st.chat_message("assistant"):
         response = st.session_state["vertex_model"].generate_content(prompt)
         st.markdown(response.text)
-        chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
-        st.bar_chart(chart_data.set_index('Market'))
+        response = response.candidates[0].content.parts[0]
+
+        print(response)
+        #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
+        #st.bar_chart(chart_data.set_index('Market'))
         
     st.session_state.messages.append({"role": "assistant", "content": response.text})
