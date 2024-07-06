@@ -93,15 +93,7 @@ model = GenerativeModel(
 
 def execute_and_visualize(script):
     try:
-        # Create a local namespace dictionary for the exec() call
-        local_namespace = {}
-        exec(script, globals(), local_namespace)
-        # Retrieve the generated figure
-        fig = local_namespace.get("fig", None)
-        if fig:
-            st.pyplot(fig)
-        else:
-            st.error("The script did not generate a valid figure.")
+        exec(script, globals())
     except Exception as e:
         st.error(f"An error occurred while executing the script: {e}")
 
