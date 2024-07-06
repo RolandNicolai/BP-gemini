@@ -23,20 +23,13 @@ generation_config = {
   #"response_mime_type": "text/plain",
 }
 model = GenerativeModel(
-    "gemini-1.5-pro-001",
+    "gemini-1.5-flash-001",
     generation_config=generation_config,
 )
 
+#gemini-1.5-flash-001
+#gemini-1.5-pro-001
 
-# TODO(developer): Update and un-comment below line
-# project_id = "PROJECT_ID"
-
-#response = model.generate_content("What's a good name for a flower shop that specializes in selling bouquets of dried flowers?")
-
-# Initialize the generative model
-#model = GenerativeModel(model_name="gemini-1.5-flash-001")
-
-# Check and initialize session state variables
 if "vertex_model" not in st.session_state:
     st.session_state["vertex_model"] = model
 
@@ -49,15 +42,14 @@ for message in st.session_state.messages:
         st.markdown(message["content"])
 
 # Handle user input
-if prompt := st.chat_input("What is up?"):
+if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
     # Generate response using Vertex AI model
     with st.chat_message("assistant"):
-        response = st.session_state["vertex_model"].generate_content(prompt,
-                                                                    stream=True,)
+        response = st.session_state["vertex_model"].generate_content(prompt)
         st.markdown(response.text)
         
     st.session_state.messages.append({"role": "assistant", "content": response.text})
