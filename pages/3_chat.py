@@ -198,6 +198,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #exec(cleaned_script, globals())
 
         full_response = response.text
+        try:
+            execute_generated_code(cleaned_script_1)
+        except Exception as e:
+            st.error(f"Error executing the script: {e}")
         execute_and_visualize(cleaned_script_1)
 
 
