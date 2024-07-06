@@ -6,6 +6,8 @@ from google.cloud import bigquery
 import pandas as pd
 from pandas import DataFrame
 import numpy as np
+import time
+
 
 
 
