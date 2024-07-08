@@ -243,7 +243,7 @@ if button and user_prompt:
             table: {table}.
             query billed in Mb: {bytes_billed_result}
             Only use information that you learn from BigQuery:´´´{api_response}´´´.
-            Do not make up information. Always present numbers in list formats """],
+            Do not make up information. Always present numbers in table or list formats """],
         generation_config = generation_config,
         )
         answerModel_response = answerModel_response.text
