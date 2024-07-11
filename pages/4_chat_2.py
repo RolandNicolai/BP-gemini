@@ -61,5 +61,8 @@ model = GenerativeModel(
     generation_config=generation_config,
 )
 
-agent = create_pandas_dataframe_agent(model, df_cleaned, verbose=True)
+llm = VertexAI("gemini-1.5-pro-001")
+
+
+agent = create_pandas_dataframe_agent(llm, df_cleaned, verbose=True)
 
