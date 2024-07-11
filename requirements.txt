@@ -4,3 +4,4 @@ scikit-learn
 altair
 google-cloud-aiplatform==1.57.0
 google-cloud-bigquery==3.25.0
+langchain-google-vertexai
