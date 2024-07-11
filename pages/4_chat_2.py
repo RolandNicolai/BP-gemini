@@ -5,6 +5,7 @@ import streamlit as st
 from langchain.llms import VertexAI
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from google.cloud import bigquery
+import pandas as pd
 
 
 #from langchain.agents import create_pandas_dataframe_agent
