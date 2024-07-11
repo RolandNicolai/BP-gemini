@@ -2,7 +2,8 @@ from vertexai.generative_models import GenerativeModel
 from google.oauth2 import service_account
 import vertexai
 import streamlit as st
-from langchain.llms import VertexAI
+#from langchain.llms import VertexAI
+from langchain_google_vertexai import VertexAI
 from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
 from google.cloud import bigquery
 import pandas as pd
