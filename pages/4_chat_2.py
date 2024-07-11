@@ -61,3 +61,5 @@ model = GenerativeModel(
     generation_config=generation_config,
 )
 
+agent = create_pandas_dataframe_agent(model, df_cleaned, verbose=True)
+
