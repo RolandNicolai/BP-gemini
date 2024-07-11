@@ -18,7 +18,34 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 
 
+client = bigquery.Client(credentials=credentials)
+
+
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
+
+
+
+#gemini-1.5-flash-001
+#gemini-1.5-pro-001
+
+sql = """
+    SELECT *
+    FROM `bonnier-deliverables.dummy_dataset.dummy_data`
+
+"""
+project_id = "bonnier-deliverables"
+query_job = client.query(sql)
+results = query_job.result()
+rows = [dict(row) for row in results]
+
+# Create DataFrame from the list of dictionaries
+df = pd.DataFrame(rows)
+
+# If necessary, clean or transform your DataFrame here
+df_cleaned = df.applymap(lambda x: x if not isinstance(x, dict) else str(x))
+
+# Display the DataFrame in Streamlit
+st.dataframe(df_cleaned)
 
 generation_config = {
   "temperature": 0,
