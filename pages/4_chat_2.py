@@ -3,7 +3,9 @@ from google.oauth2 import service_account
 import vertexai
 import streamlit as st
 from langchain.llms import VertexAI
-from langchain.agents import create_pandas_dataframe_agent
+from langchain_experimental.agents.agent_toolkits import create_pandas_dataframe_agent
+
+#from langchain.agents import create_pandas_dataframe_agent
 
 
 st.title("VertexAI assistant")
