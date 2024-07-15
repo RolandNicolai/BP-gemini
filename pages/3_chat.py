@@ -253,6 +253,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #exec(cleaned_script, globals())
 
         full_response = response.text
+        st.session_state.messages.append({"role": "assistant", "content": full_response})
+
         try:
             execute_generated_code(cleaned_script_1)
         except Exception as e:
@@ -263,4 +265,3 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #st.bar_chart(chart_data.set_index('Market'))
 
         
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
