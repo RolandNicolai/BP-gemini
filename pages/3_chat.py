@@ -245,8 +245,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         [response.function_call.name, params, response]
                     )
         
-            except AttributeError:
-                function_calling_in_process = False
+            #except AttributeError:
+                #function_calling_in_process = False
 
         
         #time.sleep(3)
