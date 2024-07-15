@@ -73,11 +73,30 @@ chart_script_func = FunctionDeclaration(
     },
 )
 
+answer_func = FunctionDeclaration(
+    name="answer",
+    description="answer users' questions",
+    parameters={
+        "type": "object",
+        "properties": {
+            "answer": {
+                "type": "string",
+                "description": "give a helpful answer to the user",
+            }
+        },
+        "required": [
+            "answer",
+        ],
+    },
+)
 
 
-python_chart_tool = Tool(
+
+
+toolcase = Tool(
     function_declarations=[
         chart_script_func,
+        answer_func,
     ],
 )
 
@@ -90,7 +109,7 @@ generation_config = {
 model = GenerativeModel(
     "gemini-1.5-flash-001",
     generation_config=generation_config,
-    tools=[python_chart_tool],
+    tools=[toolcase],
 )
 
 def execute_generated_code(code):
@@ -167,6 +186,40 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
                         ).strip()
                         cleaned_script_1 = extract_code(params["query"])
+
+                    except Exception as e:
+                        api_response = f"{str(e)}"
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, response]
+                        )
+
+                print(cleaned_script)
+
+
+                response = chat.send_message(
+                    Part.from_function_response(
+                        name=response.function_call.name,
+                        response={
+                            "content": cleaned_script,
+                        },
+                    ),
+                )
+                response = response.candidates[0].content.parts[0]
+
+
+                api_requests_and_responses.append(
+                        [response.function_call.name, params, response]
+                    )
+        
+            except AttributeError:
+                function_calling_in_process = False
+
+                if response.function_call.name == "answer":
+                    try:
+                        answer = (
+                            params["query"]
+                        )
+
 
                     except Exception as e:
                         api_response = f"{str(e)}"
