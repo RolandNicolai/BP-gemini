@@ -176,8 +176,7 @@ model = GenerativeModel(
 
 
 
-if "vertex_model" not in st.session_state:
-    st.session_state["vertex_model"] = model
+
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
