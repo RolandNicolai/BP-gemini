@@ -231,6 +231,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(params)
 
                 if response.function_call.name == "sql_query":
+                    job_config = bigquery.QueryJobConfig(
+                        maximum_bytes_billed=100000000
+                    )  # Data limit per query job
 
                     try:
 
@@ -260,7 +263,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         #Sætter maksimum på bytes som kan queries (100 mb)
                         #BigQuery API kald
                         if bytes_billed < maximum_bytes_billable:
-                            job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
+                            #job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
                             query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
                             api_response = query_job.result()
                             bytes_billed = query_job.total_bytes_billed
@@ -284,7 +287,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     Part.from_function_response(
                         name=response.function_call.name,
                         response={
-                            "content": cleaned_query,
+                            "content": api_response,
                         },
                     ),
                 )
@@ -298,8 +301,14 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 )
                 backend_details += "\n\n"
                 backend_details += (
-                    "   - API response: ```"
+                    "   - Function parameters: ```"
                     + str(api_requests_and_responses[-1][1])
+                    + "```"
+                )
+                backend_details += "\n\n"
+                backend_details += (
+                    "   - API response: ```"
+                    + str(api_requests_and_responses[-1][2])
                     + "```"
                 )
 
