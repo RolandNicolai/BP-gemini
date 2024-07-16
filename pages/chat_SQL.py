@@ -302,7 +302,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     Part.from_function_response(
                         name=response.function_call.name,
                         response={
-                            "content": cleaned_script,
+                            "content": api_response,
                         },
                     ),
                 )
