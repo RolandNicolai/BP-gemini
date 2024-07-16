@@ -242,7 +242,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\n", " ")
                             .replace("\n", " ")
                             .replace("\\", "")
-                            .replace("```","")
                             .replace("sql", "")
                             .replace("SQL:", "")
                             .strip()
