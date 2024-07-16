@@ -257,6 +257,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\", "")
                             .replace("```","")
                             .replace("sql", "")
+                            .replace("SQL:", "")
+
                         )
                         print(cleaned_query)
                         message.write(st.markdown(cleaned_query))
