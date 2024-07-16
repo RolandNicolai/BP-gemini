@@ -247,7 +247,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                         #)
                         cleaned_query = (
-                            response.function_call.args.get('query', '')
+                            model.text
                             .replace("\\n", " ")
                             .replace("\n", " ")
                             .replace("\\", "")
