@@ -238,7 +238,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                         cleaned_query = (
                             params["query"]
-                            .replace("\\n", "")
+                            .replace("\\n", " ")
                             .replace("\n", "")
                             .replace("\\", "")
                             .replace("sql", "")
@@ -269,7 +269,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         bytes_billed = query_job.total_bytes_billed
                         bytes_billed_result = (bytes_billed / 1.048576e6)
                         api_response = str([dict(row) for row in api_response])
-                        api_response = api_response.replace("\\", "").replace("\n", "").replace("SQL:","")
+                        api_response = api_response.replace("\\", "").replace("\n", "")
                         print("Query result:", api_response[:100])  # Print first 100 chars of response
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
