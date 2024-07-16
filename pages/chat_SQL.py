@@ -125,7 +125,12 @@ chart_script_func = FunctionDeclaration(
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"BigQuery SQL script on a single line that will help answer user's questions. Always only use the  {table} {dataset} and field names: [Date, Brand, Market, Sessions, Clicks, Purchases] to create a variable named chart data followed by st.bar_chart(chart_data) or st.line_chart(chart_data)",
+                "description": f"BigQuery SQL script on a single line that will help answer user's questions. always only use the fieldNames: {fieldNames} to create a BigQuery sql.
+                                Always use information that you learn from the description of fields in BigQuery:\n{descriptions}
+                                Write the script always only using the following dataset, table and field names.
+                                project: {project}
+                                dataset: {dataset}
+                                table: {table}",
             }
         },
         "required": [
