@@ -261,7 +261,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, response]
                         )
 
-                print(cleaned_query)
+                #print(cleaned_query)
 
 
                 response = chat.send_message(
