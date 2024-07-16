@@ -117,15 +117,15 @@ with st.sidebar:
 
 
 
-chart_script_func = FunctionDeclaration(
-    name="chart_script",
+sql_script_func = FunctionDeclaration(
+    name="sql_query",
     description="Create streamlit charts using the streamlit python library ",
     parameters={
         "type": "object",
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"BigQuery SQL script on a single line that will help answer user's questions. always only use the fieldNames: {fieldNames} to create a BigQuery sql. Always use information that you learn from the description of fields in BigQuery:\n{descriptions}.\nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}",
+                "description": f"BigQuery SQL script on a single line that will help answer user's questions. always only use the fieldNames: {fieldNames} to create a BigQuery sql. Always use information that you learn from the description of fields in BigQuery:\n{descriptions}.\nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}\nin where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date",
             }
         },
         "required": [
@@ -156,8 +156,8 @@ answer_func = FunctionDeclaration(
 
 toolcase = Tool(
     function_declarations=[
-        chart_script_func,
-        answer_func,
+        sql_script_func,
+        #answer_func,
     ],
 )
 
@@ -173,19 +173,7 @@ model = GenerativeModel(
     tools=[toolcase],
 )
 
-def execute_generated_code(code):
-    global df_cleaned, st, pd
-    exec(code, globals())
 
-
-def extract_code(script):
-    lines = script.split('\n')
-    code_lines = []
-    for line in lines:
-        if line.strip().startswith('```python') or line.strip().endswith('```'):
-            continue
-        code_lines.append(line)
-    return '\n'.join(code_lines).strip()
 
 if "vertex_model" not in st.session_state:
     st.session_state["vertex_model"] = model
@@ -232,21 +220,40 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(response.function_call.name)
                 print(params)
 
-                if response.function_call.name == "chart_script":
+                if response.function_call.name == "sql_query":
                     try:
-                        cleaned_script = (
-                            params["query"]
+
+                        cleaned_query = (
+                            queryModel_response_text
                             .replace("\\n", " ")
-                            .replace("\n", "")
+                            .replace("\n", " ")
                             .replace("\\", "")
-                            .replace("```python", "")
-                            .replace("```", "")
+                            .replace("```","")
+                            .replace("sql", "")
                         )
-                        cleaned_script = '\n'.join(
-                        [line for line in cleaned_script.split('\n')
-                        if not (line.strip().startswith('```python') or line.strip().endswith('```'))]
-                        ).strip()
-                        cleaned_script_1 = extract_code(params["query"])
+                        
+                        dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
+                        
+                        # Start the query, passing in the extra configuration.
+                        dryRun_query_job = client.query(
+                            (cleaned_query),
+                            job_config=dryRun_job_config,
+                            location = "EU",
+                        )  # Make an API request.
+                        
+                        bytes_billed = dryRun_query_job.total_bytes_processed
+                        #Sætter maksimum på bytes som kan queries (100 mb)
+                        #BigQuery API kald
+                        if bytes_billed < maximum_bytes_billable:
+                            job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
+                            query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
+                            api_response = query_job.result()
+                            bytes_billed = query_job.total_bytes_billed
+                            bytes_billed_result = (bytes_billed / 1.048576e6)
+                            api_response = str([dict(row) for row in api_response])
+                            api_response = api_response.replace("\\", "").replace("\n", "")
+                            #st.markdown(api_response)
+
 
                     except Exception as e:
                         api_response = f"{str(e)}"
@@ -254,7 +261,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, response]
                         )
 
-                print(cleaned_script)
+                print(cleaned_query)
 
 
                 response = chat.send_message(
@@ -315,10 +322,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         full_response = response.text
 
-        try:
-            execute_generated_code(cleaned_script_1)
-        except Exception as e:
-            st.error(f"Error executing the script: {e}")
+
 
 
         #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
