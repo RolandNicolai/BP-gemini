@@ -21,6 +21,7 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
 )
 client = bigquery.Client(credentials=credentials)
+maximum_bytes_billable = 100000000 # = 100 Mb
 
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
