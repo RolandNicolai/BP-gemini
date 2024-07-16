@@ -253,7 +253,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
-                            .strip()  # Remove leading/trailing whitespace
                             )
                         
                         print(cleaned_query)
