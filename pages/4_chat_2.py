@@ -63,7 +63,7 @@ model = GenerativeModel(
 )
 
 #llm = VertexAI(model_name="gemini-1.5-pro-001")
-llm = VertexAI()
+llm = VertexAI(model="gemini-pro")
 
 agent = create_pandas_dataframe_agent(llm, df_cleaned, verbose=True)
 
