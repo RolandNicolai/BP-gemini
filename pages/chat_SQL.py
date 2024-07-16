@@ -231,23 +231,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(params)
 
                 if response.function_call.name == "sql_query":
-                    try:
-                        cleaned_query = params["query"].replace("\\n", " ").replace("\n", " ").replace("\\", "").replace("```","").replace("sql", "")
-                        print("Executing query:", cleaned_query)
 
-
-
-                        results_list = list(results)
-                        if not results_list:
-                            api_response = "The query returned no results. The requested data may not be available in the database."
-                        else:
-                            api_response = str([dict(row) for row in results_list])
-
-                        print("Query result:", api_response[:100])  # Print first 100 chars of response
-                    except Exception as e:
-                        api_response = f"Error executing query: {str(e)}"
-                        print(api_response)
-    
                     try:
 
                         cleaned_query = (
