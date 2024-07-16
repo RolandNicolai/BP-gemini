@@ -205,11 +205,16 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         chat = model.start_chat()
         #client = bigquery.Client(credentials=credentials)
 
-        prompt += """
+        prompt += f"""
             Please give a concise, high-level summary followed by detail in
             plain language about where the information in your response is
             coming from in the database. Only use information that you learn
-            from BigQuery, do not make up information. Only write in danish
+            from BigQuery, do not make up information. 
+            Table: {table}
+            Dataset: {dataset}
+            Project: {project}
+            
+            Only write in danish
             """
 
         response = chat.send_message(prompt)
