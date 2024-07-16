@@ -245,7 +245,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("```","")
                             .replace("sql", "")
                             .replace("SQL:", "")
-                            .stri()
+                            .strip()
 
                         )
                         print(cleaned_query)
