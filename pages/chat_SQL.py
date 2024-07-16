@@ -262,7 +262,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, response]
                         )
 
-                #print(cleaned_query)
+                print(api_response)
 
 
                 response = chat.send_message(
@@ -275,25 +275,37 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 )
                 response = response.candidates[0].content.parts[0]
 
+                backend_details += "- Function call:\n"
+                backend_details += (
+                    "   - Function name: ```"
+                    + str(api_requests_and_responses[-1][0])
+                    + "```"
+                )
 
-                api_requests_and_responses.append(
-                        [response.function_call.name, params, response]
-                    )
-        
+
+                backend_details += "\n\n"
+                with message_placeholder.container():
+                    st.markdown(backend_details)
+
             except AttributeError:
                 function_calling_in_process = False
 
-        
-        #time.sleep(3)
-        #exec(cleaned_script, globals())
+        time.sleep(3)
 
         full_response = response.text
+        with message_placeholder.container():
+            st.markdown(full_response.replace("$", "\$"))  # noqa: W605
+            with st.expander("Function calls, parameters, and responses:"):
+                st.markdown(backend_details)
 
+        st.session_state.messages.append(
+            {
+                "role": "assistant",
+                "content": full_response,
+                "backend_details": backend_details,
+            }
+        )
+        
 
-
-
-        #chart_data = df.groupby('Market')['Sessions'].sum().reset_index()
-        #st.bar_chart(chart_data.set_index('Market'))
 
         
-        st.session_state.messages.append({"role": "assistant", "content": full_response})
