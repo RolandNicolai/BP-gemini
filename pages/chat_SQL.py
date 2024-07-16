@@ -238,8 +238,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                         cleaned_query = (
                             params["query"]
-                            .replace("\\n", " ")
-                            .replace("\n", " ")
+                            .replace("\\n", "")
+                            .replace("\n", "")
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
@@ -247,33 +247,33 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
 
                         
-                        print(cleaned_query)
+                        #print(cleaned_query)
                         #message.write(st.markdown(cleaned_query))
 
-                        dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
+                        #dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
                         
                         # Start the query, passing in the extra configuration.
-                        dryRun_query_job = client.query(
-                            (cleaned_query),
-                            job_config=dryRun_job_config,
-                            location = "EU",
-                        )  # Make an API request.
+                        #dryRun_query_job = client.query(
+                            #(cleaned_query),
+                            #job_config=dryRun_job_config,
+                            #location = "EU",
+                        #)  # Make an API request.
                         
-                        bytes_billed = dryRun_query_job.total_bytes_processed
+                        #bytes_billed = dryRun_query_job.total_bytes_processed
                         #Sætter maksimum på bytes som kan queries (100 mb)
                         #BigQuery API kald
-                        if bytes_billed < maximum_bytes_billable:
+                        #if bytes_billed < maximum_bytes_billable:
                             #job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
-                            query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
-                            api_response = query_job.result()
-                            bytes_billed = query_job.total_bytes_billed
-                            bytes_billed_result = (bytes_billed / 1.048576e6)
-                            api_response = str([dict(row) for row in api_response])
-                            api_response = api_response.replace("\\", "").replace("\n", "").replace("SQL:","")
-                            print("Query result:", api_response[:100])  # Print first 100 chars of response
-                            api_requests_and_responses.append(
-                                [response.function_call.name, params, api_response]
-                            )
+                        query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
+                        api_response = query_job.result()
+                        bytes_billed = query_job.total_bytes_billed
+                        bytes_billed_result = (bytes_billed / 1.048576e6)
+                        api_response = str([dict(row) for row in api_response])
+                        api_response = api_response.replace("\\", "").replace("\n", "").replace("SQL:","")
+                        print("Query result:", api_response[:100])  # Print first 100 chars of response
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, api_response]
+                        )
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
