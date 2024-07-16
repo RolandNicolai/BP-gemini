@@ -237,15 +237,25 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                     try:
 
+                        #cleaned_query = (
+                            #params["query"]
+                            #.replace("\\n", " ")
+                            #.replace("\n", " ")
+                            #.replace("\\", "")
+                            #.replace("sql", "")
+                            #.replace("SQL:", "")
+
+                        #)
                         cleaned_query = (
-                            params["query"]
+                            response.function_call.args.get('query', '')
                             .replace("\\n", " ")
                             .replace("\n", " ")
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
-
-                        )
+                            .strip()  # Remove leading/trailing whitespace
+                            )
+                        
                         print(cleaned_query)
                         #message.write(st.markdown(cleaned_query))
 
