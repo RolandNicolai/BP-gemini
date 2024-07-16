@@ -263,6 +263,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             api_response = str([dict(row) for row in api_response])
                             api_response = api_response.replace("\\", "").replace("\n", "")
                             #st.markdown(api_response)
+                            api_requests_and_responses.append(
+                                [response.function_call.name, params, api_response]
+                            )
 
 
                     except Exception as e:
