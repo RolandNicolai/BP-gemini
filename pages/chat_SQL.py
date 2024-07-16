@@ -125,12 +125,7 @@ chart_script_func = FunctionDeclaration(
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"BigQuery SQL script on a single line that will help answer user's questions. always only use the fieldNames: {fieldNames} to create a BigQuery sql.
-                                Always use information that you learn from the description of fields in BigQuery:\n{descriptions}
-                                Write the script always only using the following dataset, table and field names.
-                                project: {project}
-                                dataset: {dataset}
-                                table: {table}",
+                "description": f"BigQuery SQL script on a single line that will help answer user's questions. always only use the fieldNames: {fieldNames} to create a BigQuery sql. Always use information that you learn from the description of fields in BigQuery:\n{descriptions}.\nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}",
             }
         },
         "required": [
