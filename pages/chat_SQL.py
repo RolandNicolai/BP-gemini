@@ -264,7 +264,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             bytes_billed_result = (bytes_billed / 1.048576e6)
                             api_response = str([dict(row) for row in api_response])
                             api_response = api_response.replace("\\", "").replace("\n", "")
-                            #st.markdown(api_response)
+                            print("Query result:", api_response[:100])  # Print first 100 chars of response
                             api_requests_and_responses.append(
                                 [response.function_call.name, params, api_response]
                             )
