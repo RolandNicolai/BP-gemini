@@ -282,40 +282,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             except AttributeError:
                 function_calling_in_process = False
 
-                if response.function_call.name == "answer":
-                    try:
-                        answer = (
-                            params["query"]
-                        )
-
-
-                    except Exception as e:
-                        api_response = f"{str(e)}"
-                        api_requests_and_responses.append(
-                            [response.function_call.name, params, response]
-                        )
-
-                print(cleaned_query)
-
-
-                response = chat.send_message(
-                    Part.from_function_response(
-                        name=response.function_call.name,
-                        response={
-                            "content": api_response,
-                        },
-                    ),
-                )
-                response = response.candidates[0].content.parts[0]
-
-
-                api_requests_and_responses.append(
-                        [response.function_call.name, params, response]
-                    )
-        
-            except AttributeError:
-                function_calling_in_process = False
-
         
         #time.sleep(3)
         #exec(cleaned_script, globals())
