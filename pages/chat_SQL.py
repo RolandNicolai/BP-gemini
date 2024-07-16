@@ -204,6 +204,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
+        client = bigquery.Client()
+
         prompt += """
             Please give a concise, high-level summary followed by detail in
             plain language about where the information in your response is
