@@ -245,10 +245,11 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("```","")
                             .replace("sql", "")
                             .replace("SQL:", "")
+                            .stri()
 
                         )
                         print(cleaned_query)
-                        message.write(st.markdown(cleaned_query))
+                        #message.write(st.markdown(cleaned_query))
 
                         dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
                         
