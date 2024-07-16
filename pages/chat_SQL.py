@@ -284,7 +284,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     Part.from_function_response(
                         name=response.function_call.name,
                         response={
-                            "content": api_response,
+                            "content": cleaned_query,
                         },
                     ),
                 )
