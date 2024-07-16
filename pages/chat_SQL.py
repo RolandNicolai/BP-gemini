@@ -203,7 +203,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
-        client = bigquery.Client()
+        #client = bigquery.Client(credentials=credentials)
 
         prompt += """
             Please give a concise, high-level summary followed by detail in
