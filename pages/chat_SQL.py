@@ -310,7 +310,12 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     + str(api_requests_and_responses[-1][0])
                     + "```"
                 )
-
+                backend_details += "\n\n"
+                backend_details += (
+                    "   - API response: ```"
+                    + str(api_requests_and_responses[-1][1])
+                    + "```"
+                )
 
                 backend_details += "\n\n"
                 with message_placeholder.container():
