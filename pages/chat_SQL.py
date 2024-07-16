@@ -237,7 +237,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     try:
 
                         cleaned_query = (
-                            params["sql_query"]
+                            params["query"]
                             .replace("\\n", "")
                             .replace("\n", "")
                             .replace("\\", "")
@@ -277,7 +277,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
-                            [response.function_call.name, params, response]
+                            [response.function_call.name, params, api_response]
                         )
 
                 print(api_response)
