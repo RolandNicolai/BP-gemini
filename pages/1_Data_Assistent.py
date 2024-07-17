@@ -224,23 +224,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
 
                         
-                        #print(cleaned_query)
-                        #message.write(st.markdown(cleaned_query))
-
-                        #dryRun_job_config = bigquery.QueryJobConfig(dry_run=True, use_query_cache=False)
-                        
-                        # Start the query, passing in the extra configuration.
-                        #dryRun_query_job = client.query(
-                            #(cleaned_query),
-                            #job_config=dryRun_job_config,
-                            #location = "EU",
-                        #)  # Make an API request.
-                        
-                        #bytes_billed = dryRun_query_job.total_bytes_processed
-                        #Sætter maksimum på bytes som kan queries (100 mb)
-                        #BigQuery API kald
-                        #if bytes_billed < maximum_bytes_billable:
-                            #job_config = bigquery.QueryJobConfig(maximum_bytes_billed = maximum_bytes_billable)  # Data limit per query job
                         query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
                         api_response = query_job.result()
                         bytes_billed = query_job.total_bytes_billed
