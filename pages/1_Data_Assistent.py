@@ -3,9 +3,6 @@ from google.oauth2 import service_account
 from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
 import vertexai
 from google.cloud import bigquery
-import pandas as pd
-from pandas import DataFrame
-import numpy as np
 import time
 
 
