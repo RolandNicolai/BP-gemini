@@ -27,13 +27,16 @@ maximum_bytes_billable = 100000000 # = 100 Mb
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
-with st.expander("Sample prompts", expanded=True):
+with st.expander("Sample prompts ang. data", expanded=True):
     st.write(
         """
         - Hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke mediekoder havde flest salg i juni 2024
+
+        KPI Dataset
+        - Hvad var den gennemsnitlige ROI for hvert marked?
     """
     )
 
@@ -105,12 +108,6 @@ with st.sidebar:
         project = 'default_project'
         dataset = 'default_dataset'
         table = 'default_table'
-    st.write(f'Eksempler på spørgsmål ang. data')
-    st.write(f'Kalkule dataset')
-    st.write(f'- hvad var den gennemsnitlige ROI for hvert marked?')
-    st.write(f'Dummy datasæt')
-    st.write(f'- Hvor mange sessions var der på de forskellige brands i hhv. 1 og 4 quarter af 2023')
-    st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
 
 
 
