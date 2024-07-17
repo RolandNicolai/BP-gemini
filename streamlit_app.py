@@ -18,7 +18,7 @@ col1, col2 = st.columns([2, 1])
 with col1:
     st.page_link("streamlit_app.py", label="Forside")
 with col2:
-    st.page_link("pages/1_Data_Assistent.py", label="Data Assistent", icon="1️⃣")
+    st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
 
 
 
