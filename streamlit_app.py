@@ -181,7 +181,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         st.markdown(prompt)
 
     # Generate response using Vertex AI model
-    with st.chat_message("assistant"):
+    with st.chat_message("assistant", avatar="🧑‍💻"):
         message_placeholder = st.empty()
         full_response = ""
 
