@@ -133,6 +133,7 @@ sql_script_func = FunctionDeclaration(
 toolcase = Tool(
     function_declarations=[
         sql_script_func,
+        code_execution,
         #answer_func,
     ],
 )
