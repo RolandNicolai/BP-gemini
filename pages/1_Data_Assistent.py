@@ -30,12 +30,13 @@ vertexai.init(project=st.secrets["project"], location=st.secrets["location"], cr
 with st.expander("Sample prompts ang. data", expanded=True):
     st.write(
         """
+        **KPI Dataset**
         - Hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke mediekoder havde flest salg i juni 2024
 
-        **KPI Dataset**
+        **Kalkule Dataset**
         - Hvad var den gennemsnitlige ROI for hvert marked?
     """
     )
