@@ -147,7 +147,7 @@ generation_config = {
 model = GenerativeModel(
     "gemini-1.5-flash-001",
     generation_config=generation_config,
-    tools=[toolcase],
+    tools=[toolcase, 'code_execution'],
 )
 
 
