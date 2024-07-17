@@ -114,7 +114,7 @@ with st.sidebar:
 
 sql_script_func = FunctionDeclaration(
     name="sql_query",
-    description="Create streamlit charts using the streamlit python library ",
+    description="Get information from data in BigQuery using SQL queries",
     parameters={
         "type": "object",
         "properties": {
