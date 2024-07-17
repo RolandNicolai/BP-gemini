@@ -17,7 +17,7 @@ st.subheader("Bygget på Google Gemini")
 st.subheader("Vælg en applikation")
 
 
-col1, col2, col3, col4 = st.columns([2, 1])
+col1, col2, col3, col4 = st.columns([4, 1])
 with col1:
     st.page_link("streamlit_app.py", label="Forside")
 with col2:
