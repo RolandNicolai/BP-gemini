@@ -164,7 +164,7 @@ for message in st.session_state.messages:
             pass
 
 # Handle user input
-if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
+if prompt := st.chat_input("**Hvad kan jeg hjælpe med?**"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
