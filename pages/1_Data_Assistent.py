@@ -35,7 +35,7 @@ with st.expander("Sample prompts ang. data", expanded=True):
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke mediekoder havde flest salg i juni 2024
 
-        KPI Dataset
+        **KPI Dataset**
         - Hvad var den gennemsnitlige ROI for hvert marked?
     """
     )
