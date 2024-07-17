@@ -12,9 +12,6 @@ import time
 st.header('Bonnier GenAI sandbox', divider='rainbow')
 
 
-st.page_link("pages/page_1.py", label="Page 1", icon="1️⃣")
-
-
 st.subheader("Bygget på Google Gemini")
 
 col1, col2 = st.columns([8, 1])
