@@ -9,9 +9,10 @@ import numpy as np
 import time
 
 
+st.header('Bonnier Data Assistent', divider='rainbow')
 
 
-st.title(":blue[Bonnier Data Assistent]")
+#st.title(":blue[Bonnier Data Assistent]")
 
 # Set OpenAI API key from Streamlit secrets
 #client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
