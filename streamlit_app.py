@@ -14,7 +14,7 @@ st.header('Bonnier GenAI sandbox', divider='rainbow')
 
 st.subheader("Bygget på Google Gemini")
 
-col1, col2 = st.columns([8, 1])
+col1, col2 = st.columns([4, 1])
 with col1:
     st.page_link("streamlit_app.py", label="Forside")
 with col2:
