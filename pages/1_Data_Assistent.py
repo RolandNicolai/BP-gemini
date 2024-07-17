@@ -183,7 +183,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             Please give a concise, high-level summary followed by detail in
             plain language about where the information in your response is
             coming from in the database. Only use information that you learn
-            from BigQuery, do not make up information. 
+            from BigQuery, do not make up information. Always present numbers in table or list formats
             Table: {table}
             Dataset: {dataset}
             Project: {project}
