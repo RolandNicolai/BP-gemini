@@ -26,14 +26,21 @@ maximum_bytes_billable = 100000000 # = 100 Mb
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
+with st.expander("Sample prompts", expanded=True):
+    st.write(
+        """
+        - Hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
+        - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
+        - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
+        - Hvilke mediekoder havde flest salg i juni 2024
+    """
+    )
 
-
-#gemini-1.5-flash-001
-#gemini-1.5-pro-001
 
 with st.sidebar:
     # Dropdown list with options
     option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'kpi dataset', 'kalkule dataset'])
+
 
 # Set variables based on the selected option
     if option == 'dummy dataset':
@@ -108,13 +115,6 @@ with st.sidebar:
     st.write(f'Dummy datasæt')
     st.write(f'- Hvor mange sessions var der på de forskellige brands i hhv. 1 og 4 quarter af 2023')
     st.write(f'- Hvor mange salg, klik, sessioner havde hvert brand i 2023? og hvordan så deres clicks per session ud?')
-    st.write(f'KPI datasæt')
-    st.write(f'- sorter salg på brands fra stigende til faldende i juni 2024')
-    st.write(f'- giv mig et overview over salg i 2024 fordelt på måned')
-    st.write(f'- hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
-    st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel')
-    st.write(f'- hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel i juni vs i maj')
-
 
 
 
@@ -134,24 +134,6 @@ sql_script_func = FunctionDeclaration(
         ],
     },
 )
-
-answer_func = FunctionDeclaration(
-    name="answer",
-    description="answer users' questions",
-    parameters={
-        "type": "object",
-        "properties": {
-            "answer": {
-                "type": "string",
-                "description": "give a helpful answer to the user",
-            }
-        },
-        "required": [
-            "answer",
-        ],
-    },
-)
-
 
 
 
