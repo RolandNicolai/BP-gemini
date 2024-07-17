@@ -12,10 +12,7 @@ import time
 st.header('Bonnier Data Assistent', divider='rainbow')
 
 
-#st.title(":blue[Bonnier Data Assistent]")
 
-# Set OpenAI API key from Streamlit secrets
-#client = OpenAI(api_key=st.secrets["OPENAI_API_KEY"])
 
 
 credentials = service_account.Credentials.from_service_account_info(
@@ -27,7 +24,7 @@ maximum_bytes_billable = 100000000 # = 100 Mb
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
-with st.expander("Sample prompts ang. data", expanded=True):
+with st.expander("**Sample prompts for data**", expanded=True):
     st.write(
         """
         **KPI Dataset**
