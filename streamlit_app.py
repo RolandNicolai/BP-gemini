@@ -40,17 +40,12 @@ with st.expander("Sample prompts", expanded=True):
 
 with st.sidebar:
     # Dropdown list with options
-    option = st.selectbox('1. Vælg et datasæt', ['dummy dataset', 'kpi dataset', 'kalkule dataset'])
+    option = st.selectbox('1. Vælg et datasæt', ['kpi dataset', 'kalkule dataset'])
 
 
 # Set variables based on the selected option
-    if option == 'dummy dataset':
-        project = st.secrets["project"]
-        dataset = st.secrets["dataset"]
-        table = st.secrets["table"]
-        fieldNames = '[Date, Brand, Market, Sessions, Clicks, Purchases]'
-        descriptions = ""
-    elif option == 'kpi dataset':
+
+    if option == 'kpi dataset':
         project = st.secrets["project"]
         dataset = st.secrets["kpi_dataset"]
         table = st.secrets["kpi_table"]
