@@ -177,7 +177,7 @@ for message in st.session_state.messages:
 # Handle user input
 if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
-    with st.chat_message("user"):
+    with st.chat_message("user", avatar="🦖"):
         st.markdown(prompt)
 
     # Generate response using Vertex AI model
