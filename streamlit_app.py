@@ -17,11 +17,15 @@ st.subheader("Bygget på Google Gemini")
 st.subheader("Vælg en applikation")
 
 
-col1, col2 = st.columns([2, 1])
+col1, col2, col3, col4 = st.columns([2, 1])
 with col1:
     st.page_link("streamlit_app.py", label="Forside")
 with col2:
     st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
+with col3:
+    st.page_link("pages/2_chat.py", label="Chat#2")
+with col3:
+    st.page_link("pages/3_chat.py", label="Chat#3")
 
 
 
