@@ -108,7 +108,7 @@ with st.sidebar:
 
 sql_script_func = FunctionDeclaration(
     name="sql_query",
-    description="Get information from data in BigQuery using SQL queries",
+    description="Always Get information for user questions from data in BigQuery using SQL queries",
     parameters={
         "type": "object",
         "properties": {
@@ -175,7 +175,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         #client = bigquery.Client(credentials=credentials)
 
         prompt += f"""
-            Please give a concise, high-level summary followed by detail in
+            Please give a concise, answer and summary followed by detail in
             plain language about where the information in your response is
             coming from in the database. Only use information that you learn
             from BigQuery, do not make up information. Always present numbers in table or list formats.
