@@ -33,6 +33,7 @@ with st.expander("**Sample prompts for data**", expanded=True):
 
         **Kalkule Dataset**
         - Hvad var den gennemsnitlige ROI for hvert marked?
+        - Hvad var den gennemsnitlige media cost per land?
     """
     )
 
