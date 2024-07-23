@@ -6,7 +6,7 @@ from google.cloud import bigquery
 import time
 
 
-st.header('Bonnier Data Assistent', divider='rainbow')
+st.header(':black[Bonnier Data Assistent]', divider='rainbow')
 
 
 
