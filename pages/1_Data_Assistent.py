@@ -13,7 +13,7 @@ st.markdown(
     """
     <style>
     .stMarkdown code {
-        color: green;
+        color: blue;
         background-color: #f5f5f5;
     }
     .stMarkdown pre code {
