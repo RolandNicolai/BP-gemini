@@ -6,7 +6,7 @@ from google.cloud import bigquery
 import time
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
-st.logo(LOGO_URL_LARGE, link="https://bonnierpublications.com/en/bonnier-publications-2/")
+st.logo(LOGO_URL_LARGE)
 
 st.header(':black[Bonnier Data Assistent]', divider='rainbow')
 
