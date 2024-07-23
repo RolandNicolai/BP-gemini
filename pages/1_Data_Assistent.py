@@ -9,7 +9,21 @@ import time
 st.header(':black[Bonnier Data Assistent]', divider='rainbow')
 
 
-
+st.markdown(
+    """
+    <style>
+    .stMarkdown code {
+        color: green;
+        background-color: #f5f5f5;
+    }
+    .stMarkdown pre code {
+        color: green;
+        background-color: #f5f5f5;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 
 credentials = service_account.Credentials.from_service_account_info(
