@@ -181,7 +181,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             plain language about where the information in your response is
             coming from in the database. Only use information that you learn
             from BigQuery, do not make up information. Always present numbers in table or list formats.
-            Only write in danish
+            Only respond and write in danish
             """
 
         response = chat.send_message(prompt)
