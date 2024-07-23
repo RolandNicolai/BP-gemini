@@ -26,7 +26,7 @@ st.markdown(
 )
 st.markdown("""
     <style> 
-    .stChatInputContainer > div {
+    .chat_input > div {
     background-color: #fff;
     }
     </style>
