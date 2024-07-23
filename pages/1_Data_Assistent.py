@@ -280,7 +280,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
             with st.expander("Function calls, parameters, and responses:"):
-                st.markdown(:orange[backend_details])
+                st.markdown(backend_details)
 
         st.session_state.messages.append(
             {
