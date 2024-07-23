@@ -24,13 +24,7 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-st.markdown("""
-    <style> 
-    .chat_input > div {
-    background-color: #fffff;
-    }
-    </style>
-    """, unsafe_allow_html=True)
+
 
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
