@@ -19,8 +19,8 @@ st.subheader("Vælg en applikation")
 
 st.page_link("streamlit_app.py", label="Forside")
 st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
-st.page_link("pages/2_chat.py", label="Chat#2")
-st.page_link("pages/3_chat.py", label="Chat#3")
+st.page_link("pages/2_Chat1.py", label="Chat#2")
+st.page_link("pages/3_Chat2.py", label="Chat#3")
 
 
 
