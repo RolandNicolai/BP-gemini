@@ -276,6 +276,22 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, api_response]
                         )
 
+
+                if response.function_call.name == "pyplot_script":
+                    try:
+
+                        plot_cleaned = (
+                            params["query"]
+                            .replace("\\n", " ")
+                            .replace("\n", "")
+                            .replace("\\", "")
+                            .replace("sql", "")
+                            .replace("SQL:", "")
+
+                        )
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params]
+                        )
                 print(api_response)
 
 
