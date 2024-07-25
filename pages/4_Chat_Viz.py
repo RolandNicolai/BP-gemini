@@ -289,7 +289,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                         )
                         api_requests_and_responses.append(
-                            [response.function_call.name, params]
+                            [response.function_call.name, params, api_response]
                         )
                     except Exception as e:
                         api_response = f"{str(e)}"
