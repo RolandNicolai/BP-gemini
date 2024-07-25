@@ -283,7 +283,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
                 if response.function_call.name == "pyplot_script":
                     try:
-                        response = script_model.generate_content(f"""give """)
+                        script_response = script_model.generate_content(f"""give """)
                         plot_cleaned = (
                             params["script"]
                             .replace("\\n", " ")
