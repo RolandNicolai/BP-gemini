@@ -310,10 +310,13 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("SQL:", "")
 
                         )
-                        execute_generated_code(plot_cleaned)
+                        fig = execute_generated_code(plot_cleaned)
                         api_requests_and_responses.append(
                             [response.function_call.name, params, plot_cleaned]
                         )
+                        with message_placeholder.container():
+                            st.pyplot(fig)
+
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
