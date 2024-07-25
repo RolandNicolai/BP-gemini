@@ -182,6 +182,11 @@ model = GenerativeModel(
     tools=[toolcase],
 )
 
+script_model = GenerativeModel(
+    "gemini-1.5-flash-001",
+    generation_config=generation_config,
+)
+
 def execute_generated_code(code):
     global st, plt, np
     exec(code, globals())
@@ -278,7 +283,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
                 if response.function_call.name == "pyplot_script":
                     try:
-
+                        response = script_model.generate_content(f"""give """)
                         plot_cleaned = (
                             params["script"]
                             .replace("\\n", " ")
@@ -290,7 +295,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
                         execute_generated_code(plot_cleaned)
                         api_requests_and_responses.append(
-                            [response.function_call.name, params, api_response]
+                            [response.function_call.name, params, plot_cleaned]
                         )
                     except Exception as e:
                         api_response = f"{str(e)}"
