@@ -207,8 +207,7 @@ script_model = GenerativeModel(
 def execute_generated_code(code):
     global st, plt, np
     exec(code, globals())
-
-
+    return plt.gcf()
 
 
 
