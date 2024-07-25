@@ -142,6 +142,23 @@ sql_script_func = FunctionDeclaration(
     },
 )
 
+sql_script_func = FunctionDeclaration(
+    name="pyplot",
+    description="Use tool to generate runable streamlit python code for generating st.pyplots charts",
+    parameters={
+        "type": "object",
+        "properties": {
+            "query": {
+                "type": "string",
+                "description": f"SQL query on a single line that will help give quantitative answers to the user's question when run on a BigQuery dataset and table. always only use the fieldNames: {fieldNames}. Always only use information that you learn from the description of fields in BigQuery:\n{descriptions}.\nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}\nin where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date",
+            }
+        },
+        "required": [
+            "query",
+        ],
+    },
+)
+
 
 
 toolcase = Tool(
