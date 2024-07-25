@@ -255,3 +255,89 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             )
 
                         except Exception as e:
+
+
+
+                            api_response = f"{str(e)}"
+                            api_requests_and_responses.append(
+                                [response.function_call.name, params, api_response]
+                            )
+                    elif response.function_call.name == "pyplot_script":
+                        try:
+                            plot_cleaned = (
+                                params["script"]
+                                .replace("\\n", " ")
+                                .replace("\n", "")
+                                .replace("\\", "")
+                                .replace("sql", "")
+                                .replace("SQL:", "")
+                            )
+                            fig = execute_generated_code(plot_cleaned)
+                            api_requests_and_responses.append(
+                                [response.function_call.name, params, plot_cleaned]
+                            )
+                            with message_placeholder.container():
+                                st.pyplot(fig)
+                        except Exception as e:
+                            api_response = f"{str(e)}"
+                            api_requests_and_responses.append(
+                                [response.function_call.name, params, api_response]
+                            )
+                    print(api_response)
+
+                    response = chat.send_message(
+                        Part.from_function_response(
+                            name=response.function_call.name,
+                            response={
+                                "content": api_response,
+                            },
+                        ),
+                    )
+                    response = response.candidates[0].content.parts[0]
+
+                    backend_details += "- Function call:\n"
+                    backend_details += (
+                        "   - Function name: ```"
+                        + str(api_requests_and_responses[-1][0])
+                        + "```"
+                    )
+                    backend_details += "\n\n"
+                    backend_details += (
+                        "   - Function parameters: ```"
+                        + str(api_requests_and_responses[-1][1])
+                        + "```"
+                    )
+                    backend_details += "\n\n"
+                    backend_details += (
+                        "   - API response: ```"
+                        + str(api_requests_and_responses[-1][2])
+                        + "```"
+                    )
+
+                    backend_details += "\n\n"
+                    with message_placeholder.container():
+                        st.markdown(backend_details)
+
+                except AttributeError:
+                    function_calling_in_process = False
+
+            time.sleep(3)
+
+            full_response = response.text
+            with message_placeholder.container():
+                st.markdown(full_response.replace("$", "\$"))  # noqa: W605
+                with st.expander("Function calls, parameters, and responses:"):
+                    st.markdown(backend_details)
+
+            st.session_state.messages.append(
+                {
+                    "role": "assistant",
+                    "content": full_response,
+                    "backend_details": backend_details,
+                }
+            )
+        except Exception as e:
+            error_message = f"An error occurred: {str(e)}"
+            st.session_state.messages.append({"role": "assistant", "content": error_message})
+            with st.chat_message("assistant"):
+                st.markdown(error_message)
