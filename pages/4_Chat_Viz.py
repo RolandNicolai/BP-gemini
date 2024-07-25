@@ -288,6 +288,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("SQL:", "")
 
                         )
+                        execute_generated_code(plot_cleaned)
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
