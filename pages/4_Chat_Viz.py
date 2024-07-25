@@ -152,6 +152,23 @@ chart_script_func = FunctionDeclaration(
         "properties": {
             "script": {
                 "type": "string",
+                "description": f"Python script on a single line that will help generate streamlit charts. always only use the matplotlib.pyplot library (st.pyplot(fig). always only generate charts from an utogenerated numpy array of random numbers between 20/30\nWrite the script only, ",
+            }
+        },
+        "required": [
+            "script",
+        ],
+    },
+)
+
+test_chart_script_func = FunctionDeclaration(
+    name="pyplot_script",
+    description="Use tool to generate runable streamlit python code for generating st.pyplots charts",
+    parameters={
+        "type": "object",
+        "properties": {
+            "script": {
+                "type": "string",
                 "description": f"Python script on a single line that will help generate streamlit charts. always only use the matplotlib.pyplot library (st.pyplot(fig). always only generate charts from the the data and information that you learn from BigQuery using the sql_query tool Always.\nWrite the script only, ",
             }
         },
