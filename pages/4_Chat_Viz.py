@@ -5,7 +5,7 @@ from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Par
 import vertexai
 from google.cloud import bigquery
 import time
-import matplotlib.pyplot as plt
+import pyplot as plt
 import numpy as np
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
