@@ -280,7 +280,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     try:
 
                         plot_cleaned = (
-                            params["query"]
+                            params["script"]
                             .replace("\\n", " ")
                             .replace("\n", "")
                             .replace("\\", "")
