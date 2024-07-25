@@ -5,6 +5,8 @@ from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Par
 import vertexai
 from google.cloud import bigquery
 import time
+import matplotlib.pyplot as plt
+import numpy as np
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
@@ -178,6 +180,10 @@ model = GenerativeModel(
     generation_config=generation_config,
     tools=[toolcase],
 )
+
+def execute_generated_code(code):
+    global st, plt, np
+    exec(code, globals())
 
 
 
