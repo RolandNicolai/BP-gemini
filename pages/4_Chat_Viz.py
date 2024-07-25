@@ -1,4 +1,3 @@
-
 import streamlit as st
 from google.oauth2 import service_account
 from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
@@ -9,10 +8,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
-st.logo(LOGO_URL_LARGE)
+st.image(LOGO_URL_LARGE)
 
 st.header(':black[Bonnier Data Assistent]', divider='rainbow')
-
 
 st.markdown(
     """
@@ -30,13 +28,11 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
 )
 client = bigquery.Client(credentials=credentials)
-maximum_bytes_billable = 100000000 # = 100 Mb
-
+maximum_bytes_billable = 100000000  # = 100 Mb
 
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
@@ -53,79 +49,70 @@ with st.expander("**Sample prompts for data**", expanded=True):
         **Kalkule Dataset**
         - Hvad var den gennemsnitlige ROI for hvert marked?
         - Hvad var den gennemsnitlige media cost per land?
-    """
+        """
     )
 
-
 with st.sidebar:
-    # Dropdown list with options
     option = st.selectbox('1. Vælg et datasæt', ['kpi dataset', 'kalkule dataset'])
 
-
-# Set variables based on the selected option
-
-    if option == 'kpi dataset':
-        project = st.secrets["project"]
-        dataset = st.secrets["kpi_dataset"]
-        table = st.secrets["kpi_table"]
-        fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchases]"
-        descriptions ="""
-        Description of the available field names:
-        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
-        \n[purchases]: the total number of purchases, must be refered to as purchases
-        \n[Dato]: the date field
-        \n[publication_name]: equals a name which can be used in where statements in order to filter brands
-        \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
-        \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
-        \n[activity_type]: can be  either [egne sites, internet] only used when user explicitly needs information on activity_type
-        \n[ownedPaid]: the field is used to define whether a sale has been conducted from an owned or paid channel, field can only be either [owned, paid]
-        \nexample of query ['hvor mange salg havde GDS i juni 2024']
-        '''SQL: SELECT
-        sum(purchases)
-        FROM
-        `bonnier-deliverables.dummy_dataset.dummy_data`
-        WHERE lower(publication_name) = 'gds'
-        '''
-        """
-    elif option == 'kalkule dataset':
-        project = st.secrets["project"]
-        dataset = st.secrets["kalkule_dataset"]
-        table = st.secrets["kalkule_table"]
-        fieldNames = "[Country, Activity_type, No_in_offer, Price, Handling, Total_price, Total_price_currency, Response, Lifetime, Net_Lifetime, Media_cost, Cost_per_subscriber, Net_CPO, GP_activity, ROI, Premium_cost]"
-        descriptions ="""
-        Description of the available field names:
-        \n[Country]: string - The country where the offer was made. Only use the abbreviations in [DK, NO, SE, or FI] 
-        \n[Activity_type]: string - Type of activity.
-        \n[No_in_offer]: integer - Number of items in the offer.
-        \n[Price]: float - Price of the offer.
-        \n[Handling]: float - Handling cost. 
-        \n[Total_price]: float - Total price of the offer.
-        \n[Total_price_currency]: float - Currency of the total price.
-        \n[Response]: integer - Number of responses to the offer. 
-        \n[Lifetime]: float - Lifetime value. 
-        \n[Net_Lifetime]: float - Net lifetime value
-        \n[Media_cost]: float - Media cost
-        \n[Cost_per_subscriber]: float - Cost per subscriber  
-        \n[Net_CPO]: float - Net Cost Per Order. 
-        \n[GP_activity]: float - Gross Profit on activity
-        \n[ROI]: float - Return on Investment.
-        \n[Premium_cost]: float - Cost of the premium
-        \nexample of query ['hvad var Net lifetime per marked']
-        '''SQL: SELECT
-        Country,
-        sum(Net_Lifetime)
-        FROM
-        `bonnier-deliverables.dummy_dataset.dummy_data`
-        GROUP BY 1
-        """
-
-    else:
-    # Set default values or other values for Option 2
-        project = 'default_project'
-        dataset = 'default_dataset'
-        table = 'default_table'
-
-
+if option == 'kpi dataset':
+    project = st.secrets["project"]
+    dataset = st.secrets["kpi_dataset"]
+    table = st.secrets["kpi_table"]
+    fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchases]"
+    descriptions = """
+    Description of the available field names:
+    always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
+    \n[purchases]: the total number of purchases, must be refered to as purchases
+    \n[Dato]: the date field
+    \n[publication_name]: equals a name which can be used in where statements in order to filter brands
+    \n[media]: equals a mediacode/mediakode which is commonly associated with different commercial placements. this field can be used in where statements when users ask questions around mediacodes
+    \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
+    \n[activity_type]: can be either [egne sites, internet] only used when user explicitly needs information on activity_type
+    \n[ownedPaid]: the field is used to define whether a sale has been conducted from an owned or paid channel, field can only be either [owned, paid]
+    \nexample of query ['hvor mange salg havde GDS i juni 2024']
+    '''SQL: SELECT
+    sum(purchases)
+    FROM
+    `bonnier-deliverables.dummy_dataset.dummy_data`
+    WHERE lower(publication_name) = 'gds'
+    '''
+    """
+elif option == 'kalkule dataset':
+    project = st.secrets["project"]
+    dataset = st.secrets["kalkule_dataset"]
+    table = st.secrets["kalkule_table"]
+    fieldNames = "[Country, Activity_type, No_in_offer, Price, Handling, Total_price, Total_price_currency, Response, Lifetime, Net_Lifetime, Media_cost, Cost_per_subscriber, Net_CPO, GP_activity, ROI, Premium_cost]"
+    descriptions = """
+    Description of the available field names:
+    \n[Country]: string - The country where the offer was made. Only use the abbreviations in [DK, NO, SE, or FI] 
+    \n[Activity_type]: string - Type of activity.
+    \n[No_in_offer]: integer - Number of items in the offer.
+    \n[Price]: float - Price of the offer.
+    \n[Handling]: float - Handling cost. 
+    \n[Total_price]: float - Total price of the offer.
+    \n[Total_price_currency]: float - Currency of the total price.
+    \n[Response]: integer - Number of responses to the offer. 
+    \n[Lifetime]: float - Lifetime value. 
+    \n[Net_Lifetime]: float - Net lifetime value
+    \n[Media_cost]: float - Media cost
+    \n[Cost_per_subscriber]: float - Cost per subscriber  
+    \n[Net_CPO]: float - Net Cost Per Order. 
+    \n[GP_activity]: float - Gross Profit on activity
+    \n[ROI]: float - Return on Investment.
+    \n[Premium_cost]: float - Cost of the premium
+    \nexample of query ['hvad var Net lifetime per marked']
+    '''SQL: SELECT
+    Country,
+    sum(Net_Lifetime)
+    FROM
+    `bonnier-deliverables.dummy_dataset.dummy_data`
+    GROUP BY 1
+    """
+else:
+    project = 'default_project'
+    dataset = 'default_dataset'
+    table = 'default_table'
 
 sql_script_func = FunctionDeclaration(
     name="sql_query",
@@ -161,25 +148,6 @@ chart_script_func = FunctionDeclaration(
     },
 )
 
-test_chart_script_func = FunctionDeclaration(
-    name="pyplot_script",
-    description="Use tool to generate runable streamlit python code for generating st.pyplots charts",
-    parameters={
-        "type": "object",
-        "properties": {
-            "script": {
-                "type": "string",
-                "description": f"Python script on a single line that will help generate streamlit charts. always only use the matplotlib.pyplot library (st.pyplot(fig). always only generate charts from the the data and information that you learn from BigQuery using the sql_query tool Always.\nWrite the script only, ",
-            }
-        },
-        "required": [
-            "script",
-        ],
-    },
-)
-
-
-
 toolcase = Tool(
     function_declarations=[
         sql_script_func,
@@ -189,10 +157,9 @@ toolcase = Tool(
 
 generation_config = {
   "temperature": 0,
-
   "max_output_tokens": 8192,
-  #"response_mime_type": "text/plain",
 }
+
 model = GenerativeModel(
     "gemini-1.5-flash-001",
     generation_config=generation_config,
@@ -209,8 +176,6 @@ def execute_generated_code(code):
     exec(code, globals())
     return plt.gcf()
 
-
-
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
@@ -224,30 +189,28 @@ for message in st.session_state.messages:
         except KeyError:
             pass
 
-# Handle user input
 if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
         st.markdown(prompt)
 
-    # Generate response using Vertex AI model
     with st.chat_message("assistant"):
         message_placeholder = st.empty()
         full_response = ""
 
         chat = model.start_chat()
-        #client = bigquery.Client(credentials=credentials)
 
-        prompt += f"""
+        prompt += """
             Please give a concise answer and summary followed by detail in
             plain language about where the information in your response is
             coming from in the database. Only use information that you learn
             from BigQuery, do not make up information. Always present numbers in table or list formats.
-            Only respond and write in danish
+            Only respond and write in danish.
             """
 
-        response = chat.send_message(prompt)
-        response = response.candidates[0].content.parts[0]
+        try:
+            response = chat.send_message(prompt)
+            response = response.candidates[0].content.parts[0]
 
         print(response)
         api_requests_and_responses = []
@@ -265,11 +228,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
-                        maximum_bytes_billed=100000000
+                        maximum_bytes_billed=maximum_bytes_billable
                     )  # Data limit per query job
 
                     try:
-
                         cleaned_query = (
                             params["query"]
                             .replace("\\n", " ")
@@ -277,11 +239,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
-
                         )
 
-                        
-                        query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
+                        query_job = client.query(cleaned_query, location="EU", job_config=job_config)
                         api_response = query_job.result()
                         bytes_billed = query_job.total_bytes_billed
                         bytes_billed_result = (bytes_billed / 1.048576e6)
@@ -297,9 +257,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
-                if response.function_call.name == "pyplot_script":
+                elif response.function_call.name == "pyplot_script":
                     try:
-                        script_response = script_model.generate_content(f"""give """)
                         plot_cleaned = (
                             params["script"]
                             .replace("\\n", " ")
@@ -307,19 +266,19 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
-
                         )
                         fig = execute_generated_code(plot_cleaned)
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, plot_cleaned]
+                        )
                         with message_placeholder.container():
                             st.pyplot(fig)
-
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
                 print(api_response)
-
 
                 response = chat.send_message(
                     Part.from_function_response(
@@ -372,7 +331,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 "backend_details": backend_details,
             }
         )
-        
-
-
-        
+    except Exception as e:
+        error_message = f"An error occurred: {str(e)}"
+        st.session_state.messages.append({"role": "assistant", "content": error_message})
+        with st.chat_message("assistant"):
+            st.markdown(error_message)
