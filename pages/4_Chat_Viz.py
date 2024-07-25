@@ -305,8 +305,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\n", " ")
                             .replace("\n", "")
                             .replace("\\", "")
-                            .replace("sql", "")
-                            .replace("SQL:", "")
+                            .replace("python", "")
+                            .replace("python:", "")
 
                         )
                         fig = execute_generated_code(plot_cleaned)
