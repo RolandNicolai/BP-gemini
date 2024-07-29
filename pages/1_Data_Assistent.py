@@ -132,7 +132,11 @@ sql_script_func = FunctionDeclaration(
         "properties": {
             "query": {
                 "type": "string",
-                "description": f"SQL query on a single line that will help give quantitative answers to the user's question when run on a BigQuery dataset and table. always only use the fieldNames: {fieldNames}. Always only use information that you learn from the description of fields in BigQuery:\n{descriptions}.\nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}\nin where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date",
+                "description": f"""
+                SQL query on a single line that will help give quantitative answers to the user's question when run on a BigQuery dataset and table. 
+                \nAlways only use the fieldNames: {fieldNames}. Always only use information that you learn from the description of fields in BigQuery:\n{descriptions}.
+                \nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}
+                \nin where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date""",
             }
         },
         "required": [
@@ -196,7 +200,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             Please give a concise answer and summary followed by detail in
             plain language about where the information in your response is
             coming from in the database. Only use information that you learn
-            from BigQuery, do not make up information. Always present numbers in table or list formats.
+            from BigQuery. If no available information, orient the user about this, do not make up information. Always present numbers in table or list formats.
             Only respond and write in danish
             """
 
