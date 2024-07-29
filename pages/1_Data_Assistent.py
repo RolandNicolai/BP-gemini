@@ -231,7 +231,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         cleaned_query = (
                             params["query"]
                             .replace("\\n", " ")
-                            .replace("\n", "")
+                            .replace("\n", " ")
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
