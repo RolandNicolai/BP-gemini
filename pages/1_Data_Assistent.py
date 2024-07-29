@@ -8,7 +8,7 @@ import time
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
 
-st.header(':black[Bonnier Data Assistent]', divider='rainbow')
+st.header('Bonnier Data Assistent', divider='rainbow')
 
 
 st.markdown(
