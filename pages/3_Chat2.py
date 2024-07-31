@@ -73,30 +73,11 @@ chart_script_func = FunctionDeclaration(
     },
 )
 
-answer_func = FunctionDeclaration(
-    name="answer",
-    description="answer users' questions",
-    parameters={
-        "type": "object",
-        "properties": {
-            "answer": {
-                "type": "string",
-                "description": "give a helpful answer to the user",
-            }
-        },
-        "required": [
-            "answer",
-        ],
-    },
-)
 
 
-
-
-toolcase = Tool(
+python_chart_tool = Tool(
     function_declarations=[
         chart_script_func,
-        answer_func,
     ],
 )
 
@@ -109,7 +90,7 @@ generation_config = {
 model = GenerativeModel(
     "gemini-1.5-flash-001",
     generation_config=generation_config,
-    tools=[toolcase],
+    tools=[python_chart_tool],
 )
 
 def execute_generated_code(code):
@@ -214,46 +195,11 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             except AttributeError:
                 function_calling_in_process = False
 
-                if response.function_call.name == "answer":
-                    try:
-                        answer = (
-                            params["query"]
-                        )
-
-
-                    except Exception as e:
-                        api_response = f"{str(e)}"
-                        api_requests_and_responses.append(
-                            [response.function_call.name, params, response]
-                        )
-
-                print(cleaned_script)
-
-
-                response = chat.send_message(
-                    Part.from_function_response(
-                        name=response.function_call.name,
-                        response={
-                            "content": cleaned_script,
-                        },
-                    ),
-                )
-                response = response.candidates[0].content.parts[0]
-
-
-                api_requests_and_responses.append(
-                        [response.function_call.name, params, response]
-                    )
-        
-            except AttributeError:
-                function_calling_in_process = False
-
         
         #time.sleep(3)
         #exec(cleaned_script, globals())
 
         full_response = response.text
-
         try:
             execute_generated_code(cleaned_script_1)
         except Exception as e:
