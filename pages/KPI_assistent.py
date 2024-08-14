@@ -112,15 +112,15 @@ sql_script_func = FunctionDeclaration(
 )
 
 data_interpreter_func = FunctionDeclaration(
-    name="interpreter",
-    description="Interpret the results from data retrieved for answering users question",
+    name="analyzer",
+    description="Analyze the results from data retrieved for answering users question",
     parameters={
         "type": "object",
         "properties": {
-            "inpterpretation": {
+            "analysis": {
                 "type": "string",
                 "description": f"""
-                Act as an experienced data analyst and interpret/ summarize the retrieved information from the users question. Give your answer a corporate and friendly tone. 
+                Act as an experienced data analyst and analyze the retrieved information from the users question. Give your answer a corporate and friendly tone. 
                 Always only use the information that you have learned from the data retrieved and do not make up information""",
             }
         },
@@ -208,7 +208,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(params)
 
 
-                if response.function_call.name == "interpreter":
+                if response.function_call.name == "analyzer":
                     api_requests_and_responses.append(
                         [response.function_call.name, params, api_response]
                     )
