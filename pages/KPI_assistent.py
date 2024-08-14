@@ -111,11 +111,31 @@ sql_script_func = FunctionDeclaration(
     },
 )
 
+data_interpreter_func = FunctionDeclaration(
+    name="interpreter",
+    description="Interpret the results from data retrieved from Big Query",
+    parameters={
+        "type": "object",
+        "properties": {
+            "inpterpretation": {
+                "type": "string",
+                "description": f"""
+                Act as an experienced data analyst and interpret/ summarize the retrieved information from the users question. Give your answer a corporate and friendly tone. 
+                Always only use the information that you have learned from the data retrieved and do not make up information""",
+            }
+        },
+        "required": [
+            "inpterpretation",
+        ],
+    },
+)
+
 
 
 toolcase = Tool(
     function_declarations=[
         sql_script_func,
+        data_interpreter_func,
     ],
 )
 
@@ -220,6 +240,12 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+
+                if response.function_call.name == "interpreter":
+                    api_requests_and_responses.append(
+                        [response.function_call.name, params, api_response]
+                    )
+
 
                 print(api_response)
 
