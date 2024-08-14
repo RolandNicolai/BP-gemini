@@ -113,7 +113,7 @@ sql_script_func = FunctionDeclaration(
 
 data_interpreter_func = FunctionDeclaration(
     name="interpreter",
-    description="Interpret the results from data retrieved from Big Query",
+    description="Interpret the results from data retrieved for answering users question",
     parameters={
         "type": "object",
         "properties": {
