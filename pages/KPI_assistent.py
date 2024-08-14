@@ -207,6 +207,13 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(response.function_call.name)
                 print(params)
 
+
+                if response.function_call.name == "interpreter":
+                    api_requests_and_responses.append(
+                        [response.function_call.name, params, api_response]
+                    )
+
+                
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
                         maximum_bytes_billed=100000000
@@ -240,10 +247,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
-                if response.function_call.name == "interpreter":
-                    api_requests_and_responses.append(
-                        [response.function_call.name, params, api_response]
-                    )
+
                     
 
 
