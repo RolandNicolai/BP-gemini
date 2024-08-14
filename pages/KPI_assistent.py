@@ -113,7 +113,7 @@ sql_script_func = FunctionDeclaration(
 
 data_interpreter_func = FunctionDeclaration(
     name="analyzer",
-    description="Analyze the results from data retrieved for answering users question",
+    description="always give your Analysis of the data retrieved for answering users question",
     parameters={
         "type": "object",
         "properties": {
