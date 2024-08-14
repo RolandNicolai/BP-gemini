@@ -213,14 +213,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     api_requests_and_responses.append(
                         [response.function_call.name, params, api_response]
                     )
-                response = chat.send_message(
-                    Part.from_function_response(
-                        name=response.function_call.name,
-                        response={
-                            "content": api_response,
-                        },
-                    ),
-                )
+
                 
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
