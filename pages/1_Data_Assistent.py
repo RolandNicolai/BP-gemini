@@ -5,9 +5,17 @@ import vertexai
 from google.cloud import bigquery
 import time
 import datetime
+import pytz
 
-today = datetime.datetime.now()
-current_date_str = today.strftime('%Y-%m-%d')
+# Define the Copenhagen timezone
+copenhagen_tz = pytz.timezone('Europe/Copenhagen')
+
+
+# Get the current date and time in Copenhagen timezone
+today = datetime.datetime.now(copenhagen_tz)
+
+current_date_str = today.strftime('%Y-%m-%dT%H:%M:%S')
+
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
@@ -243,16 +251,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
 
                         reason = params['reason']
-                        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
-                        rows_to_insert = [
-                            {"question": prompt, "reason": reason, "query": cleaned_query, "result": api_response , "date": current_date_str}
-                        ]
-                        errors = client.insert_rows_json(table_id, rows_to_insert)  # Make an API request.
-                        if errors == []:
-                            print("New rows have been added.")
-                        else:
-                            print("Encountered errors while inserting rows: {}".format(errors))
-
                     
                     except Exception as e:
                         api_response = f"{str(e)}"
@@ -306,6 +304,30 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         time.sleep(3)
 
         full_response = response.text
+        prompt = globals().get('prompt', 'null')
+        reason = globals().get('reason', 'null')
+        cleaned_query = globals().get('cleaned_query', 'null')
+        api_response = globals().get('api_response', 'null')
+
+        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
+        rows_to_insert = [
+            {
+                "question": prompt,
+                "reason": reason,
+                "query": cleaned_query,
+                "result": api_response,
+                "fullResponse": full_response,
+                "datetime": current_date_str
+
+            }
+        ]
+
+        errors = client.insert_rows_json(table_id, rows_to_insert)  # Make an API request.
+        if errors == []:
+            print("New rows have been added.")
+        else:
+            print("Encountered errors while inserting rows: {}".format(errors))
+
 
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
