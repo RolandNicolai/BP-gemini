@@ -122,7 +122,7 @@ sql_query_func = FunctionDeclaration(
             },
             "reason": {
                 "type": "string",
-                "description": "a grounded reasoning for the SQL query"
+                "description": "a grounded walk through of the reasoning behind the SQL query in plain danish. Always use all the relevant fields and datasets in your description "
             },
         },
         "required": [
