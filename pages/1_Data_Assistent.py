@@ -57,6 +57,18 @@ with st.expander("**Sample prompts for data**", expanded=True):
 
 with st.sidebar:
     # Dropdown list with options
+    st.write("""
+    Data Assistenten har adgang til et udkast af KPI datasættet for Maj og Juni.
+    Datasættet indeholder følgende attributter:
+    [purchases]
+    [Dato]
+    [publication_name]
+    [media]
+    [country] 
+    [activity_type]
+    [ownedPaid]
+    
+    """)
     option = st.selectbox('1. Vælg et datasæt', ['kpi dataset'])
 
 
