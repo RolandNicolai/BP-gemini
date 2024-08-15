@@ -231,7 +231,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         reason = params['reason']
                         table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
                         rows_to_insert = [
-                            {"question": "hej", "reason": "test", "query": "query", "date": "2024-09-01"}
+                            {"question": prompt, "reason": reason, "query": cleaned_query, "date": current_date_str}
                         ]
                         errors = client.insert_rows_json(table_id, rows_to_insert)  # Make an API request.
                         if errors == []:
