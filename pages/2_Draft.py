@@ -226,10 +226,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
-                        )
-                        save_answer_job = client.query(f"""INSERT INTO `bonnier-deliverables.LLM_vertex.LLM_QA`(question, reason, query, date) VALUES ({prompt}, {params['reason']}, {cleaned_query}, {current_date_str})""", 
-                                                       location = "EU", job_config=job_config
-                        )
+                        save_answer_query = (f"""INSERT INTO `bonnier-deliverables.LLM_vertex.LLM_QA`(question, reason, query, date) 
+                                            VALUES ({prompt}, {params['reason']}, {cleaned_query}, {current_date_str})"""
+                                            )
+                        save_answer_job = client.query(save_answer_query, location = "EU", job_config=job_config)
 
                     
                     except Exception as e:
