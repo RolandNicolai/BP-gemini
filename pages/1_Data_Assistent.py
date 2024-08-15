@@ -120,7 +120,7 @@ with st.sidebar:
 
 sql_query_func = FunctionDeclaration(
     name="sql_query",
-    description="Always Get information for user questions from data in BigQuery using SQL queries and supply your reasoning behind",
+    description="Retrieve information for answering a user's questions from data in BigQuery using SQL queries and explaining reasoning behind query",
     parameters={
         "type": "object",
         "properties": {
