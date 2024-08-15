@@ -231,7 +231,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         reason = params['reason']
 
 
-                print(api_response)
+                #print(api_response)
 
 
                 response = chat.send_message(
