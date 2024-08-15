@@ -227,10 +227,17 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
-                        save_answer_query = (f"""INSERT INTO `bonnier-deliverables.LLM_vertex.LLM_QA`(question, reason, query, date) 
-                                            VALUES ({prompt}, {params['reason']}, {cleaned_query}, {current_date_str})"""
-                                            )
-                        save_answer_job = client.query(save_answer_query, location = "EU", job_config=job_config)
+
+                        
+                        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
+                        rows_to_insert = [
+                            {"question": {prompt}, "reason": {params['reason']}, "query": {cleaned_query}, "date": {current_date_str}},
+                        ]
+                        errors = client.insert_rows_json(table_id, rows_to_insert)  # Make an API request.
+                        if errors == []:
+                            print("New rows have been added.")
+                        else:
+                            print("Encountered errors while inserting rows: {}".format(errors))
 
                     
                     except Exception as e:
