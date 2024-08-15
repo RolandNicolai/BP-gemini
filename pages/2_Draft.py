@@ -296,14 +296,19 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         time.sleep(3)
 
         full_response = response.text
+        prompt = globals().get('prompt', 'null')
+        reason = globals().get('reason', 'null')
+        cleaned_query = globals().get('cleaned_query', 'null')
+        api_response = globals().get('api_response', 'null')
+        current_date_str = datetime.now().strftime('%Y-%m-%d') 
 
         table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
         rows_to_insert = [
             {
                 "question": prompt,
-                "reason": reason if reason is not None else 'null',
-                "query": cleaned_query if cleaned_query is not None else 'null',
-                "result": api_response if api_response is not None else 'null',
+                "reason": reason,
+                "query": cleaned_query,
+                "result": api_response,
                 "date": current_date_str
             }
         ]
