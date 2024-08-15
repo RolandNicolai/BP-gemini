@@ -50,6 +50,7 @@ with st.expander("**Sample prompts for data**", expanded=True):
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke 5 mediekoder havde flest salg i juni 2024
         - Hvor mange salg havde de to brands GDS og HIS i juni 2024?
+        - Hvilke 5 brands havde flest salg på aktivitets typen egne sites i juni 2024?
     """
     )
 
