@@ -195,7 +195,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         response = chat.send_message(prompt)
         response = response.candidates[0].content.parts[0]
 
-        print(response)
+        #print(response)
         api_requests_and_responses = []
         backend_details = ""
 
