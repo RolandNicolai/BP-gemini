@@ -160,7 +160,7 @@ generation_config = {
   #"response_mime_type": "text/plain",
 }
 model = GenerativeModel(
-    "gemini-1.5-pro-latest",
+    "gemini-1.5-pro-001",
     generation_config=generation_config,
     tools=[toolcase],
 )
