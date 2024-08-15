@@ -6,8 +6,8 @@ from google.cloud import bigquery
 import time
 import datetime
 
-current_date = datetime.now().date()
-current_date_str = current_date.strftime('%Y-%m-%d')
+today = datetime.datetime.now()
+current_date_str = today.strftime('%Y-%m-%d')
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
