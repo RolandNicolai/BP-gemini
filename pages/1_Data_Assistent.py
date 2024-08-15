@@ -227,6 +227,12 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+                        save_answer_job = client.query(f"""INSERT INTO `bonnier-deliverables.LLM_vertex.LLM_QA`(question, reason, query, date) 
+                                        VALUES 
+                                        ({prompt}, {params['reason']}, {cleaned_query}, {current_date_str})""", 
+                                        location = "EU", job_config=job_config
+                        )
+
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
@@ -279,11 +285,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         time.sleep(3)
 
         full_response = response.text
-        save_answer_job = client.query(f"""INSERT INTO `bonnier-deliverables.LLM_vertex.LLM_QA`(question, answer, reason, query, date) 
-                                        VALUES 
-                                        ({prompt}, {full_response}, {params['reason']}, {params['query']}, {current_date_str})""", 
-                                       location = "EU", job_config=job_config
-                                      )
+
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
             with st.expander("Function calls, parameters, and responses:"):
