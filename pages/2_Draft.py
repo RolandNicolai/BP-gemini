@@ -317,7 +317,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 "reason": reason,
                 "query": cleaned_query,
                 "result": api_response,
-                "datetime": current_date_str
+                "datetime": current_date_str,
+                "fullResponse": full_response
             }
         ]
 
