@@ -81,7 +81,7 @@ with st.sidebar:
         '''SQL: SELECT
         sum(purchases)
         FROM
-        `bonnier-deliverables.dummy_dataset.dummy_data`
+        `bonnier-deliverables.dummy_dataset.kpi_dummy`
         WHERE lower(publication_name) = 'gds'
         '''
         """
