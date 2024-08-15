@@ -58,7 +58,7 @@ with st.expander("**Sample prompts for data**", expanded=True):
 with st.sidebar:
     # Dropdown list with options
     st.write("""
-    Data Assistenten har adgang til et udkast af KPI datasættet for Maj og Juni.
+    Data Assistenten har adgang til et udkast af KPI datasættet for April til Juni.
     Datasættet indeholder følgende attributter:
     [purchases]
     [Dato]
@@ -95,6 +95,7 @@ with st.sidebar:
         FROM
         `bonnier-deliverables.dummy_dataset.kpi_dummy`
         WHERE lower(publication_name) = 'gds'
+        and cast(dato as date) between '2024-06-01' and '2024-06-30
         '''
         """
 
