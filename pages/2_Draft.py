@@ -195,7 +195,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     params[key] = value
 
                 print(response.function_call.name)
-                print(params)
+                #print(params)
 
                 
                 if response.function_call.name == "sql_query":
