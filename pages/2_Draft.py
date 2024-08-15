@@ -15,7 +15,7 @@ copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 # Get the current date and time in Copenhagen timezone
 today = datetime.datetime.now(copenhagen_tz)
 
-current_date_str = today.strftime('%Y-%m-%d %H:%M')
+current_date_str = today.strftime('%Y-%m-%dT%H:%M')
 
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
@@ -317,7 +317,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 "reason": reason,
                 "query": cleaned_query,
                 "result": api_response,
-                "datetime": '2024-01-01'
+                "datetime": current_date_str
             }
         ]
 
