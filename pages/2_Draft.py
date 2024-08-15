@@ -11,10 +11,11 @@ import pytz
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
-# Get the current date and time in Copenhagen timezone
-current_date_str = datetime.now(copenhagen_tz)
 
-current_date_str = current_date_str.strftime('%Y-%m-%d %H:%M')
+# Get the current date and time in Copenhagen timezone
+today = datetime.datetime.now(copenhagen_tz)
+
+current_date_str = today.strftime('%Y-%m-%d %H:%M')
 
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
