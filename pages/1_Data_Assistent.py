@@ -46,11 +46,10 @@ with st.expander("**Sample prompts for data**", expanded=True):
         """
         **KPI Dataset**
         - Hvor mange salg havde brandet IFO på aktivitets typen egne sites på owned channel i juni 2024?
-        - Hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke 5 mediekoder havde flest salg i juni 2024
-        - Hvor mange salg havde de to brands GDS og HIS i juni?
+        - Hvor mange salg havde de to brands GDS og HIS i juni 2024?
     """
     )
 
