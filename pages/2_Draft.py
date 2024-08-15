@@ -233,6 +233,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                                         location = "EU", job_config=job_config
                         )
 
+                    
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
