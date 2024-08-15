@@ -45,18 +45,31 @@ with st.expander("**Sample prompts for data**", expanded=True):
     st.write(
         """
         **KPI Dataset**
-        - Hvor mange salg havde brandet IFO på aktivitets typen egne sites på owned channel i juni 2024?
-        - Hvor mange salg havde henholdsvis HIS og GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
+        - Hvilke 5 brands havde de højeste gennemsnitlige antal salg pr dag i juni 2024?
+        - Hvor mange salg havde brandet IFO på aktivitets typen egne sites i juni 2024?
         - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke 5 mediekoder havde flest salg i juni 2024
-        - Hvor mange salg havde hhv. GDS og HIS i juni?
+        - Hvor mange salg havde de to brands GDS og HIS i juni 2024?
+        - Hvilke 5 brands havde flest salg på aktivitets typen egne sites i juni 2024?
     """
     )
 
 
 with st.sidebar:
     # Dropdown list with options
+    st.write("""
+    Data Assistenten har adgang til et udkast af KPI datasættet for April til Juni.
+    Datasættet indeholder følgende attributter:
+    [purchases]
+    [Dato]
+    [publication_name]
+    [media]
+    [country] 
+    [activity_type]
+    [ownedPaid]
+    
+    """)
     option = st.selectbox('1. Vælg et datasæt', ['kpi dataset'])
 
 
@@ -83,6 +96,7 @@ with st.sidebar:
         FROM
         `bonnier-deliverables.dummy_dataset.kpi_dummy`
         WHERE lower(publication_name) = 'gds'
+        and cast(dato as date) between '2024-06-01' and '2024-06-30
         '''
         """
 
@@ -110,7 +124,7 @@ sql_query_func = FunctionDeclaration(
             },
             "reason": {
                 "type": "string",
-                "description": "a grounded reasoning for the SQL query"
+                "description": "think step by step and walk through the reasoning behind the SQL query in plain danish. Always use all the relevant fields and datasets in your description "
             },
         },
         "required": [
@@ -183,7 +197,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         response = chat.send_message(prompt)
         response = response.candidates[0].content.parts[0]
 
-        print(response)
+        #print(response)
         api_requests_and_responses = []
         backend_details = ""
 
@@ -229,9 +243,18 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         )
 
                         reason = params['reason']
+                    
+                    except Exception as e:
+                        api_response = f"{str(e)}"
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, api_response]
+                        )
+
+                    
 
 
-                #print(api_response)
+
+                print(api_response)
 
 
                 response = chat.send_message(
@@ -273,6 +296,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         time.sleep(3)
 
         full_response = response.text
+
         table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
         rows_to_insert = [
             {
