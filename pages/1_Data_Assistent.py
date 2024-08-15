@@ -45,6 +45,7 @@ with st.expander("**Sample prompts for data**", expanded=True):
     st.write(
         """
         **KPI Dataset**
+        - Hvilke 5 brands havde de højeste gennemsnitlige antal salg pr dag i juni 2024?
         - Hvor mange salg havde brandet IFO på aktivitets typen egne sites i juni 2024?
         - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
