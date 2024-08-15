@@ -4,6 +4,10 @@ from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Par
 import vertexai
 from google.cloud import bigquery
 import time
+import datetime
+
+today = datetime.datetime.now()
+current_date_str = today.strftime('%Y-%m-%d')
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
@@ -47,17 +51,13 @@ with st.expander("**Sample prompts for data**", expanded=True):
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke 5 mediekoder havde flest salg i juni 2024
         - Hvor mange salg havde hhv. GDS og HIS i juni?
-
-        **Kalkule Dataset**
-        - Hvad var den gennemsnitlige ROI for hvert marked?
-        - Hvad var den gennemsnitlige media cost per land?
     """
     )
 
 
 with st.sidebar:
     # Dropdown list with options
-    option = st.selectbox('1. Vælg et datasæt', ['kpi dataset', 'kalkule dataset'])
+    option = st.selectbox('1. Vælg et datasæt', ['kpi dataset'])
 
 
 # Set variables based on the selected option
@@ -69,7 +69,7 @@ with st.sidebar:
         fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchases]"
         descriptions ="""
         Description of the available field names:
-        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
+        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchases] when asked about sales 
         \n[purchases]: the total number of purchases, must be refered to as purchases
         \n[Dato]: the date field
         \n[publication_name]: equals a name which can be used in where statements in order to filter brands
@@ -81,40 +81,9 @@ with st.sidebar:
         '''SQL: SELECT
         sum(purchases)
         FROM
-        `bonnier-deliverables.dummy_dataset.dummy_data`
+        `bonnier-deliverables.dummy_dataset.kpi_dummy`
         WHERE lower(publication_name) = 'gds'
         '''
-        """
-    elif option == 'kalkule dataset':
-        project = st.secrets["project"]
-        dataset = st.secrets["kalkule_dataset"]
-        table = st.secrets["kalkule_table"]
-        fieldNames = "[Country, Activity_type, No_in_offer, Price, Handling, Total_price, Total_price_currency, Response, Lifetime, Net_Lifetime, Media_cost, Cost_per_subscriber, Net_CPO, GP_activity, ROI, Premium_cost]"
-        descriptions ="""
-        Description of the available field names:
-        \n[Country]: string - The country where the offer was made. Only use the abbreviations in [DK, NO, SE, or FI] 
-        \n[Activity_type]: string - Type of activity.
-        \n[No_in_offer]: integer - Number of items in the offer.
-        \n[Price]: float - Price of the offer.
-        \n[Handling]: float - Handling cost. 
-        \n[Total_price]: float - Total price of the offer.
-        \n[Total_price_currency]: float - Currency of the total price.
-        \n[Response]: integer - Number of responses to the offer. 
-        \n[Lifetime]: float - Lifetime value. 
-        \n[Net_Lifetime]: float - Net lifetime value
-        \n[Media_cost]: float - Media cost
-        \n[Cost_per_subscriber]: float - Cost per subscriber  
-        \n[Net_CPO]: float - Net Cost Per Order. 
-        \n[GP_activity]: float - Gross Profit on activity
-        \n[ROI]: float - Return on Investment.
-        \n[Premium_cost]: float - Cost of the premium
-        \nexample of query ['hvad var Net lifetime per marked']
-        '''SQL: SELECT
-        Country,
-        sum(Net_Lifetime)
-        FROM
-        `bonnier-deliverables.dummy_dataset.dummy_data`
-        GROUP BY 1
         """
 
     else:
@@ -125,9 +94,9 @@ with st.sidebar:
 
 
 
-sql_script_func = FunctionDeclaration(
+sql_query_func = FunctionDeclaration(
     name="sql_query",
-    description="Always Get information for user questions from data in BigQuery using SQL queries",
+    description="Always Get information for user questions from data in BigQuery using SQL queries and supply your reasoning behind",
     parameters={
         "type": "object",
         "properties": {
@@ -138,19 +107,25 @@ sql_script_func = FunctionDeclaration(
                 \nAlways only use the fieldNames: {fieldNames}. Always only use information that you learn from the description of fields in BigQuery:\n{descriptions}.
                 \nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}
                 \nin where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date""",
-            }
+            },
+            "reason": {
+                "type": "string",
+                "description": "a grounded reasoning for the SQL query"
+            },
         },
         "required": [
             "query",
+            "reason",
         ],
     },
 )
 
 
 
+
 toolcase = Tool(
     function_declarations=[
-        sql_script_func,
+        sql_query_func,
     ],
 )
 
@@ -220,8 +195,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                     params[key] = value
 
                 print(response.function_call.name)
-                print(params)
+                #print(params)
 
+                
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
                         maximum_bytes_billed=100000000
@@ -247,14 +223,32 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_response = str([dict(row) for row in api_response])
                         api_response = api_response.replace("\\", "").replace("\n", "")
                         print("Query result:", api_response[:100])  # Print first 100 chars of response
+                        
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+
+                        reason = params['reason']
+                        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
+                        rows_to_insert = [
+                            {"question": prompt, "reason": reason, "query": cleaned_query, "result": api_response , "date": current_date_str}
+                        ]
+                        errors = client.insert_rows_json(table_id, rows_to_insert)  # Make an API request.
+                        if errors == []:
+                            print("New rows have been added.")
+                        else:
+                            print("Encountered errors while inserting rows: {}".format(errors))
+
+                    
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+
+                    
+
+
 
                 print(api_response)
 
@@ -298,6 +292,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         time.sleep(3)
 
         full_response = response.text
+
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
             with st.expander("Function calls, parameters, and responses:"):
