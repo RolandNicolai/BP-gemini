@@ -47,17 +47,13 @@ with st.expander("**Sample prompts for data**", expanded=True):
         - Hvor mange salg havde GDS i 2024 på mediekoden redteaser på owned channel i juni vs i maj
         - Hvilke 5 mediekoder havde flest salg i juni 2024
         - Hvor mange salg havde hhv. GDS og HIS i juni?
-
-        **Kalkule Dataset**
-        - Hvad var den gennemsnitlige ROI for hvert marked?
-        - Hvad var den gennemsnitlige media cost per land?
     """
     )
 
 
 with st.sidebar:
     # Dropdown list with options
-    option = st.selectbox('1. Vælg et datasæt', ['kpi dataset', 'kalkule dataset'])
+    option = st.selectbox('1. Vælg et datasæt', ['kpi dataset'])
 
 
 # Set variables based on the selected option
@@ -84,37 +80,6 @@ with st.sidebar:
         `bonnier-deliverables.dummy_dataset.dummy_data`
         WHERE lower(publication_name) = 'gds'
         '''
-        """
-    elif option == 'kalkule dataset':
-        project = st.secrets["project"]
-        dataset = st.secrets["kalkule_dataset"]
-        table = st.secrets["kalkule_table"]
-        fieldNames = "[Country, Activity_type, No_in_offer, Price, Handling, Total_price, Total_price_currency, Response, Lifetime, Net_Lifetime, Media_cost, Cost_per_subscriber, Net_CPO, GP_activity, ROI, Premium_cost]"
-        descriptions ="""
-        Description of the available field names:
-        \n[Country]: string - The country where the offer was made. Only use the abbreviations in [DK, NO, SE, or FI] 
-        \n[Activity_type]: string - Type of activity.
-        \n[No_in_offer]: integer - Number of items in the offer.
-        \n[Price]: float - Price of the offer.
-        \n[Handling]: float - Handling cost. 
-        \n[Total_price]: float - Total price of the offer.
-        \n[Total_price_currency]: float - Currency of the total price.
-        \n[Response]: integer - Number of responses to the offer. 
-        \n[Lifetime]: float - Lifetime value. 
-        \n[Net_Lifetime]: float - Net lifetime value
-        \n[Media_cost]: float - Media cost
-        \n[Cost_per_subscriber]: float - Cost per subscriber  
-        \n[Net_CPO]: float - Net Cost Per Order. 
-        \n[GP_activity]: float - Gross Profit on activity
-        \n[ROI]: float - Return on Investment.
-        \n[Premium_cost]: float - Cost of the premium
-        \nexample of query ['hvad var Net lifetime per marked']
-        '''SQL: SELECT
-        Country,
-        sum(Net_Lifetime)
-        FROM
-        `bonnier-deliverables.dummy_dataset.dummy_data`
-        GROUP BY 1
         """
 
     else:
@@ -146,11 +111,31 @@ sql_script_func = FunctionDeclaration(
     },
 )
 
+data_interpreter_func = FunctionDeclaration(
+    name="analyzer",
+    description="always give your Analysis of the data retrieved for answering users question",
+    parameters={
+        "type": "object",
+        "properties": {
+            "analysis": {
+                "type": "string",
+                "description": f"""
+                Act as an experienced data analyst and analyze the retrieved information from the users question. Give your answer a corporate and friendly tone. 
+                Always only use the information that you have learned from the data retrieved and do not make up information""",
+            }
+        },
+        "required": [
+            "inpterpretation",
+        ],
+    },
+)
+
 
 
 toolcase = Tool(
     function_declarations=[
         sql_script_func,
+        data_interpreter_func,
     ],
 )
 
@@ -222,6 +207,14 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(response.function_call.name)
                 print(params)
 
+
+                if response.function_call.name == "analyzer":
+                    api_response = model.generate_content()
+                    api_requests_and_responses.append(
+                        [response.function_call.name, params, api_response]
+                    )
+
+                
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
                         maximum_bytes_billed=100000000
@@ -255,6 +248,10 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+
+                    
+
+
 
                 print(api_response)
 
