@@ -300,7 +300,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         reason = globals().get('reason', 'null')
         cleaned_query = globals().get('cleaned_query', 'null')
         api_response = globals().get('api_response', 'null')
-        current_date_str = datetime.now().strftime('%Y-%m-%d') 
 
         table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
         rows_to_insert = [
