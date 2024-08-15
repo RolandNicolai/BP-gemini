@@ -4,6 +4,10 @@ from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Par
 import vertexai
 from google.cloud import bigquery
 import time
+import datetime
+
+current_date = datetime.now().date()
+current_date_str = current_date.strftime('%Y-%m-%d')
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
@@ -65,7 +69,7 @@ with st.sidebar:
         fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchases]"
         descriptions ="""
         Description of the available field names:
-        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchase] when asked about sales 
+        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchases] when asked about sales 
         \n[purchases]: the total number of purchases, must be refered to as purchases
         \n[Dato]: the date field
         \n[publication_name]: equals a name which can be used in where statements in order to filter brands
@@ -90,9 +94,9 @@ with st.sidebar:
 
 
 
-sql_script_func = FunctionDeclaration(
+sql_query_func = FunctionDeclaration(
     name="sql_query",
-    description="Always Get information for user questions from data in BigQuery using SQL queries",
+    description="Always Get information for user questions from data in BigQuery using SQL queries and supply your reasoning behind",
     parameters={
         "type": "object",
         "properties": {
@@ -104,38 +108,24 @@ sql_script_func = FunctionDeclaration(
                 \nWrite the script always only using the following project, dataset and table.\nproject: {project}\ndataset: {dataset}\ntable: {table}
                 \nin where statements use lower() when necessary to avoid lower/uppercase issues and always cast date fields as date""",
             }
+            "reason": {
+                "type": "string",
+                "description": "a grounded reasoning for the SQL query"
+            },
         },
         "required": [
             "query",
+            "reason",
         ],
     },
 )
 
-data_interpreter_func = FunctionDeclaration(
-    name="analyzer",
-    description="always give your Analysis of the data retrieved for answering users question",
-    parameters={
-        "type": "object",
-        "properties": {
-            "analysis": {
-                "type": "string",
-                "description": f"""
-                Act as an experienced data analyst and analyze the retrieved information from the users question. Give your answer a corporate and friendly tone. 
-                Always only use the information that you have learned from the data retrieved and do not make up information""",
-            }
-        },
-        "required": [
-            "inpterpretation",
-        ],
-    },
-)
 
 
 
 toolcase = Tool(
     function_declarations=[
-        sql_script_func,
-        data_interpreter_func,
+        sql_query_func,
     ],
 )
 
@@ -207,13 +197,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(response.function_call.name)
                 print(params)
 
-
-                if response.function_call.name == "analyzer":
-                    api_response = model.generate_content()
-                    api_requests_and_responses.append(
-                        [response.function_call.name, params, api_response]
-                    )
-
                 
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
@@ -240,6 +223,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_response = str([dict(row) for row in api_response])
                         api_response = api_response.replace("\\", "").replace("\n", "")
                         print("Query result:", api_response[:100])  # Print first 100 chars of response
+                        
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
@@ -295,6 +279,11 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         time.sleep(3)
 
         full_response = response.text
+        save_answer_job = client.query(f"""INSERT INTO `bonnier-deliverables.LLM_vertex.LLM_QA`(question, answer, reason, query, date) 
+                                        VALUES 
+                                        ({prompt}, {full_response}, {params['reason']}, {params['query']}, {current_date_str})""", 
+                                       location = "EU", job_config=job_config
+                                      )
         with message_placeholder.container():
             st.markdown(full_response.replace("$", "\$"))  # noqa: W605
             with st.expander("Function calls, parameters, and responses:"):
