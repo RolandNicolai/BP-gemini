@@ -6,8 +6,14 @@ from google.cloud import bigquery
 import time
 import datetime
 
-today = datetime.datetime.now()
-current_date_str = today.strftime('%Y-%m-%d')
+import pytz
+
+# Define the Copenhagen timezone
+copenhagen_tz = pytz.timezone('Europe/Copenhagen')
+
+# Get the current date and time in Copenhagen timezone
+current_date_str = datetime.now(copenhagen_tz).strftime('%Y-%m-%d %H:%M')
+
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
@@ -301,7 +307,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         cleaned_query = globals().get('cleaned_query', 'null')
         api_response = globals().get('api_response', 'null')
 
-        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA"
+        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA_minute_second"
         rows_to_insert = [
             {
                 "question": prompt,
