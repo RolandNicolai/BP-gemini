@@ -193,6 +193,14 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
+
+        def get_chat_response(chat: ChatSession, prompt: str) -> str:
+            text_response = []
+            responses = chat.send_message(prompt, stream=False)
+            for chunk in responses:
+                text_response.append(chunk.text)
+            return "".join(text_response)
+            
         #client = bigquery.Client(credentials=credentials)
 
         prompt += f"""
@@ -203,7 +211,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             Only respond and write in danish
             """
 
-        response = chat.send_message(prompt)
+        response = get_chat_response(chat, prompt)
         response = response.candidates[0].content.parts[0]
 
         #print(response)
