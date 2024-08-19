@@ -194,7 +194,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         chat = model.start_chat()
         def get_chat_response(chat, prompt: str) -> str:
             text_response = []
-            responses = chat.send_message(prompt, stream=True)
+            responses = chat.send_message(prompt, stream=False)
             for chunk in responses:
                 text_response.append(chunk.text)
             return "".join(text_response)
