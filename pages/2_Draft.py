@@ -181,7 +181,6 @@ for message in st.session_state.messages:
         except KeyError:
             pass
 
-# Handle user input
 if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
     st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user"):
@@ -193,14 +192,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
-
-        def get_chat_response(chat: ChatSession, prompt: str) -> str:
-            text_response = []
-            responses = chat.send_message(prompt, stream=False)
-            for chunk in responses:
-                text_response.append(chunk.text)
-            return "".join(text_response)
-            
         #client = bigquery.Client(credentials=credentials)
 
         prompt += f"""
@@ -211,10 +202,13 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             Only respond and write in danish
             """
 
-        response = chat.get_chat_response(chat, prompt)
-        response = response.candidates[0].content.parts[0]
+        # Replace this line
+        # response = chat.send_message(prompt)
+        # With this line
+        response_text = get_chat_response(chat, prompt)
 
-        #print(response)
+        # Continue processing the response
+        response = response_text  # Use the response_text instead of the original response object
         api_requests_and_responses = []
         backend_details = ""
 
@@ -228,7 +222,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 print(response.function_call.name)
                 #print(params)
 
-                
                 if response.function_call.name == "sql_query":
                     job_config = bigquery.QueryJobConfig(
                         maximum_bytes_billed=100000000
@@ -243,10 +236,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             .replace("\\", "")
                             .replace("sql", "")
                             .replace("SQL:", "")
-
                         )
 
-                        
                         query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
                         api_response = query_job.result()
                         bytes_billed = query_job.total_bytes_billed
@@ -254,25 +245,20 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_response = str([dict(row) for row in api_response])
                         api_response = api_response.replace("\\", "").replace("\n", "")
                         print("Query result:", api_response[:100])  # Print first 100 chars of response
-                        
+
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
 
                         reason = params['reason']
-                    
+
                     except Exception as e:
                         api_response = f"{str(e)}"
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
 
-                    
-
-
-
                 print(api_response)
-
 
                 response = chat.send_message(
                     Part.from_function_response(
@@ -312,30 +298,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         time.sleep(3)
 
-        full_response = response.text
-        prompt = globals().get('prompt', 'null')
-        reason = globals().get('reason', 'null')
-        cleaned_query = globals().get('cleaned_query', 'null')
-        api_response = globals().get('api_response', 'null')
-
-        table_id = "bonnier-deliverables.LLM_vertex.LLM_QA_minute_second"
-        rows_to_insert = [
-            {
-                "question": prompt,
-                "reason": reason,
-                "query": cleaned_query,
-                "result": api_response,
-                "fullResponse": full_response,
-                "datetime": current_date_str
-
-            }
-        ]
-
-        errors = client.insert_rows_json(table_id, rows_to_insert)  # Make an API request.
-        if errors == []:
-            print("New rows have been added.")
-        else:
-            print("Encountered errors while inserting rows: {}".format(errors))
+        full_response = response_text  # Use response_text here as well
 
 
         with message_placeholder.container():
@@ -350,7 +313,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                 "backend_details": backend_details,
             }
         )
-        
+
 
 
         
