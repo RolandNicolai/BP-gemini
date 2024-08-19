@@ -211,7 +211,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
             Only respond and write in danish
             """
 
-        response = get_chat_response(chat, prompt)
+        response = chat.get_chat_response(chat, prompt)
         response = response.candidates[0].content.parts[0]
 
         #print(response)
