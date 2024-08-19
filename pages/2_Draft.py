@@ -42,7 +42,7 @@ st.markdown(
 
 
 credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["vertexAI_service_account"]
+    st.secrets["vertexAI_service_account_2"]
 )
 client = bigquery.Client(credentials=credentials)
 maximum_bytes_billable = 100000000 # = 100 Mb
