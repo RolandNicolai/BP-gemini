@@ -1,6 +1,6 @@
 import streamlit as st
 from google.oauth2 import service_account
-from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
+from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool, ChatSession
 import vertexai
 from google.cloud import bigquery
 import time
