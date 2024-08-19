@@ -193,11 +193,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         chat = model.start_chat()
         def get_chat_response(chat, prompt: str) -> str:
-            text_response = []
-            responses = chat.send_message(prompt, stream=False)
-            for chunk in response:
-                text_response.append(chunk.text)
-            return "".join(text_response)
+            response = chat.send_message(prompt)  # without stream=True
+        return response.text  # or however you access the response content
+
 
         #client = bigquery.Client(credentials=credentials)
 
