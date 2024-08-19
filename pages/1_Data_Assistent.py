@@ -67,7 +67,7 @@ with st.expander("**Sample prompts for data**", expanded=True):
 with st.sidebar:
     # Dropdown list with options
     st.write("""
-    **Data Assistenten har adgang til et udkast af KPI datasættet for April til Juni.**
+    **Data Assistenten har adgang til et udkast af KPI datasættet for perioden April til Juni.**
     Datasættet indeholder følgende attributter:
     [purchases]
     [Dato]
