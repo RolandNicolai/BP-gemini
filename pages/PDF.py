@@ -62,9 +62,7 @@ def analyze_document_with_model(document_part, model):
     )
 
     # Collect and concatenate the model's responses
-    analysis_result = ""
-    for response in responses:
-        analysis_result += response.text
+    analysis_result = responses.text
     
     return analysis_result
 
