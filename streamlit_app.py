@@ -21,11 +21,11 @@ current_hour = current_time_copenhagen.hour
 
 # Conditional statements based on the time of the day
 if 6 <= current_hour < 12:
-    print("Good morning!")
+    st.write("Good morning!")
 elif 12 <= current_hour < 18:
-    print("Good afternoon!")
+    st.write("Good afternoon!")
 else:
-    print("Good evening!")
+    st.write("Good evening!")
 
 
 
