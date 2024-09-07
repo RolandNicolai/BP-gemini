@@ -26,7 +26,8 @@ elif 12 <= current_hour < 18:
     st.write("Good afternoon!")
 else:
     st.write("Good evening!")
-
+name = get_name_from_db(st.experimental_user.email)
+st.write('Hello, %s!' % name)
 
 
 email = st.experimental_user.email
