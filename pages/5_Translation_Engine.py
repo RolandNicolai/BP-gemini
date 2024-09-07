@@ -26,14 +26,11 @@ option_from = st.selectbox(
     ("da", "fi", "no", "se"),
 )
 
-st.write("Oversæt fra:", option_from)
-
 option_to = st.selectbox(
-    "Jeg oversætter til",
+    "til",
     ("da", "fi", "no", "se"),
 )
 
-st.write("Oversæt til:", option_to)
 
     
 
