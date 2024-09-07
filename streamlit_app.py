@@ -31,7 +31,7 @@ elif 10<= current_hour < 12:
 elif 12 <= current_hour < 18:
     st.title(":orange[God eftermiddag] " + first_name.capitalize())
 else:
-    st.title(":blue[God aften] " + first_name.capitalize())
+    st.title(":red[God aften] " + first_name.capitalize())
 
 
 
