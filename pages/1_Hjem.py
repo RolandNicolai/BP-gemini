@@ -60,8 +60,7 @@ def main():
     random_quote = get_random_quote()
     st.caption(f"> {random_quote}")
 
-if __name__ == "__main__":
-    main()
+main()
 
 with st.popover("Open popover"):
     st.markdown("Hello World 👋")
