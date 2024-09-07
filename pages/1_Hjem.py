@@ -35,15 +35,13 @@ else:
 
 # List of quotes from renowned scientists and classical music artists
 quotes = [
-    "Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world. — Albert Einstein",
-    "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. — Marie Curie",
-    "If I have seen further, it is by standing on the shoulders of giants. — Isaac Newton",
-    "I would rather have questions that can't be answered than answers that can't be questioned. — Richard Feynman",
-    "It's easy to play any musical instrument: all you have to do is touch the right key at the right time and the instrument will play itself. — Johann Sebastian Bach",
-    "Simplicity is the final achievement. After one has played a vast quantity of notes and more notes, it is simplicity that emerges as the crowning reward of art. — Frédéric Chopin",
-    "Works of art make rules; rules do not make works of art. — Claude Debussy"
-    "A computer would deserve to be called intelligent if it could deceive a human into believing that it was human. - Alan Turing"
-    "The most dangerous phrase in the language is, ‘We’ve always done it this way.’ - Grace Hopper"
+    "Imagination is more important than knowledge. For knowledge is limited, whereas imagination embraces the entire world. :orange[- Albert Einstein]",
+    "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. :orange[- Marie Curie]",
+    "If I have seen further, it is by standing on the shoulders of giants. :orange[- Isaac Newton]",
+    "I would rather have questions that can't be answered than answers that can't be questioned. :orange[- Richard Feynman]",
+    "Works of art make rules; rules do not make works of art. :orange[-Claude Debussy]"
+    "A computer would deserve to be called intelligent if it could deceive a human into believing that it was human. :orange[- Alan Turing]"
+    "The most dangerous phrase in the language is, ‘We’ve always done it this way.’ :orange[- Grace Hopper]"
 ]
 
 # Function to get a random quote
