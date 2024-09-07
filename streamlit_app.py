@@ -7,17 +7,13 @@ import pandas as pd
 from pandas import DataFrame
 import numpy as np
 import time
-import pytz
 import datetime
 
-# Define the Copenhagen timezone
-copenhagen_tz = pytz.timezone('Europe/Copenhagen')
+# Get the current local time
+current_time = datetime.now()
 
-current_time_utc = datetime.utcnow()  # Get current time in UTC
-current_time_copenhagen = copenhagen_tz.localize(current_time_utc)
-
-# Extract the hour part from the current time in Copenhagen
-current_hour = current_time_copenhagen.hour
+# Extract the hour part as an integer
+current_hour = current_time.hour
 
 # Conditional statements based on the time of the day
 if 6 <= current_hour < 12:
