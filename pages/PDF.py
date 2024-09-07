@@ -46,6 +46,15 @@ def process_uploaded_file(uploaded_file):
     
     return document_part, file_data
 
+
+# Streamlit app for file upload, analysis, and displaying results
+st.title("Analyser PDF'er vha. GenAI")
+
+# File uploader widget - allows only PDF uploads
+uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
+
+instructions = st.text_input("Indtast instruktioner til modellen", key="instructions")
+
 # Function to send the document to the AI model for analysis
 def analyze_document_with_model(document_part, model):
     generation_config = {
@@ -57,7 +66,7 @@ def analyze_document_with_model(document_part, model):
    
     # Send the document and the analysis prompt to the AI model
     responses = model.generate_content(
-        [document_part, "analyze this document:"],
+        [document_part, instructions],
         generation_config=generation_config,
     )
 
@@ -65,12 +74,6 @@ def analyze_document_with_model(document_part, model):
     analysis_result = responses.text
     
     return analysis_result
-
-# Streamlit app for file upload, analysis, and displaying results
-st.title("PDF Upload and AI Analysis")
-
-# File uploader widget - allows only PDF uploads
-uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
 
 # If a file has been uploaded
 if uploaded_file is not None:
@@ -85,8 +88,8 @@ if uploaded_file is not None:
     document_part, _ = process_uploaded_file(uploaded_file)
     
     # Analyze the document using the Vertex AI model
-    st.write("Analyzing the document with AI...")
+    st.write("Analyserer dokument...")
     analysis_result = analyze_document_with_model(document_part, model)
     
     # Display the analysis result in a text area
-    st.text_area("AI Analysis Result", value=analysis_result, height=300)
+    st.text_area("Resultat", value=analysis_result, height=400)
