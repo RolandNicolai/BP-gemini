@@ -21,7 +21,8 @@ credentials = service_account.Credentials.from_service_account_info(
 # Initialize Vertex AI with your project and location
 def initialize_vertex_model():
     vertexai.init(project="bonnier-deliverables", location="europe-central2")
-    model = GenerativeModel("gemini-1.5-flash-001")
+    model = GenerativeModel("gemini-1.5-flash-001",
+                           system_instruction = ["You are a helpful assistant. Always reply in danish")
     return model
 
 # Function to generate chat content with memory (entire conversation context)
