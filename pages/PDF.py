@@ -51,10 +51,9 @@ def process_uploaded_file(uploaded_file):
 # Initialize session state for instructions and analysis result
 if 'instructions' not in st.session_state:
     st.session_state['instructions'] = ''
-if 'analysis_result' not in st.session_state:
-    st.session_state['analysis_result'] = ''
 
-st.session_state['instructions'] = st.text_input("Indtast instruktioner til modellen", key="instructions")
+
+st.text_input("Indtast instruktioner til modellen", key="instructions")
 
 
 # Streamlit app for file upload, analysis, and displaying results
