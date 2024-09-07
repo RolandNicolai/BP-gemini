@@ -17,11 +17,12 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 
 
+
 # Initialize Vertex AI with your project and location
 def initialize_vertex_model():
     vertexai.init(project="bonnier-deliverables", location="europe-central2")
     model = GenerativeModel("gemini-1.5-flash-001",
-                           system_instruction=["""You are a helpful assistant. Always reply in danish"""])
+                           system_instruction=["""Youm are a helpful assistant. Always only reply in danish"""])
     return model
 
 # Function to generate chat content with memory (entire conversation context)
@@ -64,11 +65,11 @@ if user_message:
     # Add user's message to chat history
     st.session_state["history"].append({"role": "user", "content": user_message})
     
-    # Display user's message in the chat
+    # Display user's message in the chat (no need to loop over history here)
     st.chat_message("user").markdown(user_message)
 
     # Generate AI response, considering the conversation history
-    ai_response = generate_response(chat, st.session_state["history"], generation_config)
+    ai_response = generate_response(chat, st.session_state["history"], generation_config, safety_settings)
     
     # Display AI's response in the chat
     st.chat_message("assistant").markdown(ai_response.text)
@@ -76,8 +77,8 @@ if user_message:
     # Add AI's response to chat history
     st.session_state["history"].append({"role": "assistant", "content": ai_response.text})
 
-# Display entire chat history (re-renders the full conversation)
-for message in st.session_state["history"]:
+# Display entire chat history (without re-displaying the last messages that were just sent)
+for message in st.session_state["history"][:-2]:
     if message["role"] == "user":
         st.chat_message("user").markdown(message["content"])
     else:
