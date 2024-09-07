@@ -96,5 +96,4 @@ if uploaded_file is not None:
     
     # Display the analysis result in a text area
     st.text_area("Resultat", value=analysis_result, height=400)
-
-st.session_state.analysis.append(analysis_result)
+    st.session_state.analysis.append(analysis_result)
