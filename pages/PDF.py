@@ -62,7 +62,6 @@ st.title("Analyser PDF'er vha. GenAI")
 # File uploader widget - allows only PDF uploads
 uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
 
-instructions = st.text_input("Indtast instruktioner til modellen", key="instructions")
 
 # Function to send the document to the AI model for analysis
 def analyze_document_with_model(document_part, model):
