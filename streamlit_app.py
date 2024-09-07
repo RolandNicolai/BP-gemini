@@ -8,7 +8,7 @@ from pandas import DataFrame
 import numpy as np
 import time
 import pytz
-import datetime
+from datetime import datetime
 
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
