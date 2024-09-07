@@ -10,6 +10,14 @@ import time
 import pytz
 from datetime import datetime
 
+Data_assistent = st.Page("pages/1_Data_Assistent.py", title="Data Assistent")
+#create_page = st.Page("pages/1_Data_Assistent.py", title="Data Assistent", icon=":material/add_circle:")
+Artikel_assistent = st.Page("pages/3_Artikel_assistent.py", title="Artikel Assistent", icon=":material/delete:")
+
+pg = st.navigation([Data_assistent, Artikel_assistent])
+#st.set_page_config(page_title="Data manager", page_icon=":material/edit:")
+pg.run()
+
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
@@ -43,7 +51,6 @@ with st.popover("Open popover"):
 st.write("Your name:", name)
 
 with st.sidebar:
-    st.page_link("streamlit_app.py", label="Hjem")
     st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
     st.page_link("pages/3_Artikel_assistent.py", label="Artikel Assistent")
     st.page_link("pages/4_PDF_Assistent.py", label="PDF Assistent")
