@@ -18,8 +18,7 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 
 vertexai.init(project="bonnier-deliverables", location="europe-central2")
-model = GenerativeModel("gemini-1.5-flash-001",
-                        system_instruction = ["You are a helpful assistant. Always reply in danish"])
+model = GenerativeModel("gemini-1.5-flash-001")
 
 # Function to process the uploaded file using base64 decoding and Part.from_data
 def process_uploaded_file(uploaded_file):
