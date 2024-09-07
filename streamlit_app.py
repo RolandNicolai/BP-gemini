@@ -11,8 +11,11 @@ import time
 
 st.header('Bonnier GenAI sandbox', divider='rainbow')
 
-st.write(st.experimental_user.email)
+email = st.experimental_user.email
 
+first_name = email.split(".")[0]
+
+st.write(first_name)
 st.subheader("Bygget på Google Gemini")
 
 st.subheader("Vælg en applikation")
