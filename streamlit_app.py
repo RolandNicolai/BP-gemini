@@ -11,6 +11,7 @@ import time
 
 st.header('Bonnier GenAI sandbox', divider='rainbow')
 
+st.experimental_user()
 
 st.subheader("Bygget på Google Gemini")
 
