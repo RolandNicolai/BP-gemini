@@ -21,8 +21,7 @@ vertexai.init(project="bonnier-deliverables", location="europe-central2")
 model = GenerativeModel("gemini-1.5-flash-001",
                        system_instruction = ["You are a helpful assistant"])
 
-if "analysis" not in st.session_state:
-    st.session_state.analysis = []
+
 
 # Initialize Vertex AI with your project and location
 def initialize_vertex_model():
@@ -48,6 +47,14 @@ def process_uploaded_file(uploaded_file):
     )
     
     return document_part, file_data
+
+# Initialize session state for instructions and analysis result
+if 'instructions' not in st.session_state:
+    st.session_state['instructions'] = ''
+if 'analysis_result' not in st.session_state:
+    st.session_state['analysis_result'] = ''
+
+st.session_state['instructions'] = st.text_input("Indtast instruktioner til modellen", value=st.session_state['instructions'], key="instructions")
 
 
 # Streamlit app for file upload, analysis, and displaying results
@@ -93,7 +100,10 @@ if uploaded_file is not None:
     # Analyze the document using the Vertex AI model
     st.write("Analyserer dokument...")
     analysis_result = analyze_document_with_model(document_part, model)
+
+    # Store the analysis result in session state
+    st.session_state['analysis_result'] = analysis_result
     
     # Display the analysis result in a text area
-    st.text_area("Resultat", value=analysis_result, height=400)
-    st.session_state.analysis.append(analysis_result)
+    #st.text_area("Resultat", value=analysis_result, height=400)
+st.text_area("Resultat", value=st.session_state['analysis_result'], height=400)
