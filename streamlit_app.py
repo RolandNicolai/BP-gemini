@@ -42,7 +42,7 @@ else:
 st.page_link("streamlit_app.py", label="Forside")
 st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
 
-# Sample notebooks data (this would be dynamic or fetched in a real app)
+# Sample notebooks data
 notebooks = [
     {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 2},
     {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 1},
@@ -53,38 +53,7 @@ notebooks = [
     {"title": "Runaway Blitzscaling", "date": "8 Jun 2024", "sources": 2},
 ]
 
-# Page heading
-st.title("My Notebooks")
-
-# Create a grid layout for notebooks
-cols = st.columns(2)  # Two columns for a grid-like structure
-
-# Loop over notebooks and display them in the interface
-for idx, notebook in enumerate(notebooks):
-    # Alternate between columns
-    col = cols[idx % 2]
-    
-    # Create an expander for each notebook
-    with col.expander(f"{notebook['title']} - {notebook['date']}"):
-        st.write(f"Sources: {notebook['sources']}")
-        
-        # Add interactive buttons for actions
-        if st.button(f"Edit {notebook['title']}", key=f"edit_{idx}"):
-            st.write(f"You clicked to edit: {notebook['title']}")
-        
-        if st.button(f"Delete {notebook['title']}", key=f"delete_{idx}"):
-            st.write(f"You clicked to delete: {notebook['title']}")
-        
-        if st.button(f"View Sources for {notebook['title']}", key=f"view_{idx}"):
-            st.write(f"Displaying sources for {notebook['title']}")
-        
-# Add a "New Notebook" button at the top or bottom
-if st.button("Create New Notebook"):
-    st.write("You clicked to create a new notebook!")
-
-
-
-# Inject custom CSS for styling
+# Inject some custom CSS for styling
 st.markdown("""
     <style>
     .notebook-card {
@@ -98,6 +67,7 @@ st.markdown("""
         font-size: 18px;
         font-weight: bold;
         margin-bottom: 5px;
+        cursor: pointer;
     }
     .notebook-date {
         font-size: 14px;
@@ -118,37 +88,31 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Sample notebooks data
-notebooks = [
-    {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 2},
-    {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 1},
-    {"title": "Untitled notebook", "date": "2 Sept 2024", "sources": 1},
-    {"title": "Internationalisation of SMEs", "date": "25 Jun 2024", "sources": 2},
-    {"title": "Systemic Wisdom", "date": "8 Jun 2024", "sources": 2},
-    {"title": "Internationalization", "date": "4 Jul 2024", "sources": 1},
-    {"title": "Runaway Blitzscaling", "date": "8 Jun 2024", "sources": 2},
-]
-
-# Display each notebook with styled HTML and CSS
+# Iterate over each notebook and create an expander pop-up effect
 for idx, notebook in enumerate(notebooks):
-    st.markdown(f"""
-    <div class="notebook-card">
-        <div class="notebook-title">{notebook['title']}</div>
-        <div class="notebook-date">{notebook['date']}</div>
-        <p>Sources: {notebook['sources']}</p>
-        <button class="notebook-btn">Edit</button>
-        <button class="notebook-btn">Delete</button>
-        <button class="notebook-btn">View Sources</button>
-    </div>
-    """, unsafe_allow_html=True)
+    with st.expander(f"📓 {notebook['title']} - {notebook['date']}"):
+        # Display the notebook's detailed information and buttons inside the expanded view
+        st.write(f"**Sources:** {notebook['sources']}")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            if st.button(f"Edit {notebook['title']}", key=f"edit_{idx}"):
+                st.write(f"You clicked to edit: {notebook['title']}")
+        
+        with col2:
+            if st.button(f"Delete {notebook['title']}", key=f"delete_{idx}"):
+                st.write(f"You clicked to delete: {notebook['title']}")
+        
+        with col3:
+            if st.button(f"View Sources for {notebook['title']}", key=f"view_{idx}"):
+                st.write(f"Displaying sources for {notebook['title']}")
 
-# New notebook button
+# Create a "New Notebook" button below all notebooks
 st.markdown("""
     <div style="margin-top: 20px;">
         <button class="notebook-btn">Create New Notebook</button>
     </div>
 """, unsafe_allow_html=True)
-
-
 
         
