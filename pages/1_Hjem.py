@@ -56,9 +56,14 @@ def main():
 
 main()
 
-with st.popover("Open popover"):
-    st.markdown("Hello World 👋")
-    name = st.text_input("What's your name?")
+with st.popover("Anbefalinger til dig"):
+    st.markdown("Test 1 👋")
+    st.divider()
+    st.markdown("Test 2 👋")
+    st.divider()
+
+
+
 
 
 # Sample notebooks data
