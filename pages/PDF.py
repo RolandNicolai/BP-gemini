@@ -1,6 +1,22 @@
 import streamlit as st
 import base64
 from vertexai.generative_models import Part
+from google.oauth2 import service_account
+from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
+import vertexai
+import time
+
+
+
+LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
+st.logo(LOGO_URL_LARGE)
+
+st.header('Artikel', divider='rainbow')
+
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["vertexAI_service_account"]
+)
+
 
 # Function to process the uploaded file using base64 decoding and Part.from_data
 def process_uploaded_file(uploaded_file):
