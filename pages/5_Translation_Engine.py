@@ -41,7 +41,7 @@ if 'translated_to' not in st.session_state:
     st.session_state['translated_to'] = ''
 
 translation_text = st.text_input("Indtast tekst som ønskes oversat", "Lorem Ipsum", key="translation_text")
-instructions = f"You are an expert Translator. You are tasked to translate documents from da to no.Please provide an accurate translation of this document and return translation text only:"
+instructions = f"You are an expert Translator. You are tasked to translate documents from {option_from} to {option_to}.Please provide an accurate translation of this document and return translation text only:"
 
 
 
