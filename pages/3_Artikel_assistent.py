@@ -32,7 +32,6 @@ def generate_response(chat, conversation_history, generation_config, safety_sett
     response = chat.send_message(
         conversation_context,
         generation_config=generation_config,
-        safety_settings=safety_settings
     )
     return response
 
@@ -43,12 +42,7 @@ generation_config = {
     "top_p": 0.95,
 }
 
-safety_settings = {
-    generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-}
+
 
 # Initialize Vertex AI generative model
 model = initialize_vertex_model()
