@@ -84,6 +84,71 @@ if st.button("Create New Notebook"):
 
 
 
+# Inject custom CSS for styling
+st.markdown("""
+    <style>
+    .notebook-card {
+        background-color: #f9f9f9;
+        padding: 15px;
+        margin: 10px;
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .notebook-title {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+    .notebook-date {
+        font-size: 14px;
+        color: #555;
+    }
+    .notebook-btn {
+        background-color: #007bff;
+        color: white;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 5px;
+    }
+    .notebook-btn:hover {
+        background-color: #0056b3;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# Sample notebooks data
+notebooks = [
+    {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 2},
+    {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 1},
+    {"title": "Untitled notebook", "date": "2 Sept 2024", "sources": 1},
+    {"title": "Internationalisation of SMEs", "date": "25 Jun 2024", "sources": 2},
+    {"title": "Systemic Wisdom", "date": "8 Jun 2024", "sources": 2},
+    {"title": "Internationalization", "date": "4 Jul 2024", "sources": 1},
+    {"title": "Runaway Blitzscaling", "date": "8 Jun 2024", "sources": 2},
+]
+
+# Display each notebook with styled HTML and CSS
+for idx, notebook in enumerate(notebooks):
+    st.markdown(f"""
+    <div class="notebook-card">
+        <div class="notebook-title">{notebook['title']}</div>
+        <div class="notebook-date">{notebook['date']}</div>
+        <p>Sources: {notebook['sources']}</p>
+        <button class="notebook-btn">Edit</button>
+        <button class="notebook-btn">Delete</button>
+        <button class="notebook-btn">View Sources</button>
+    </div>
+    """, unsafe_allow_html=True)
+
+# New notebook button
+st.markdown("""
+    <div style="margin-top: 20px;">
+        <button class="notebook-btn">Create New Notebook</button>
+    </div>
+""", unsafe_allow_html=True)
+
 
 
         
