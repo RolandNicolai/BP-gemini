@@ -21,6 +21,9 @@ vertexai.init(project="bonnier-deliverables", location="europe-central2")
 model = GenerativeModel("gemini-1.5-flash-001",
                        system_instruction = ["You are a helpful assistant"])
 
+if "analysis" not in st.session_state:
+    st.session_state.analysis = []
+
 # Initialize Vertex AI with your project and location
 def initialize_vertex_model():
     vertexai.init(project="bonnier-deliverables", location="europe-central2")
