@@ -54,7 +54,7 @@ if 'instructions' not in st.session_state:
 if 'analysis_result' not in st.session_state:
     st.session_state['analysis_result'] = ''
 
-st.session_state['instructions'] = st.text_input("Indtast instruktioner til modellen", value=st.session_state['instructions'], key="instructions")
+st.session_state['instructions'] = st.text_input("Indtast instruktioner til modellen", key="instructions")
 
 
 # Streamlit app for file upload, analysis, and displaying results
