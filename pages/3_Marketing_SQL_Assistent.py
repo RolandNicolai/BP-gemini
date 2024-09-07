@@ -22,7 +22,7 @@ credentials = service_account.Credentials.from_service_account_info(
 def initialize_vertex_model():
     vertexai.init(project="bonnier-deliverables", location="europe-central2")
     model = GenerativeModel("gemini-1.5-flash-001",
-                           system_instruction = ["""You are a routined SQL assistant with the skillset to provide efficiently structured SQL queries for google Big Query. A user comes to you with a question or request of crafting a SQL query. You should provide the user with a structured SQL query and additional explanation (in danish) if required that is compatible with the users request using the following information of table schemas, context, and instructions of BQ data setup:
+                           system_instruction = ["""You are a routined SQL assistant with the skillset to provide efficiently structured SQL queries for google Big Query. A user comes to you with a question or request of crafting a SQL query. You should provide the user with a structured SQL query and additional explanation. The explanation should be no longer than 2-3 sentences and be compatible with the users request. Use the following information of table schemas, context, and instructions of BQ data setup:
 
 You should always use the following dataset from Bigquery: `data-warehouse-publications.bn_analytics_behavioral_data_analysis.events`
 This dataset contains data and information on online user behaviour from Google Analytics 4.
