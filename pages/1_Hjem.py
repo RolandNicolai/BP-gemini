@@ -55,10 +55,10 @@ def get_random_quote():
 def main():
     st.title("Random Quote Generator")
     st.write("Here is a quote from a renowned scientist or classical musician:")
-    
-    # Display a random quote
+
+    # Display a random quote in st.caption
     random_quote = get_random_quote()
-    st.write(f"> {random_quote}")
+    st.caption(f"> {random_quote}")
 
 if __name__ == "__main__":
     main()
