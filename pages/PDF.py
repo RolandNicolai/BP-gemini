@@ -73,8 +73,7 @@ def analyze_document_with_model(document_part, model):
         [document_part, instructions],
         generation_config=generation_config,
     )
-    # Analyze the document using the Vertex AI model
-    st.write("Analyserer dokument...")
+
     # Collect and concatenate the model's responses
     analysis_result = responses.text
     
@@ -88,6 +87,9 @@ if uploaded_file is not None:
     
     # Initialize the AI model
     model = initialize_vertex_model()
+
+    # Analyze the document using the Vertex AI model
+    st.write("Analyserer dokument...")
     
     # Process the uploaded file and create a document Part object
     document_part, _ = process_uploaded_file(uploaded_file)
