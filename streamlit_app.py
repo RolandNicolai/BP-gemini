@@ -36,11 +36,18 @@ else:
 
 
 
+with st.popover("Open popover"):
+    st.markdown("Hello World 👋")
+    name = st.text_input("What's your name?")
 
+st.write("Your name:", name)
 
+with st.sidebar:
+    st.page_link("streamlit_app.py", label="Hjem")
+    st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
+    st.page_link("pages/3_Artikel_assistent.py", label="Artikel Assistent")
+    st.page_link("pages/4_PDF_Assistent.py", label="PDF Assistent")
 
-st.page_link("streamlit_app.py", label="Forside")
-st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
 
 # Sample notebooks data
 notebooks = [
