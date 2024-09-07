@@ -36,9 +36,7 @@ else:
 
 
 
-st.subheader("Bygget på Google Gemini")
 
-st.subheader("Vælg en applikation")
 
 
 st.page_link("streamlit_app.py", label="Forside")
