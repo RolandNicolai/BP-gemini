@@ -19,21 +19,23 @@ current_time_copenhagen = datetime.now(pytz.utc).astimezone(copenhagen_tz)
 # Extract the hour part as an integer
 current_hour = current_time_copenhagen.hour
 
-# Conditional statements based on the time of the day
-if 6 <= current_hour < 12:
-    st.write("Good morning!")
-elif 12 <= current_hour < 18:
-    st.write("Good afternoon!")
-else:
-    st.write("Good evening!")
-
-
 email = st.experimental_user.email
 
 first_name = email.split(".")[0]
-st.title(":orange[Godmorgen] " + first_name.capitalize())
 
-st.write(first_name.capitalize())
+# Conditional statements based on the time of the day
+if 6 <= current_hour < 10:
+    st.title(":orange[Godmorgen] " + first_name.capitalize())
+elif 10<= current_hour < 12:
+    st.title(":orange[God formiddag] " + first_name.capitalize())
+elif 12 <= current_hour < 18:
+    st.title(":orange[God eftermiddag] " + first_name.capitalize())
+else:
+    st.write("God aften" + first_name.capitalize())
+
+
+
+
 st.subheader("Bygget på Google Gemini")
 
 st.subheader("Vælg en applikation")
