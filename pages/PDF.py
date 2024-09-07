@@ -51,7 +51,7 @@ def process_uploaded_file(uploaded_file):
 if 'analysis_result' not in st.session_state:
     st.session_state['analysis_result'] = ''
 
-instructions = st.text_input("Indtast instruktioner til modellen", "Gennemgå denne tekst og lav en grundig analyse. Output dit svar på dansk", key="instructions")
+instructions = st.text_input("Indtast instruktioner til modellen", "Læs denne tekst og lav en grundig analyse. Output dit svar på dansk", key="instructions")
 
 
 # Streamlit app for file upload, analysis, and displaying results
