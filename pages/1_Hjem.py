@@ -64,7 +64,7 @@ with st.popover("Anbefalinger til dig"):
 
 
 
-
+"""
 
 # Sample notebooks data
 notebooks = [
@@ -132,5 +132,5 @@ st.markdown("""
         <button class="notebook-btn">Create New Notebook</button>
     </div>
 """, unsafe_allow_html=True)
-
+"""
         
