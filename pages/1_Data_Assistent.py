@@ -174,7 +174,6 @@ model = GenerativeModel(
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
-    messages.chat_message("assistant").write("Hej" + user_first_name.capitalize())
 
 
 # Display existing messages
