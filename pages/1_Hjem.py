@@ -39,11 +39,6 @@ with st.popover("Open popover"):
 
 st.write("Your name:", name)
 
-with st.sidebar:
-    st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
-    st.page_link("pages/3_Artikel_assistent.py", label="Artikel Assistent")
-    st.page_link("pages/4_PDF_Assistent.py", label="PDF Assistent")
-
 
 # Sample notebooks data
 notebooks = [
