@@ -7,18 +7,25 @@ import pandas as pd
 from pandas import DataFrame
 import numpy as np
 import time
-import datetime
 import pytz
+import datetime
 
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
-# Get the current date and time in Copenhagen timezone
-today = datetime.datetime.now(copenhagen_tz)
+# Get the current time in Copenhagen
+current_time_copenhagen = datetime.now(copenhagen_tz)
 
-current_date_str = today.strftime('T%H:%M:%S')
+# Extract the hour part from the current time
+current_hour = current_time_copenhagen.hour
 
-st.write(current_date_str)
+# Conditional statements based on the time of the day
+if 6 <= current_hour < 12:
+    print("Good morning!")
+elif 12 <= current_hour < 18:
+    print("Good afternoon!")
+else:
+    print("Good evening!")
 
 
 
