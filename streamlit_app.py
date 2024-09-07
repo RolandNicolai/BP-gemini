@@ -13,10 +13,10 @@ import datetime
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
-# Get the current time in Copenhagen
-current_time_copenhagen = datetime.now(copenhagen_tz)
+current_time_utc = datetime.utcnow()  # Get current time in UTC
+current_time_copenhagen = copenhagen_tz.localize(current_time_utc)
 
-# Extract the hour part from the current time
+# Extract the hour part from the current time in Copenhagen
 current_hour = current_time_copenhagen.hour
 
 # Conditional statements based on the time of the day
