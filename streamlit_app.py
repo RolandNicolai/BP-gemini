@@ -15,7 +15,7 @@ email = st.experimental_user.email
 
 first_name = email.split(".")[0]
 
-st.write(first_name)
+st.write(first_name.capitalize())
 st.subheader("Bygget på Google Gemini")
 
 st.subheader("Vælg en applikation")
