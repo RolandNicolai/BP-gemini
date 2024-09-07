@@ -19,7 +19,7 @@ credentials = service_account.Credentials.from_service_account_info(
 
 vertexai.init(project="bonnier-deliverables", location="europe-central2")
 model = GenerativeModel("gemini-1.5-flash-001",
-                       system_instruction = ["You are a helpful assistant"])
+                       system_instruction = ["You are a helpful assistant for analyzing and conveying text"])
 
 
 
@@ -54,8 +54,6 @@ if 'analysis_result' not in st.session_state:
 instructions = st.text_input("Indtast instruktioner til modellen", "Læs denne tekst og lav en grundig analyse. Output dit svar på dansk", key="instructions")
 
 
-# Streamlit app for file upload, analysis, and displaying results
-st.title("Analyser PDF'er vha. GenAI")
 
 # File uploader widget - allows only PDF uploads
 uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
