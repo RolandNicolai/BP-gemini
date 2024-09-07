@@ -10,7 +10,7 @@ import time
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.logo(LOGO_URL_LARGE)
 
-st.header('Artikel', divider='rainbow')
+st.header('Marketing SQL assistent', divider='rainbow')
 
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
