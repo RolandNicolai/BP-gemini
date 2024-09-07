@@ -16,11 +16,6 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
 )
 
-vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
-import streamlit as st
-import vertexai
-from vertexai.generative_models import GenerativeModel, Part
-import vertexai.generative_models as generative_models
 
 # Initialize Vertex AI with your project and location
 def initialize_vertex_model():
@@ -28,15 +23,17 @@ def initialize_vertex_model():
     model = GenerativeModel("gemini-1.5-flash-001")
     return model
 
-# Function to generate chat content based on user input
-def generate_response(chat, user_message, generation_config, safety_settings):
-    # Send the user's message to the model
+# Function to generate chat content with memory (entire conversation context)
+def generate_response(chat, conversation_history, generation_config, safety_settings):
+    # Flatten the conversation history into one string for AI input context
+    conversation_context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in conversation_history])
+    
+    # Send the conversation context to the AI model
     response = chat.send_message(
-        user_message,
+        conversation_context,
         generation_config=generation_config,
         safety_settings=safety_settings
     )
-    # Return the model's response as text
     return response
 
 # Configuration settings for model output and safety
@@ -58,9 +55,9 @@ model = initialize_vertex_model()
 chat = model.start_chat()
 
 # Streamlit Chat Interface
-st.title("AI Chat Interface with Vertex AI")
+st.title("AI Chat Interface with Vertex AI Memory")
 
-# List to store chat history
+# Initialize conversation history if not present in session_state
 if "history" not in st.session_state:
     st.session_state["history"] = []
 
@@ -69,22 +66,22 @@ user_message = st.chat_input("Type your message here...")
 
 # If user sends a message
 if user_message:
-    # Display user's message
-    st.chat_message("user").markdown(user_message)
-
     # Add user's message to chat history
     st.session_state["history"].append({"role": "user", "content": user_message})
+    
+    # Display user's message in the chat
+    st.chat_message("user").markdown(user_message)
 
-    # Generate AI response
-    ai_response = generate_response(chat, [user_message], generation_config, safety_settings)
-
-    # Display AI's response
+    # Generate AI response, considering the conversation history
+    ai_response = generate_response(chat, st.session_state["history"], generation_config, safety_settings)
+    
+    # Display AI's response in the chat
     st.chat_message("assistant").markdown(ai_response.text)
 
     # Add AI's response to chat history
     st.session_state["history"].append({"role": "assistant", "content": ai_response.text})
 
-# Display chat history (preserves messages between interactions)
+# Display entire chat history (re-renders the full conversation)
 for message in st.session_state["history"]:
     if message["role"] == "user":
         st.chat_message("user").markdown(message["content"])
