@@ -198,7 +198,8 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
-        chat.send_message("Hej" + user_first_name.capitalize())
+        intro_message = st.chat_message("assistant")
+        intro_message.write("Hej" + user_first_name.capitalize())
         #client = bigquery.Client(credentials=credentials)
 
         prompt += f"""
