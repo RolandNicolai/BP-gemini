@@ -19,7 +19,7 @@ credentials = service_account.Credentials.from_service_account_info(
 
 vertexai.init(project="bonnier-deliverables", location="europe-central2")
 model = GenerativeModel("gemini-1.5-flash-001",
-                       system_instruction = ["You are a helpful assistant for analyzing and conveying text"])
+                       system_instruction = ["You are a helpful assistant for summarizing and conveying text"])
 
 
 
@@ -51,7 +51,7 @@ def process_uploaded_file(uploaded_file):
 if 'analysis_result' not in st.session_state:
     st.session_state['analysis_result'] = ''
 
-instructions = st.text_input("Indtast instruktioner til modellen", "Læs denne tekst og lav en grundig analyse. Output dit svar på dansk", key="instructions")
+instructions = st.text_input("Indtast instruktioner til modellen", "Læs denne tekst og giv en grundig gennemgang. Output dit svar på dansk", key="instructions")
 
 
 
