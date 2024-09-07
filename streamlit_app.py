@@ -13,7 +13,7 @@ import time
 email = st.experimental_user.email
 
 first_name = email.split(".")[0]
-st.title("Goodmorning :blue[cool]" + first_name.capitalize())
+st.title(":orange[Godmorgen]" + first_name.capitalize())
 
 st.write(first_name.capitalize())
 st.subheader("Bygget på Google Gemini")
