@@ -21,6 +21,12 @@ vertexai.init(project="bonnier-deliverables", location="europe-central2")
 model = GenerativeModel("gemini-1.5-flash-001",
                        system_instruction = ["You are a helpful assistant"])
 
+# Initialize Vertex AI with your project and location
+def initialize_vertex_model():
+    vertexai.init(project="bonnier-deliverables", location="europe-central2")
+    model = GenerativeModel("gemini-1.5-flash-001")
+    return model
+
 # Function to process the uploaded file using base64 decoding and Part.from_data
 def process_uploaded_file(uploaded_file):
     # Read the file content as binary
@@ -38,10 +44,40 @@ def process_uploaded_file(uploaded_file):
         data=file_data
     )
     
-    return document_part
+    return document_part, file_data
 
-# Streamlit app for file upload and processing
-st.title("PDF Upload and Processing")
+# Function to send the document to the AI model for analysis
+def analyze_document_with_model(document_part, model):
+    generation_config = {
+        "max_output_tokens": 8192,
+        "temperature": 1,
+        "top_p": 0.95,
+    }
+
+    safety_settings = {
+        generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+        generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+    }
+
+    # Send the document and the analysis prompt to the AI model
+    responses = model.generate_content(
+        [document_part, "analyze this document:"],
+        generation_config=generation_config,
+        safety_settings=safety_settings,
+        stream=True,
+    )
+
+    # Collect and concatenate the model's responses
+    analysis_result = ""
+    for response in responses:
+        analysis_result += response.text
+    
+    return analysis_result
+
+# Streamlit app for file upload, analysis, and displaying results
+st.title("PDF Upload and AI Analysis")
 
 # File uploader widget - allows only PDF uploads
 uploaded_file = st.file_uploader("Choose a PDF file", type=["pdf"])
@@ -52,28 +88,15 @@ if uploaded_file is not None:
     st.write(f"Filename: {uploaded_file.name}")
     st.write(f"File size: {uploaded_file.size} bytes")
     
-    # Process the uploaded file
-    processed_document = process_uploaded_file(uploaded_file)
+    # Initialize the AI model
+    model = initialize_vertex_model()
     
-    # Display confirmation that the file has been processed
-    st.success("File uploaded and processed successfully!")
-
-
-
-
-button = st.button("Søg")
-
-
-if button and uploaded_file is not None:
-    responses = model.generate_content(
-    [uploaded_file, """analyze this document:"""],
-    )
-    answer = responses.text
-    st.subheader("Assistent svar 🎈")
-    st.markdown(answer)
-
-
-### big query test API
-
-
-# Initiate the model building process
+    # Process the uploaded file and create a document Part object
+    document_part, _ = process_uploaded_file(uploaded_file)
+    
+    # Analyze the document using the Vertex AI model
+    st.write("Analyzing the document with AI...")
+    analysis_result = analyze_document_with_model(document_part, model)
+    
+    # Display the analysis result in a text area
+    st.text_area("AI Analysis Result", value=analysis_result, height=300)
