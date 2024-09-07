@@ -171,7 +171,7 @@ model = GenerativeModel(
 
 
 
-
+messages.chat_message("assistant").write("Hej" + user_first_name.capitalize())
 
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -198,8 +198,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
-        intro_message = st.chat_message("assistant")
-        intro_message.write("Hej" + user_first_name.capitalize())
         #client = bigquery.Client(credentials=credentials)
 
         prompt += f"""
