@@ -22,14 +22,14 @@ model = GenerativeModel("gemini-1.5-pro-001",
                        )
 
 option_from = st.selectbox(
-    "Oversæt fra",
+    "Jeg oversætter fra",
     ("da", "fi", "no", "se"),
 )
 
 st.write("Oversæt fra:", option_from)
 
 option_to = st.selectbox(
-    "Oversæt til",
+    "Jeg oversætter til",
     ("da", "fi", "no", "se"),
 )
 
