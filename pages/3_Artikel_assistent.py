@@ -60,4 +60,4 @@ safety_settings = {
     generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
 }
 
-multiturn_generate_content()
+multiturn_generate_content('hej')
