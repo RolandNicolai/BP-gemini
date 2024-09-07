@@ -59,6 +59,21 @@ if uploaded_file is not None:
     st.success("File uploaded and processed successfully!")
 
 
-responses = model.generate_content(
+
+
+button = st.button("Søg")
+
+
+if button and uploaded_file is not None:
+    responses = model.generate_content(
     [uploaded_file, """analyze this document:"""],
-)
+    )
+    answer = responses.text
+    st.subheader("Assistent svar 🎈")
+    st.markdown(answer)
+
+
+### big query test API
+
+
+# Initiate the model building process
