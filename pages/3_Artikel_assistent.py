@@ -69,7 +69,7 @@ if user_message:
     st.chat_message("user").markdown(user_message)
 
     # Generate AI response, considering the conversation history
-    ai_response = generate_response(chat, st.session_state["history"], generation_config, safety_settings)
+    ai_response = generate_response(chat, st.session_state["history"], generation_config)
     
     # Display AI's response in the chat
     st.chat_message("assistant").markdown(ai_response.text)
