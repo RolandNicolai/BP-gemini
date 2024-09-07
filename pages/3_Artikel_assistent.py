@@ -78,7 +78,7 @@ if user_message:
     st.session_state["history"].append({"role": "assistant", "content": ai_response.text})
 
 # Display entire chat history (without re-displaying the last messages that were just sent)
-for message in st.session_state["history"][:-2]:
+for message in st.session_state["history"][:-1]:
     if message["role"] == "user":
         st.chat_message("user").markdown(message["content"])
     else:
