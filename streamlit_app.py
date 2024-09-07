@@ -12,7 +12,7 @@ import datetime
 # Get the current local time
 current_time = datetime.now()
 
-# Extract the hour part as an integer
+# Extract the hour part as an integer 
 current_hour = current_time.hour
 
 # Conditional statements based on the time of the day
