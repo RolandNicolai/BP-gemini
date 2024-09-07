@@ -38,3 +38,10 @@ if uploaded_file is not None:
     
     # Display confirmation that the file has been processed
     st.success("File uploaded and processed successfully!")
+
+
+  responses = model.generate_content(
+      [document1, """analyze this document:"""],
+      generation_config=generation_config,
+      safety_settings=safety_settings,
+      stream=True,
