@@ -45,12 +45,6 @@ st.page_link("pages/1_Data_Assistent.py", label="Data Assistent")
 # Sample notebooks data
 notebooks = [
     {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 2},
-    {"title": "Untitled notebook", "date": "6 Sept 2024", "sources": 1},
-    {"title": "Untitled notebook", "date": "2 Sept 2024", "sources": 1},
-    {"title": "Internationalisation of SMEs", "date": "25 Jun 2024", "sources": 2},
-    {"title": "Systemic Wisdom", "date": "8 Jun 2024", "sources": 2},
-    {"title": "Internationalization", "date": "4 Jul 2024", "sources": 1},
-    {"title": "Runaway Blitzscaling", "date": "8 Jun 2024", "sources": 2},
 ]
 
 # Inject some custom CSS for styling
