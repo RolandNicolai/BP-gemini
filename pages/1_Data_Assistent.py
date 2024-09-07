@@ -7,6 +7,10 @@ import time
 import datetime
 import pytz
 
+email = st.experimental_user.email
+
+user_first_name = email.split(".")[0]
+
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
@@ -194,6 +198,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
         full_response = ""
 
         chat = model.start_chat()
+        chat.send_message("Hej" + user_first_name.capitalize())
         #client = bigquery.Client(credentials=credentials)
 
         prompt += f"""
