@@ -24,7 +24,7 @@ def initialize_vertex_model():
     return model
 
 # Function to generate chat content with memory (entire conversation context)
-def generate_response(chat, conversation_history, generation_config, safety_settings):
+def generate_response(chat, conversation_history, generation_config):
     # Flatten the conversation history into one string for AI input context
     conversation_context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in conversation_history])
     
