@@ -6,7 +6,8 @@ import time
 import pytz
 from datetime import datetime
 
-
+LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
+st.logo(LOGO_URL_LARGE)
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
