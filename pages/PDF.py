@@ -54,19 +54,11 @@ def analyze_document_with_model(document_part, model):
         "top_p": 0.95,
     }
 
-    safety_settings = {
-        generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-        generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    }
-
+   
     # Send the document and the analysis prompt to the AI model
     responses = model.generate_content(
         [document_part, "analyze this document:"],
         generation_config=generation_config,
-        safety_settings=safety_settings,
-        stream=True,
     )
 
     # Collect and concatenate the model's responses
