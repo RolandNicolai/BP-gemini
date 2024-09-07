@@ -26,7 +26,7 @@ def initialize_vertex_model():
     return model
 
 # Function to generate chat content with memory (entire conversation context)
-def generate_response(chat, conversation_history, generation_config, safety_settings):
+def generate_response(chat, conversation_history, generation_config):
     # Flatten the conversation history into one string for AI input context
     conversation_context = "\n".join([f"{msg['role']}: {msg['content']}" for msg in conversation_history])
     
@@ -34,7 +34,6 @@ def generate_response(chat, conversation_history, generation_config, safety_sett
     response = chat.send_message(
         conversation_context,
         generation_config=generation_config,
-        safety_settings=safety_settings
     )
     return response
 
@@ -45,12 +44,7 @@ generation_config = {
     "top_p": 0.95,
 }
 
-safety_settings = {
-    generative_models.HarmCategory.HARM_CATEGORY_HATE_SPEECH: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    generative_models.HarmCategory.HARM_CATEGORY_DANGEROUS_CONTENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    generative_models.HarmCategory.HARM_CATEGORY_SEXUALLY_EXPLICIT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-    generative_models.HarmCategory.HARM_CATEGORY_HARASSMENT: generative_models.HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
-}
+
 
 # Initialize Vertex AI generative model
 model = initialize_vertex_model()
@@ -72,7 +66,7 @@ if user_message:
     st.session_state["history"].append({"role": "user", "content": user_message})
     
     # Generate AI response, considering the conversation history
-    ai_response = generate_response(chat, st.session_state["history"], generation_config, safety_settings)
+    ai_response = generate_response(chat, st.session_state["history"], generation_config)
     
     # Add AI's response to chat history
     st.session_state["history"].append({"role": "assistant", "content": ai_response.text})
