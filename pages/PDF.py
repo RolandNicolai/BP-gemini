@@ -61,3 +61,4 @@ responses = model.generate_content(
     generation_config=generation_config,
     safety_settings=safety_settings,
     stream=True,
+)
