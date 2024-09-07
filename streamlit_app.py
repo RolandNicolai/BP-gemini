@@ -9,11 +9,11 @@ import numpy as np
 import time
 
 
-st.header('Bonnier GenAI sandbox', divider='rainbow')
 
 email = st.experimental_user.email
 
 first_name = email.split(".")[0]
+st.title("Goodmorning :blue[cool] :sunglasses:", first_name.capitalize())
 
 st.write(first_name.capitalize())
 st.subheader("Bygget på Google Gemini")
