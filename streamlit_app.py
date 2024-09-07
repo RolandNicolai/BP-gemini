@@ -13,11 +13,8 @@ import datetime
 # Define the Copenhagen timezone
 copenhagen_tz = pytz.timezone('Europe/Copenhagen')
 
-# Get the current time in Copenhagen
-current_time_copenhagen = datetime.now(pytz.utc).astimezone(copenhagen_tz)
+datetime_in_Lagos = datetime.now(pytz.timezone('Africa/Lagos'))
 
-# Extract the hour part as an integer
-current_hour = current_time_copenhagen.hour
 # Conditional statements based on the time of the day
 if 6 <= current_hour < 12:
     st.write("Good morning!")
