@@ -53,7 +53,7 @@ if 'instructions' not in st.session_state:
     st.session_state['instructions'] = ''
 
 
-st.text_input("Indtast instruktioner til modellen", key="instructions")
+instructions = st.text_input("Indtast instruktioner til modellen", key="instructions")
 
 
 # Streamlit app for file upload, analysis, and displaying results
