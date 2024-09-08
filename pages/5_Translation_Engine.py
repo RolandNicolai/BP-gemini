@@ -36,8 +36,10 @@ option_to = st.selectbox(
 
 if 'translated_to' not in st.session_state:
     st.session_state['translated_to'] = ''
+if 'translated_from' not in st.session_state:
+    st.session_state['translated_from'] = ''
 
-translation_text = st.text_input("Indtast tekst som ønskes oversat", "Lorem Ipsum", key="translation_text")
+translation_text = st.text_input("Indtast tekst som ønskes oversat", "Lorem Ipsum", key="translated_from", value=st.session_state['translated_from'])
 instructions = f"You are an expert Translator. You are tasked to translate documents from {option_from} to {option_to}. Please provide an accurate translation of this document and return translation text only: "
 
 
