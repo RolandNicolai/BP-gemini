@@ -39,9 +39,9 @@ quotes = [
     "Nothing in life is to be feared, it is only to be understood. Now is the time to understand more, so that we may fear less. :orange[- Marie Curie]",
     "If I have seen further, it is by standing on the shoulders of giants. :orange[- Isaac Newton]",
     "I would rather have questions that can't be answered than answers that can't be questioned. :orange[- Richard Feynman]",
-    "Works of art make rules; rules do not make works of art. :orange[-Claude Debussy]"
-    "A computer would deserve to be called intelligent if it could deceive a human into believing that it was human. :orange[- Alan Turing]"
-    "The most dangerous phrase in the language is, ‘We’ve always done it this way.’ :orange[- Grace Hopper]"
+    "Works of art make rules; rules do not make works of art. :orange[-Claude Debussy]",
+    "A computer would deserve to be called intelligent if it could deceive a human into believing that it was human. :orange[- Alan Turing]",
+    "The most dangerous phrase in the language is, ‘We’ve always done it this way.’ :orange[- Grace Hopper]",
 ]
 
 # Function to get a random quote
