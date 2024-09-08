@@ -82,7 +82,6 @@ if translate_button:
 
     # Store the analysis result in session state
     st.session_state['translated_to'] = translation_result
-    st.session_state['translated_from'] = translation_text
     
     # Display the analysis result in a text area
     #st.text_area("Resultat", value=analysis_result, height=400)
