@@ -39,7 +39,7 @@ if 'translated_to' not in st.session_state:
 if 'translated_from' not in st.session_state:
     st.session_state['translated_from'] = ''
 
-translation_text = st.text_input("Indtast tekst som ønskes oversat", "Lorem Ipsum", key="translated_from")
+translation_text = st.text_input("Indsæt tekst som ønskes oversat", "Lorem Ipsum", key="translated_from")
 instructions = f"You are an expert Translator. You are tasked to translate documents from {option_from} to {option_to}. Please provide an accurate translation of this document and return translation text only: "
 
 
@@ -83,6 +83,7 @@ if translate_button:
 
     # Store the analysis result in session state
     st.session_state['translated_to'] = translation_result
+    st.session_state['translated_from'] = translation_text
     
     # Display the analysis result in a text area
     #st.text_area("Resultat", value=analysis_result, height=400)
