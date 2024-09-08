@@ -84,4 +84,4 @@ if translate_button:
     
     # Display the analysis result in a text area
     #st.text_area("Resultat", value=analysis_result, height=400)
-    st.text_area("Oversættelse", value=st.session_state['translated_to'], height=400)
+st.text_area("Oversættelse", value=st.session_state['translated_to'], height=400)
