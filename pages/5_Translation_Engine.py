@@ -23,12 +23,12 @@ model = GenerativeModel("gemini-1.5-pro-001",
 
 option_from = st.selectbox(
     "Jeg oversætter fra",
-    ("da", "fi", "no", "se"),
+    ("danish", "finnish", "norwegian", "swedish"),
 )
 
 option_to = st.selectbox(
     "til",
-    ("da", "fi", "no", "se"),
+    ("danish", "finnish", "norwegian", "swedish"),
 )
 
 
@@ -84,4 +84,4 @@ if translate_button:
     
     # Display the analysis result in a text area
     #st.text_area("Resultat", value=analysis_result, height=400)
-st.text_area("Oversættelse", value=st.session_state['translated_to'], height=400)
+    st.text_area("Oversættelse", value=st.session_state['translated_to'], height=400)
