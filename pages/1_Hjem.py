@@ -102,9 +102,9 @@ st.markdown(
 )
 
 with st.popover("Om applikationen"):
-    st.markdown("Denne app bygger på GenAI teknologi for at løse forskellige opgaver.
+    st.markdown("""Denne app bygger på GenAI teknologi for at løse forskellige opgaver.
     Dette indebærer at én bruger skal være bevidst om at systemet til tider kan genererer usande/ ikke faktuelle svar.
-    Systemet kører i et lukket miljø.")
+    Systemet kører i et lukket miljø.""")
     #st.divider()
     #st.markdown("Test 2 👋")
     #st.divider()
