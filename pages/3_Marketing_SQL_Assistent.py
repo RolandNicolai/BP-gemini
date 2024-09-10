@@ -135,7 +135,6 @@ model = initialize_vertex_model()
 chat = model.start_chat()
 
 # Streamlit Chat Interface
-st.title("AI Chat")
 
 # Initialize conversation history if not present in session_state
 if "history" not in st.session_state:
