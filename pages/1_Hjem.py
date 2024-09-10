@@ -104,7 +104,6 @@ st.markdown(
             <p class="info-text">Få hjælp til at srkive SQL queries</p>
 
         </div>
-        <img src="https://via.placeholder.com/200x400?text=Mobile+Phone+Interface" alt="Mobile Phone Interface">
     </div>
     """, unsafe_allow_html=True
 )
