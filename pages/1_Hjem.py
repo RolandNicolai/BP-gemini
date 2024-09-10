@@ -57,12 +57,6 @@ def main():
 main()
 
 
-#with st.popover("Anbefalinger til dig"):
-  #  st.markdown("Test 1 👋")
-  #  st.divider()
-  #  st.markdown("Test 2 👋")
-  #  st.divider()
-
 
 # Custom CSS to style the boxes
 st.markdown(
@@ -99,11 +93,20 @@ st.markdown(
     <div class="priority-box">
         <div>
             <p class="info-text">Anbefalinger til dig:</p>
-            <p class="info-text">Træk data fra vores datawarehouse vha. AI genererede queries.</p>
-            <p class="info-text">Få hjælp til at srkive SQL queries</p>
+            <p class="info-text">- Træk data fra vores datawarehouse vha. AI genererede queries.</p>
+            <p class="info-text">- Få hjælp til at srkive SQL queries</p>
+            <p class="info-text">- Oværsæt tekster </p>
+
     </div>
     """, unsafe_allow_html=True
 )
 
+with st.popover("Om applikationen"):
+    st.markdown("Denne app bygger på GenAI teknologi for at løse forskellige opgaver.
+    Dette indebærer at én bruger skal være bevidst om at systemet til tider kan genererer usande/ ikke faktuelle svar.
+    Systemet kører i et lukket miljø.")
+    #st.divider()
+    #st.markdown("Test 2 👋")
+    #st.divider()
 
         
