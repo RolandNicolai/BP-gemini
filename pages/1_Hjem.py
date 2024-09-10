@@ -101,6 +101,7 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
+st.divider()
 with st.popover("Om applikationen"):
     st.markdown("""Denne app bygger på GenAI teknologi for at løse forskellige opgaver.
     Dette indebærer at én bruger skal være bevidst om at systemet til tider kan genererer usande/ ikke faktuelle svar.
