@@ -56,14 +56,13 @@ def main():
 
 main()
 
+"""
 with st.popover("Anbefalinger til dig"):
     st.markdown("Test 1 👋")
     st.divider()
     st.markdown("Test 2 👋")
     st.divider()
-
-
-import streamlit as st
+"""
 
 # Custom CSS to style the boxes
 st.markdown(
