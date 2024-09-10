@@ -105,7 +105,8 @@ st.divider()
 with st.popover("Om applikationen"):
     st.markdown("""Denne app bygger på GenAI teknologi for at løse forskellige opgaver.
     Dette indebærer at én bruger skal være bevidst om at systemet til tider kan genererer usande/ ikke faktuelle svar.
-    Systemet kører i et lukket miljø.""")
+    Per default trænes Google's foundation modeller ikke i i Google cloud. Dette indebærer både brugerens prompts/indhold samt modellens svar, se nærmere herfor i Google' data governance: 
+    https://cloud.google.com/vertex-ai/generative-ai/docs/data-governance#foundation_model_training""")
     #st.divider()
     #st.markdown("Test 2 👋")
     #st.divider()
