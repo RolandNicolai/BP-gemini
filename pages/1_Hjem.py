@@ -69,21 +69,6 @@ import streamlit as st
 st.markdown(
     """
     <style>
-    .info-box {
-        background-color: #f4f4f4; 
-        padding: 20px;
-        border-radius: 15px;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
-    
-    .audio-box {
-        background-color: white;
-        border-radius: 15px;
-        padding: 10px;
-        text-align: center;
-        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-    }
     
     .priority-box {
         background-color: white;
@@ -108,24 +93,16 @@ st.markdown(
     """, unsafe_allow_html=True
 )
 
-# Info box with transcription and recording example
-st.markdown(
-    """
-    <div class="info-box">
-        <p class="info-text">Just hit record in the Notes or Phone app to capture audio recordings and transcripts. Apple Intelligence generates <b>summaries</b> of your transcripts, so you can get the most important info at a glance.</p>
-        <div class="audio-box">
-            <img src="https://via.placeholder.com/400x100?text=Audio+Recording+Interface" alt="Audio Recording Interface">
-        </div>
-    </div>
-    """, unsafe_allow_html=True
-)
 
 # Priority message box
 st.markdown(
     """
     <div class="priority-box">
         <div>
-            <p class="info-text">Priority messages in Mail elevate time-sensitive messages to the top of your inbox — like an invitation that has a deadline today or a check-in reminder for your flight this afternoon.</p>
+            <p class="info-text">Anbefalinger til dig:</p>
+            <p class="info-text">Træk data fra vores datawarehouse vha. AI genererede queries.</p>
+            <p class="info-text">Få hjælp til at srkive SQL queries</p>
+
         </div>
         <img src="https://via.placeholder.com/200x400?text=Mobile+Phone+Interface" alt="Mobile Phone Interface">
     </div>
