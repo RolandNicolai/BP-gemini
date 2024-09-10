@@ -102,8 +102,6 @@ st.markdown(
             <p class="info-text">Anbefalinger til dig:</p>
             <p class="info-text">Træk data fra vores datawarehouse vha. AI genererede queries.</p>
             <p class="info-text">Få hjælp til at srkive SQL queries</p>
-
-        </div>
     </div>
     """, unsafe_allow_html=True
 )
