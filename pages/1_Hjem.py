@@ -56,13 +56,13 @@ def main():
 
 main()
 
-"""
-with st.popover("Anbefalinger til dig"):
-    st.markdown("Test 1 👋")
-    st.divider()
-    st.markdown("Test 2 👋")
-    st.divider()
-"""
+
+#with st.popover("Anbefalinger til dig"):
+  #  st.markdown("Test 1 👋")
+  #  st.divider()
+  #  st.markdown("Test 2 👋")
+  #  st.divider()
+
 
 # Custom CSS to style the boxes
 st.markdown(
