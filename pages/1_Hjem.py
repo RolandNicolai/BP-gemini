@@ -111,4 +111,6 @@ with st.popover("Om applikationen - Sikkerhed/Modeller"):
     #st.markdown("Test 2 👋")
     #st.divider()
 
+st.divider()
+
         
