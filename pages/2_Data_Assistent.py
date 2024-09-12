@@ -173,7 +173,7 @@ model = GenerativeModel(
 
 
 if "messages" not in st.session_state:
-    st.session_state.messages = []
+    st.session_state.messages = [{"role": "assistant", "content": "Hej, hvad kan jeg hjælpe med i dag?"}]
 
 
 # Display existing messages
