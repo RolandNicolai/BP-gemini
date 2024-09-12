@@ -16,17 +16,5 @@ pg.run()
 
 
 
-        
-left, logout_button_column = st.columns(2)
 
 
-with left:
-    google_button = st.button("Login with Google")
-
-    if google_button:
-        st.experimental_user.login(provider="google")
-
-
-
-st.write(":sparkles: :rainbow[User data]")
-st.write(st.experimental_user)
