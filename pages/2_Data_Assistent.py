@@ -309,7 +309,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
         time.sleep(3)
 
-        full_response = response.text
+        full_response = st.write_stream(response.text)
         prompt = globals().get('prompt', 'null')
         reason = globals().get('reason', 'null')
         cleaned_query = globals().get('cleaned_query', 'null')
