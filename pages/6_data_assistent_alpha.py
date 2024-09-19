@@ -154,6 +154,7 @@ sql_query_func = FunctionDeclaration(
 toolcase = Tool(
     function_declarations=[
         sql_query_func,
+        code_execution
     ],
 )
 
