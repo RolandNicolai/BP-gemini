@@ -287,19 +287,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
-                        if "chart" in prompt.lower():
-                            try:
 
-                                response = chat.send_message(prompt)
-                            # Handle chart creation
-                                #chart_response = response.function_call.args
-                                query = params["query"]
-                                chart_type = params["chart_type"]
-
-            # Generate the chart and display it
-                                chart_base64 = generate_chart(query, chart_type)
-                                chart_html = f'<img src="data:image/png;base64,{chart_base64}" alt="Chart">'
-                                st.markdown(chart_html, unsafe_allow_html=True)
 
                             
             
