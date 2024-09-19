@@ -173,7 +173,7 @@ code_executor_func = FunctionDeclaration(
 toolcase = Tool(
     function_declarations=[
         sql_query_func,
-        code_executor_func
+        code_executor_func,
     ],
 )
 
