@@ -148,13 +148,32 @@ sql_query_func = FunctionDeclaration(
     },
 )
 
+code_executor_func = FunctionDeclaration(
+    name="code_executor",
+    description="give quantitative answers to a users request based on data queried from Big Query",
+    parameters={
+        "type": "object",
+        "properties": {
+            "response": {
+                "type": "string",
+                "description": f"""
+                based on the results from Big Query and the users question, create a single line text to be executed in a code executor """,
+            },
+        },
+        "required": [
+            "query",
+            "reason",
+        ],
+    },
+)
+
 
 
 
 toolcase = Tool(
     function_declarations=[
         sql_query_func,
-        'code_execution'
+        code_executor_func
     ],
 )
 
