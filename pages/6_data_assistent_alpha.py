@@ -292,6 +292,9 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                                 df = pd.DataFrame([dict(row) for row in api_response_res])
                                 message.bar_chart(chart_data, x=df.columns[0], y=df.columns[1])
 
+                            except ValueError as ve:
+                                st.error(f"ValueError: {ve}")
+
 
 
 
