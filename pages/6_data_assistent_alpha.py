@@ -120,7 +120,36 @@ with st.sidebar:
         dataset = 'default_dataset'
         table = 'default_table'
 
+def generate_chart(query, chart_type):
+    # Initialize BigQuery client
+    client = bigquery.Client(credentials=credentials)
+    
+    # Execute query
+    query_job = client.query(query)  # Run the SQL query
+    result = query_job.result()  # Wait for the query to complete
 
+    # Convert result to a Pandas DataFrame
+    df = pd.DataFrame([dict(row) for row in result])
+
+    # Generate a chart based on the requested chart type
+    fig, ax = plt.subplots()
+
+    if chart_type == "bar":
+        df.plot(kind='bar', ax=ax)
+    elif chart_type == "line":
+        df.plot(kind='line', ax=ax)
+    elif chart_type == "scatter":
+        df.plot(kind='scatter', x=df.columns[0], y=df.columns[1], ax=ax)
+    else:
+        raise ValueError("Unsupported chart type")
+
+    # Save plot to a buffer and encode as base64
+    buffer = io.BytesIO()
+    plt.savefig(buffer, format='png')
+    buffer.seek(0)
+    image_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+    return image_base64
 
 sql_query_func = FunctionDeclaration(
     name="sql_query",
@@ -140,6 +169,11 @@ sql_query_func = FunctionDeclaration(
                 "type": "string",
                 "description": "think step by step and walk through the reasoning behind the SQL query in plain danish. Always use all the relevant fields and datasets in your description "
             },
+            "chart_type": {
+                "type": "string",
+                "description": "Type of chart to generate based on the user's question (bar, line, scatter).",
+                "enum": ["bar", "line", "scatter"]
+            }
         },
         "required": [
             "query",
@@ -148,24 +182,7 @@ sql_query_func = FunctionDeclaration(
     },
 )
 
-code_executor_func = FunctionDeclaration(
-    name="code_executor",
-    description="give quantitative answers to a users request based on data queried from Big Query",
-    parameters={
-        "type": "object",
-        "properties": {
-            "response": {
-                "type": "string",
-                "description": f"""
-                based on the results from Big Query and the users question, create a single line text to be executed in a code executor """,
-            },
-        },
-        "required": [
-            "query",
-            "reason",
-        ],
-    },
-)
+
 
 
 
@@ -173,7 +190,6 @@ code_executor_func = FunctionDeclaration(
 toolcase = Tool(
     function_declarations=[
         sql_query_func,
-        code_executor_func,
     ],
 )
 
@@ -284,36 +300,6 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, api_response]
                         )
 
-                if response.function_call.name == "code_executor":
-                   
-                    try:
-                        code_executor = (
-                            params["response"]
-                            .replace("\\n", " ")
-                            .replace("\n", " ")
-                            .replace("\\", "")
-                        )                        
-                        code_executor_response = model.generate_content(
-                            (f"""{code_executor}"""),
-                            tools='code_execution')
-
-                        
-                        api_response = code_executor_response.text
-                        print("Query result:", api_response)  # Print first 100 chars of response
-                        
-                        api_requests_and_responses.append(
-                            [response.function_call.name, params, api_response]
-                        )
-
-                        reason = params['reason']
-                    
-                    except Exception as e:
-                        api_response = f"{str(e)}"
-                        api_requests_and_responses.append(
-                            [response.function_call.name, params, api_response]
-                        )
-
-                    
 
                     
 
