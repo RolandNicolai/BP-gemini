@@ -167,7 +167,7 @@ sql_query_func = FunctionDeclaration(
             "chart_type": {
                 "type": "string",
                 "description": "Type of chart to generate based on the user's question (bar, line, scatter).",
-                "enum": ["bar", "line", "scatter"]
+                #"enum": ["bar", "line", "scatter"]
             }
         },
         "required": [
