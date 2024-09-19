@@ -122,11 +122,6 @@ with st.sidebar:
 
 def generate_chart(query, chart_type):
     # Initialize BigQuery client
-    client = bigquery.Client(credentials=credentials)
-    
-    # Execute query
-    query_job = client.query(query)  # Run the SQL query
-    result = query_job.result()  # Wait for the query to complete
 
     # Convert result to a Pandas DataFrame
     df = pd.DataFrame([dict(row) for row in result])
@@ -281,17 +276,32 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
 
                         
                         query_job = client.query(cleaned_query, location = "EU", job_config=job_config)
-                        api_response = query_job.result()
+                        api_response_res = query_job.result()
                         bytes_billed = query_job.total_bytes_billed
                         bytes_billed_result = (bytes_billed / 1.048576e6)
-                        api_response = str([dict(row) for row in api_response])
+                        api_response = str([dict(row) for row in api_response_res])
                         api_response = api_response.replace("\\", "").replace("\n", "")
                         print("Query result:", api_response[:100])  # Print first 100 chars of response
                         
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+                        if "chart" in prompt.lower():
+                            try:
 
+                                response = chat.send_message(prompt)
+                            # Handle chart creation
+                                #chart_response = response.function_call.args
+                                query = params["query"]
+                                chart_type = params["chart_type"]
+
+            # Generate the chart and display it
+                                chart_base64 = generate_chart(query, chart_type)
+                                chart_html = f'<img src="data:image/png;base64,{chart_base64}" alt="Chart">'
+                                st.markdown(chart_html, unsafe_allow_html=True)
+
+                            
+            
                         reason = params['reason']
                     
                     except Exception as e:
