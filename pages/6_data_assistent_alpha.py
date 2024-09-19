@@ -284,6 +284,37 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                             [response.function_call.name, params, api_response]
                         )
 
+                if response.function_call.name == "code_executor":
+                   
+                    try:
+                        code_executor = (
+                            params["response"]
+                            .replace("\\n", " ")
+                            .replace("\n", " ")
+                            .replace("\\", "")
+                        )                        
+                        code_executor_response = model.generate_content(
+                            (f"""{code_executor}"""),
+                            tools='code_execution')
+
+                        
+                        api_response = code_executor_response.text
+                        print("Query result:", api_response)  # Print first 100 chars of response
+                        
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, api_response]
+                        )
+
+                        reason = params['reason']
+                    
+                    except Exception as e:
+                        api_response = f"{str(e)}"
+                        api_requests_and_responses.append(
+                            [response.function_call.name, params, api_response]
+                        )
+
+                    
+
                     
 
 
