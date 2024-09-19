@@ -287,6 +287,12 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
+                        if "chart" in prompt.lower():  # Convert result to a Pandas DataFrame
+                            try:
+                                df = pd.DataFrame([dict(row) for row in api_response_res])
+                                message.bar_chart(chart_data, x=df.columns[0], y=df.columns[1], color=ax=ax)
+
+
 
 
                             
@@ -298,8 +304,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                         api_requests_and_responses.append(
                             [response.function_call.name, params, api_response]
                         )
-
-
+                        
                     
 
 
