@@ -6,7 +6,7 @@ from google.cloud import bigquery
 import time
 import datetime
 import pytz
-
+import pandas as pd
 email = st.experimental_user.email
 
 user_first_name = email.split(".")[0]
