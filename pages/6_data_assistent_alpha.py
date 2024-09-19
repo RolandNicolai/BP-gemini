@@ -154,6 +154,7 @@ sql_query_func = FunctionDeclaration(
 toolcase = Tool(
     function_declarations=[
         sql_query_func,
+        'code_execution'
     ],
 )
 
@@ -166,7 +167,7 @@ generation_config = {
 model = GenerativeModel(
     "gemini-1.5-pro-001",
     generation_config=generation_config,
-    tools=([toolcase],'code_execution'),
+    tools=[toolcase],
 )
 
 
