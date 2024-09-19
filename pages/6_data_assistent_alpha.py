@@ -299,7 +299,7 @@ if prompt := st.chat_input("Hvad kan jeg hjælpe med?"):
                                 chart_base64 = generate_chart(query, chart_type)
                                 chart_html = f'<img src="data:image/png;base64,{chart_base64}" alt="Chart">'
                                 chart = st.markdown(chart_html, unsafe_allow_html=True)
-                                st.session_state.messages.append(chart)
+                                chat.send_message(chart)
 
                             
             
