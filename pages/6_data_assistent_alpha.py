@@ -164,16 +164,11 @@ sql_query_func = FunctionDeclaration(
                 "type": "string",
                 "description": "think step by step and walk through the reasoning behind the SQL query in plain danish. Always use all the relevant fields and datasets in your description "
             },
-            "chart_type": {
-                "type": "string",
-                "description": "Type of chart to generate based on the user's question (bar, line, scatter).",
-                "enum": ["bar", "line", "scatter"]
-            },
+
         },
         "required": [
             "query",
             "reason",
-            "chart_type",
         ],
     },
 )
