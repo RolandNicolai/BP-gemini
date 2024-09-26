@@ -6,7 +6,7 @@ data_assistent = st.Page("pages/2_Data_Assistent.py", title="Data Assistent")
 SQL_assistent = st.Page("pages/3_Marketing_SQL_Assistent.py", title="Marketing SQL Assistent")
 pdf_assistent = st.Page("pages/4_PDF_Assistent.py", title="PDF Assistent")
 translation_engine = st.Page("pages/5_Translation_Engine.py", title="Translation Engine")
-alpha_data = st.Page("pages/6_data_assistent_alpha.py", title = "data_ver_alpha")
+alpha_data = st.Page("pages/6_data_assistent_alpha.py", title = "data ver alpha")
 pdf_upload = st.page("pages/7_article_search_upload.py", title = "PDF upload")
 
 
