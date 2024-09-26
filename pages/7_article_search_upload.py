@@ -32,17 +32,17 @@ bucket_name = "vertex_search_assets"
 #source_file_name = "/content/image.png"  # Replace with your local file path
 #destination_blob_name = "your_file_in_bucket.txt"  # Replace with the desired name in the bucket
 
-input_name = st.text_input("navn på din fil", "Lorem Ipsum", key="translated_from")
-destination_blob_name = (input_name + ".pdf")
 #source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
-destination_blob_name = st.file_uploader(
-    "Choose a pdf file", accept_multiple_files=True
+source_file_name = st.file_uploader(
+    "Choose a pdf file", accept_multiple_files=False
 )
-for uploaded_file in destination_blob_name:
+
+destination_blob_name = source_file_name.name
+for uploaded_file in source_file_name:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
-    st.write(bytes_data)
+    #st.write(bytes_data)
 
 if st.button("Upload fil"):
     upload_blob(bucket_name, source_file_name, destination_blob_name)
