@@ -36,6 +36,14 @@ input_name = st.text_input("navn på din fil", "Lorem Ipsum", key="translated_fr
 destination_blob_name = (input_name + ".pdf")
 source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
+destination_blob_name = st.file_uploader(
+    "Choose a pdf file", accept_multiple_files=True
+)
+for uploaded_file in uploaded_files:
+    bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
+    st.write(bytes_data)
+
 if st.button("Upload fil"):
     upload_blob(bucket_name, source_file_name, destination_blob_name)
     #st.write((f"File {source_file_name} uploaded to {bucket_name}/{destination_blob_name}.")
