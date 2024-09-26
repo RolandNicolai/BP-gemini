@@ -33,9 +33,8 @@ bucket_name = "vertex_search_assets"
 
 #source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
-source_file_name = st.file_uploader(
-    "Choose a pdf file", accept_multiple_files=False
-)
+source_file = st.file_uploader("Choose a PDF file", type="pdf")
+
 
 destination_blob_name = "test1.pdf"
 
