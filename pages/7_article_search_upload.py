@@ -40,7 +40,7 @@ source_file_name = st.file_uploader(
 
 destination_blob_name = "test1"
 for uploaded_file in source_file_name:
-    bytes_data = uploaded_file.read()
+    #bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
     #st.write(bytes_data)
 
