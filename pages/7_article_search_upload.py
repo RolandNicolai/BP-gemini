@@ -38,7 +38,7 @@ source_file_name = st.file_uploader(
     "Choose a pdf file", accept_multiple_files=False
 )
 
-destination_blob_name = "test1"
+destination_blob_name = "test1.pdf"
 
 
 if st.button("Upload fil"):
