@@ -34,7 +34,7 @@ bucket_name = "vertex_search_assets"
 
 input_name = st.text_input("navn på din fil", "Lorem Ipsum", key="translated_from")
 destination_blob_name = (input_name + ".pdf")
-source_file_name = st.file_uploader("vælg din fil", type="pdf")
+#source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
 destination_blob_name = st.file_uploader(
     "Choose a pdf file", accept_multiple_files=True
