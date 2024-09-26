@@ -1,3 +1,21 @@
+import streamlit as st
+import base64
+from vertexai.generative_models import Part
+from google.oauth2 import service_account
+from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
+import vertexai
+import time
+
+
+
+LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
+st.logo(LOGO_URL_LARGE)
+
+st.header('Analysér dine dokumenter med GenAI', divider='rainbow')
+
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["vertexAI_service_account"]
+)
 from google.cloud import storage
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
