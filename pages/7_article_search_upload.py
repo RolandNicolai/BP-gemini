@@ -38,4 +38,4 @@ source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
 if st.button("Upload fil"):
     upload_blob(bucket_name, source_file_name, destination_blob_name)
-    st.write((f"File {source_file_name} uploaded to {bucket_name}/{destination_blob_name}.")
+    #st.write((f"File {source_file_name} uploaded to {bucket_name}/{destination_blob_name}.")
