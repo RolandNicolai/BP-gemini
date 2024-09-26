@@ -39,7 +39,7 @@ destination_blob_name = (input_name + ".pdf")
 destination_blob_name = st.file_uploader(
     "Choose a pdf file", accept_multiple_files=True
 )
-for uploaded_file in uploaded_files:
+for uploaded_file in destination_blob_name:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
