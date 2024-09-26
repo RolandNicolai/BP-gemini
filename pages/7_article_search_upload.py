@@ -20,7 +20,7 @@ from google.cloud import storage
 
 def upload_blob(bucket_name, source_file_name, destination_blob_name):
     """Uploads a file to the bucket."""
-    storage_client = storage.Client()
+    storage_client = storage.Client(credentials=credentials)
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)
@@ -33,7 +33,7 @@ bucket_name = "vertex_search_assets"
 #destination_blob_name = "your_file_in_bucket.txt"  # Replace with the desired name in the bucket
 
 input_name = st.text_input("navn på din fil", "Lorem Ipsum", key="translated_from")
-destination_blob_name = (input_name)
+destination_blob_name = (input_name,".pdf")
 source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
 if st.button("Upload fil"):
