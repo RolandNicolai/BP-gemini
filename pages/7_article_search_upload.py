@@ -31,7 +31,10 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
 
 # Replace these with your actual values
 bucket_name = "vertex_search_assets"
-source_file_name = "/content/image.png"  # Replace with your local file path
+#source_file_name = "/content/image.png"  # Replace with your local file path
 destination_blob_name = "your_file_in_bucket.txt"  # Replace with the desired name in the bucket
 
-upload_blob(bucket_name, source_file_name, destination_blob_name)
+source_file_name = st.file_uploader("vælg din fil", type="pdf")
+
+if st.button("Upload and Analyse File"):
+    upload_blob(bucket_name, source_file_name, destination_blob_name)
