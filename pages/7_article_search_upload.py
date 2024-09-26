@@ -23,9 +23,7 @@ def upload_blob(bucket_name, source_file_name, destination_blob_name):
     storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
-
-    with open(source_file_name, 'rb') as f:
-        blob.upload_from_file(f)
+    blob.upload_from_filename(source_file_name)
 
     print(f"File {source_file_name} uploaded to {bucket_name}/{destination_blob_name}.")
 
@@ -38,5 +36,6 @@ input_name = st.text_input("navn på din fil", "Lorem Ipsum", key="translated_fr
 destination_blob_name = (input_name,".pdf")
 source_file_name = st.file_uploader("vælg din fil", type="pdf")
 
-if st.button("Upload and Analyse File"):
+if st.button("Upload fil"):
     upload_blob(bucket_name, source_file_name, destination_blob_name)
+    st.write((f"File {source_file_name} uploaded to {bucket_name}/{destination_blob_name}.")
