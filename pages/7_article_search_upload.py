@@ -5,7 +5,7 @@ from google.cloud import storage
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
 st.image(LOGO_URL_LARGE)
 
-st.header('Analysér dine dokumenter med GenAI', divider='rainbow')
+st.header('Upload dine dokumenter til arkivet', divider='rainbow')
 
 # Setup Google Cloud credentials
 credentials = service_account.Credentials.from_service_account_info(
