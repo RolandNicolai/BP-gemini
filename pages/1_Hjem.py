@@ -19,8 +19,7 @@ current_time_copenhagen = datetime.now(pytz.utc).astimezone(copenhagen_tz)
 # Extract the hour part as an integer
 current_hour = current_time_copenhagen.hour
 
-email = st.experimental_user.email
-
+email = str(st.experimental_user.email)
 first_name = email.split(".")[0]
 
 # Conditional statements based on the time of the day
