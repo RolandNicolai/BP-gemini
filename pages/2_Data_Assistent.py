@@ -105,7 +105,7 @@ with st.sidebar:
         \n[country]: equals a country/market. Only use the abbreviations in [DK, NO, SE, or FI]  
         \n[activity_type]: can be  either [egne sites, internet] only used when user explicitly needs information on activity_type
         \n[ownedPaid]: the field is used to define whether a sale has been conducted from an owned or paid channel, field can only be either [owned, paid]
-        \nexample of query ['hvor mange salg havde GDS i juni 2024']
+        ##example of query ['hvor mange salg havde GDS i juni 2024']
         '''SQL: SELECT
         sum(purchases)
         FROM
@@ -113,6 +113,33 @@ with st.sidebar:
         WHERE lower(publication_name) = 'gds'
         and cast(dato as date) between '2024-06-01' and '2024-06-30
         '''
+        ##Example of query ['hvor mange salg var der i juni 2024 vs juni 2023 fordelt på brands og aktivitets typer. giv mig en tabel over resultater']
+        '''with june_2024_sales as(
+        select 
+        publication_name,
+        activity_type,
+        sum(purchases) as june_2024
+        from `bonnier-deliverables.dummy_dataset.kpi_replica_data_assistant`  
+        WHERE cast(dato as date) between '2024-06-01' and '2024-06-30' and publication_name in ('HIS', 'IFO')
+        group by 1,2
+
+        )
+        , june_2023_sales as(
+        select
+        publication_name,
+        activity_type,
+        sum(purchases) as june_2023
+        from `bonnier-deliverables.dummy_dataset.kpi_replica_data_assistant`  
+        WHERE cast(dato as date) between '2023-06-01' and '2023-06-30' and publication_name in ('HIS', 'IFO')
+        group by 1,2
+        )
+
+        select
+        h.*,
+        c.june_2023
+        from june_2024_sales h left join june_2023_sales c on h.publication_name = c.publication_name and h.activity_type = c.activity_type
+        '''
+        
         """
 
     else:
