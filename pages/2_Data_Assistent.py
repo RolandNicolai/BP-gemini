@@ -57,6 +57,7 @@ with st.expander("**Sample prompts for data**", expanded=True):
     st.write(
         """
         **KPI Dataset**
+        - Hvor mange salg havde brandet IFO på diverse aktivitets typer i juni 2024 vs i juni 2023? giv mig en tabel med resultatet
         - Hvilke 5 brands havde de højeste gennemsnitlige antal salg pr dag i juni 2024?
         - Hvor mange salg havde brandet IFO på aktivitets typen egne sites i juni 2024?
         - Hvor mange salg havde HIS i 2024 på mediekoden redteaser på owned channel
