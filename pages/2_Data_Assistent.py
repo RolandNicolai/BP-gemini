@@ -95,8 +95,8 @@ with st.sidebar:
         table = st.secrets["kpi_table"]
         fieldNames = "[dato, publication_name, media, country, activity_type, ownedPaid, purchases]"
         descriptions ="""
-        Description of the available field names:
-        always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchases] when asked about sales 
+        #Bigquery Schema information:
+        *always use the following field descriptions and field_information as guidance when creating the queries, always use the field [purchases] when asked about sales 
         \n[purchases]: the total number of purchases, must be refered to as purchases
         \n[Dato]: the date field
         \n[publication_name]: equals a name which can be used in where statements in order to filter brands
@@ -108,7 +108,7 @@ with st.sidebar:
         '''SQL: SELECT
         sum(purchases)
         FROM
-        `bonnier-deliverables.dummy_dataset.kpi_dummy`
+        `bonnier-deliverables.dummy_dataset.kpi_replica_data_assistant`
         WHERE lower(publication_name) = 'gds'
         and cast(dato as date) between '2024-06-01' and '2024-06-30
         '''
