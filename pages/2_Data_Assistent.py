@@ -113,7 +113,7 @@ with st.sidebar:
         WHERE lower(publication_name) = 'gds'
         and cast(dato as date) between '2024-06-01' and '2024-06-30
         '''
-        ##Example of query ['hvor mange salg var der i juni 2024 vs juni 2023 fordelt på brands og aktivitets typer. giv mig en tabel over resultater']
+        ##Example of query ['hvor mange salg var der i juni 2024 vs juni 2023 fordelt på brandet HIS og IFO og aktivitets typer. giv mig en tabel over resultater']
         '''with june_2024_sales as(
         select 
         publication_name,
