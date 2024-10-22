@@ -12,37 +12,11 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import tensorflow as tf
 
-def printImages(results):
- image_results_list = list(results)
- amt_of_images = len(image_results_list)
+import io
+from PIL import Image
+import tensorflow as tf
+import streamlit as st
 
- fig, axes = plt.subplots(nrows=amt_of_images, ncols=2, figsize=(50, 50))
- fig.tight_layout()
- fig.subplots_adjust(hspace=0.5)
- for i in range(amt_of_images):
-   gcs_uri = image_results_list[i][0]
-   text = image_results_list[i][1]
-   f = tf.io.gfile.GFile(gcs_uri, 'rb')
-   stream = io.BytesIO(f.read())
-   img = Image.open(stream)
-   axes[i, 0].axis('off')
-   axes[i, 0].imshow(img)
-   axes[i, 1].axis('off')
-   axes[i, 1].text(0, 0, text, fontsize=20)
- plt.show()
-
-email = st.experimental_user.email
-
-user_first_name = email.split(".")[0]
-
-# Define the Copenhagen timezone
-copenhagen_tz = pytz.timezone('Europe/Copenhagen')
-
-
-# Get the current date and time in Copenhagen timezone
-today = datetime.datetime.now(copenhagen_tz)
-
-current_date_str = today.strftime('%Y-%m-%dT%H:%M:%S')
 
 
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
@@ -50,7 +24,22 @@ st.logo(LOGO_URL_LARGE)
 
 st.header('Bonnier Data Assistent', divider='rainbow')
 
+def printImages(results):
+    image_results_list = list(results)
+    amt_of_images = len(image_results_list)
 
+    for i in range(amt_of_images):
+        gcs_uri = image_results_list[i][0]
+        text = image_results_list[i][1]
+        
+        # Load the image from Google Cloud Storage
+        f = tf.io.gfile.GFile(gcs_uri, 'rb')
+        stream = io.BytesIO(f.read())
+        img = Image.open(stream)
+        
+        # Display the image and text in Streamlit
+        st.image(img, caption=f"Image {i+1}")
+        st.text(text)
 
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
