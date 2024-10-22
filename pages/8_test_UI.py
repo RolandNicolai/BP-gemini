@@ -118,7 +118,7 @@ if st.button("Search"):
             'ml_generate_embedding_result',
             (SELECT embedding FROM query_embedding),
             top_k => 5,
-            distance_type => 'COSINE'
+            distance_type => 'DOT_PRODUCT'
           );"""
 
         # Execute the results query
