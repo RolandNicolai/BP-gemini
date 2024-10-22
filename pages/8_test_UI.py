@@ -17,10 +17,6 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 client = bigquery.Client(credentials=credentials)
 
-import streamlit as st
-from PIL import Image
-import requests
-from io import BytesIO
 
 def convert_gcs_to_http(gcs_uri):
     # Replace 'gs://' with 'https://storage.googleapis.com/'
@@ -87,10 +83,10 @@ def printImages(results):
 
 
 # Streamlit app
-st.title("🌟 ´Billedsøgning 🌟")
+st.title("🌟 Billedsøgning 🌟")
 
 # User input for search query
-user_query = st.text_input("Enter your search query:")
+user_query = st.text_input("Indtast søgeord her:")
 
 # Button to perform the search
 if st.button("Search"):
@@ -131,5 +127,5 @@ if st.button("Search"):
         # Display the images using printImages function
         printImages(results)
     else:
-        st.warning("Please enter a search query.")
+        st.warning("Indtast søgeord")
 
