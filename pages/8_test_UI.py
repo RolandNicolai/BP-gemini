@@ -5,7 +5,7 @@ import vertexai
 import datetime
 import pytz
 
-# Custom CSS for visual appeal (clickable appearance maintained)
+# Custom CSS for clickable block components
 st.markdown(
     """
     <style>
@@ -17,6 +17,7 @@ st.markdown(
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
         text-align: center;
         transition: transform 0.3s;
+        cursor: pointer;
     }
     
     .task-box:hover {
@@ -46,7 +47,7 @@ st.markdown(
     unsafe_allow_html=True
 )
 
-# Initialize session state if not already done
+# Initialize session state to store the selected task
 if 'selected_task' not in st.session_state:
     st.session_state['selected_task'] = None
 
@@ -64,40 +65,61 @@ current_date_str = today.strftime('%Y-%m-%dT%H:%M:%S')
 credentials = service_account.Credentials.from_service_account_info(st.secrets["vertexAI_service_account"])
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
-# Task selection using radio buttons
-task_options = ["Brainstorm", "Article Writer", "Document Reader"]
-task_icons = [
-    "https://img.icons8.com/ios/50/000000/idea.png",
-    "https://img.icons8.com/ios/50/000000/typewriter-with-paper.png",
-    "https://img.icons8.com/ios/50/000000/read.png"
-]
+# Task selection function
+def set_task(task_name):
+    st.session_state['selected_task'] = task_name
 
+# Task selection using visual blocks (simulated click with session state)
 st.markdown("## Select a Task")
-selected_task = st.radio(
-    label="Choose your task:",
-    options=task_options,
-    index=0
-)
+col1, col2, col3 = st.columns(3)
 
-# Display corresponding image for the selected task
-task_index = task_options.index(selected_task)
-st.markdown(
-    f"""
-    <div class="task-box selected-box">
-        <img src="{task_icons[task_index]}"/>
-        <p class="task-text">{selected_task}</p>
-    </div>
-    """, 
-    unsafe_allow_html=True
-)
+# Interactive task boxes
+with col1:
+    if st.button("", key="brainstorm_task"):
+        set_task("Brainstorm")
+    st.markdown(
+        """
+        <div class="task-box">
+            <img src="https://img.icons8.com/ios/50/000000/idea.png"/>
+            <p class="task-text">Brainstorm</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
 
-# Task-specific actions based on the selected task
-if selected_task:
-    st.markdown(f"## You selected {selected_task} mode")
+with col2:
+    if st.button("", key="article_task"):
+        set_task("Article Writer")
+    st.markdown(
+        """
+        <div class="task-box">
+            <img src="https://img.icons8.com/ios/50/000000/typewriter-with-paper.png"/>
+            <p class="task-text">Article Writer</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+
+with col3:
+    if st.button("", key="reader_task"):
+        set_task("Document Reader")
+    st.markdown(
+        """
+        <div class="task-box">
+            <img src="https://img.icons8.com/ios/50/000000/read.png"/>
+            <p class="task-text">Document Reader</p>
+        </div>
+        """, 
+        unsafe_allow_html=True
+    )
+
+# Load different models based on the selected task
+if st.session_state['selected_task']:
+    st.markdown(f"## You selected {st.session_state['selected_task']} mode")
 
     generation_config = {"temperature": 0.7, "max_output_tokens": 512}
     
-    if selected_task == "Brainstorm":
+    if st.session_state['selected_task'] == "Brainstorm":
         model_brainstorm = GenerativeModel("gemini-1.5-pro-001", generation_config=generation_config)
         prompt = st.text_input("Enter your brainstorming topic")
         if prompt:
@@ -105,7 +127,7 @@ if selected_task:
             response = chat.send_message(prompt).candidates[0].content
             st.write(response)
             
-    elif selected_task == "Article Writer":
+    elif st.session_state['selected_task'] == "Article Writer":
         model_writer = GenerativeModel("gemini-1.5-pro-002", generation_config=generation_config)
         prompt = st.text_input("Enter the article topic")
         if prompt:
@@ -113,7 +135,7 @@ if selected_task:
             response = chat.send_message(prompt).candidates[0].content
             st.write(response)
     
-    elif selected_task == "Document Reader":
+    elif st.session_state['selected_task'] == "Document Reader":
         model_reader = GenerativeModel("gemini-1.5-pro-003", generation_config=generation_config)
         uploaded_file = st.file_uploader("Upload a document", type=["txt", "pdf"])
         if uploaded_file:
