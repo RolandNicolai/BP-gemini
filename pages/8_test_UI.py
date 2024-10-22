@@ -42,7 +42,7 @@ def printImages(results):
         img = Image.open(BytesIO(response.content))
         
         # Resize the image to 50x50 pixels
-        img_resized = img.resize((50, 50))
+        img_resized = img.resize((200, 200))
         
         # Place the image and caption in the correct column
         with cols[i % 5]:  # Use modulus to loop across 5 columns
@@ -53,7 +53,7 @@ SELECT uri, content_type
 FROM LLM_vertex.gds_images
 WHERE content_type = 'image/png'
 Order by uri
-LIMIT 1;
+LIMIT 5;
 """
 
 # Assuming 'client.query' fetches the result set
