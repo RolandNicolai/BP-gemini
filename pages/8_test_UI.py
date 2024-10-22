@@ -25,6 +25,7 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 client = bigquery.Client(credentials=credentials)
 
+
 def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
@@ -38,13 +39,8 @@ def printImages(results):
         stream = io.BytesIO(f.read())
         img = Image.open(stream)
         
-        # Create a figure and axis for each image
-        fig, ax = plt.subplots()
-        ax.imshow(img)
-        ax.axis('off')
-        
-        # Display the plot and text in Streamlit
-        st.pyplot(fig)
+        # Display the image and text in Streamlit
+        st.image(img, caption=f"Image {i+1}")
         st.text(text)
 
 
