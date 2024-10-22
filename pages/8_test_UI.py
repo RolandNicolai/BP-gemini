@@ -87,7 +87,7 @@ def printImages(results):
 
 
 # Streamlit app
-st.title("🌟 Image Search Application 🌟")
+st.title("🌟 ´Billedsøgning 🌟")
 
 # User input for search query
 user_query = st.text_input("Enter your search query:")
