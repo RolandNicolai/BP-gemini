@@ -12,6 +12,11 @@ from PIL import Image
 import requests
 from io import BytesIO
 
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["vertexAI_service_account"]
+)
+client = bigquery.Client(credentials=credentials)
+
 def convert_gcs_to_http(gcs_uri):
     # Replace 'gs://' with 'https://storage.googleapis.com/'
     return gcs_uri.replace('gs://', 'https://storage.googleapis.com/')
