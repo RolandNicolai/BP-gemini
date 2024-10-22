@@ -42,9 +42,15 @@ def printImages(results):
         stream = io.BytesIO(f.read())
         img = Image.open(stream)
         
-        # Display the image and text in Streamlit
-        st.image(img, caption=f"Image {i+1}")
+        # Create a figure and axis for each image
+        fig, ax = plt.subplots()
+        ax.imshow(img)
+        ax.axis('off')
+        
+        # Display the plot and text in Streamlit
+        st.pyplot(fig)
         st.text(text)
+
 
 # Streamlit app
 st.title("Image Search Application")
