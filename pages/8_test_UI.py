@@ -51,27 +51,48 @@ st.logo(LOGO_URL_LARGE)
 st.header('Bonnier Data Assistent', divider='rainbow')
 
 
-st.markdown(
-    """
-    <style>
-    .stMarkdown code {
-        color: blue;
-        background-color: #f5f5f5;
-    }
-    .stMarkdown pre code {
-        color: green;
-        background-color: #f5f5f5;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 
 credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
 )
 client = bigquery.Client(credentials=credentials)
-maximum_bytes_billable = 100000000 # = 100 Mb
+
+user_query = "Image of a grass"
+
+search_query =f"""CREATE OR REPLACE TABLE `bonnier-deliverables.LLM_vertex.GDS_query_embeddings`
+AS
+SELECT * FROM ML.GENERATE_EMBEDDING(
+ MODEL `bonnier-deliverables.ML_generate_text.ml_generate_text_v1`,
+ (
+   SELECT '{user_query}' AS content
+ )
+);
+"""
+
+client.query(search_query).result()
+
+results = """WITH query_embedding AS (
+  SELECT ml_generate_embedding_result AS embedding
+  FROM `bonnier-deliverables.LLM_vertex.GDS_query_embeddings`
+)
+
+SELECT
+  base.uri,
+  (1 - distance) AS similarity_score
+FROM
+  VECTOR_SEARCH(
+    TABLE `bonnier-deliverables.LLM_vertex.gds_images_embeddings`,
+    'ml_generate_embedding_result',
+    (SELECT embedding FROM query_embedding),
+    top_k => 5,
+    distance_type => 'COSINE'
+  );"""
+
+
+results_list = list(client.query(results).result())
+
+print(results_list)
+printImages(client.query(results))
+
 
         
