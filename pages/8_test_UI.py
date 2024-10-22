@@ -72,7 +72,7 @@ def printImages(results):
                 unsafe_allow_html=True
             )
             # Display the image
-            st.image(img, use_column_width=True)
+            st.image(img, use_column_width=False)
 
             # Display similarity score below the image
             st.markdown(
