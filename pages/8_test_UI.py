@@ -41,12 +41,17 @@ def printImages(results):
         response = requests.get(http_url)
         img = Image.open(BytesIO(response.content))
         
-        # Resize the image to 50x50 pixels
-        img_resized = img.resize((200, 200))
+        # Get the original size of the image
+        original_width, original_height = img.size
+        
+        # Resize the image to half its original size
+        img_resized = img.resize((original_width // 2, original_height // 2))
         
         # Place the image and caption in the correct column
         with cols[i % 5]:  # Use modulus to loop across 5 columns
-            st.image(img_resized, caption=text, width=50)
+            st.image(img_resized, caption=text)
+
+
 # Example query to fetch the images (replace this with your actual query result fetching logic)
 inspect_obj_table_query = """
 SELECT uri, content_type
