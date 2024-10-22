@@ -22,13 +22,15 @@ def convert_gcs_to_http(gcs_uri):
     # Replace 'gs://' with 'https://storage.googleapis.com/'
     return gcs_uri.replace('gs://', 'https://storage.googleapis.com/')
 
+
 def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
 
-    # Create columns for each image (5 images per row)
-    cols = st.columns(5)
+    # Create a list to store fetched images and their corresponding text
+    images_and_text = []
 
+    # Fetch all images first
     for i in range(amt_of_images):
         # Get the GCS URI and similarity score
         gcs_uri = image_results_list[i][0]  # Example: 'gs://vertex_search_images/graestrimmer.png'
@@ -47,9 +49,16 @@ def printImages(results):
         # Resize the image to half its original size
         img_resized = img.resize((original_width // 2, original_height // 2))
         
-        # Place the image and caption in the correct column
+        # Store the resized image and the text in the list
+        images_and_text.append((img_resized, text))
+
+    # Display all images at once in columns (5 images per row)
+    cols = st.columns(5)
+    
+    for i, (img, text) in enumerate(images_and_text):
         with cols[i % 5]:  # Use modulus to loop across 5 columns
-            st.image(img_resized, caption=text)
+            st.image(img, caption=text)
+            
 
 
 # Example query to fetch the images (replace this with your actual query result fetching logic)
