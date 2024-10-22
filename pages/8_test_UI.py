@@ -17,6 +17,11 @@ credentials = service_account.Credentials.from_service_account_info(
 )
 client = bigquery.Client(credentials=credentials)
 
+import streamlit as st
+from PIL import Image
+import requests
+from io import BytesIO
+
 def convert_gcs_to_http(gcs_uri):
     # Replace 'gs://' with 'https://storage.googleapis.com/'
     return gcs_uri.replace('gs://', 'https://storage.googleapis.com/')
@@ -42,13 +47,14 @@ def printImages(results):
         response = requests.get(http_url)
         img = Image.open(BytesIO(response.content))
         
-        # Get the original size of the image and resize
-        img_resized = img.resize((200, 200))  # Fixed size for uniform appearance
+        # Get the original size of the image and resize it to half the size
+        original_width, original_height = img.size
+        img_resized = img.resize((original_width // 2, original_height // 2))  # Resizing to half of original size
         
         # Store the resized image and the text in the list
         images_and_text.append((img_resized, text))
 
-    # Display images in a more visually appealing layout
+    # Display images in a visually appealing layout
     for img, text in images_and_text:
         with st.container():  # Container for styling
             # Create a "card" effect with background and padding
