@@ -6,16 +6,12 @@ from google.cloud import bigquery
 import time
 import datetime
 import pytz
-
 import io
 from PIL import Image
 import matplotlib.pyplot as plt
 import tensorflow as tf
+import matplotlib.pyplot as plt
 
-import io
-from PIL import Image
-import tensorflow as tf
-import streamlit as st
 
 
 
