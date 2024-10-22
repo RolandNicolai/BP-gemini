@@ -13,19 +13,6 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 
-
-
-LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
-st.logo(LOGO_URL_LARGE)
-
-st.header('Bonnier Data Assistent', divider='rainbow')
-
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["vertexAI_service_account"]
-)
-client = bigquery.Client(credentials=credentials)
-
-
 def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
@@ -34,59 +21,24 @@ def printImages(results):
         gcs_uri = image_results_list[i][0]
         text = image_results_list[i][1]
         
-        # Load the image from Google Cloud Storage
+        # Read the image from the GCS URI
         f = tf.io.gfile.GFile(gcs_uri, 'rb')
         stream = io.BytesIO(f.read())
         img = Image.open(stream)
         
         # Display the image and text in Streamlit
-        st.image(img, caption=f"Image {i+1}")
+        st.image(img, caption=text, use_column_width=True)
         st.text(text)
 
+# Query to fetch the images
+inspect_obj_table_query = """
+SELECT uri, content_type
+FROM LLM_vertex.gds_images
+WHERE content_type = 'image/png'
+Order by uri
+LIMIT 10;
+"""
 
-# Streamlit app
-st.title("Image Search Application")
+# Execute the query and print the images
+printImages(client.query(inspect_obj_table_query))
 
-# User input for search query
-user_query = st.text_input("Enter your search query:")
-
-# Button to perform the search
-if st.button("Search"):
-    if user_query:
-        # Perform the search query
-        search_query = f"""CREATE OR REPLACE TABLE `bonnier-deliverables.LLM_vertex.GDS_query_embeddings`
-        AS
-        SELECT * FROM ML.GENERATE_EMBEDDING(
-        MODEL `bonnier-deliverables.ML_generate_text.ml_generate_text_v1`,
-        (
-            SELECT '{user_query}' AS content
-        )
-        );
-        """
-
-        client.query(search_query).result()
-
-        results_query = """WITH query_embedding AS (
-          SELECT ml_generate_embedding_result AS embedding
-          FROM `bonnier-deliverables.LLM_vertex.GDS_query_embeddings`
-        )
-
-        SELECT
-          base.uri,
-          (1 - distance) AS similarity_score
-        FROM
-          VECTOR_SEARCH(
-            TABLE `bonnier-deliverables.LLM_vertex.gds_images_embeddings`,
-            'ml_generate_embedding_result',
-            (SELECT embedding FROM query_embedding),
-            top_k => 5,
-            distance_type => 'COSINE'
-          );"""
-
-        # Execute the results query
-        results_list = list(client.query(results_query).result())
-
-        # Display the images using printImages function
-        printImages(results_list)
-    else:
-        st.warning("Please enter a search query.")
