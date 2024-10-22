@@ -51,7 +51,7 @@ SELECT uri, content_type
 FROM LLM_vertex.gds_images
 WHERE content_type = 'image/png'
 Order by uri
-LIMIT 10;
+LIMIT 1;
 """
 
 # Assuming 'client.query' fetches the result set
