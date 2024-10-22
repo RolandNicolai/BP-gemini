@@ -26,6 +26,9 @@ def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
 
+    # Create columns for each image (5 images per row)
+    cols = st.columns(5)
+
     for i in range(amt_of_images):
         # Get the GCS URI and similarity score
         gcs_uri = image_results_list[i][0]  # Example: 'gs://vertex_search_images/graestrimmer.png'
@@ -41,10 +44,9 @@ def printImages(results):
         # Resize the image to 50x50 pixels
         img_resized = img.resize((50, 50))
         
-        # Display the resized image in Streamlit
-        st.image(img_resized, caption=text, width=50)  # The width will be set, height will auto-scale
-
-
+        # Place the image and caption in the correct column
+        with cols[i % 5]:  # Use modulus to loop across 5 columns
+            st.image(img_resized, caption=text, width=50)
 # Example query to fetch the images (replace this with your actual query result fetching logic)
 inspect_obj_table_query = """
 SELECT uri, content_type
