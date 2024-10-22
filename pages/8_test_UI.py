@@ -7,16 +7,10 @@ import time
 import datetime
 import pytz
 import streamlit as st
+import streamlit as st
 from PIL import Image
 import requests
 from io import BytesIO
-credentials = service_account.Credentials.from_service_account_info(
-    st.secrets["vertexAI_service_account"]
-)
-client = bigquery.Client(credentials=credentials)
-
-
-
 
 def convert_gcs_to_http(gcs_uri):
     # Replace 'gs://' with 'https://storage.googleapis.com/'
@@ -34,7 +28,7 @@ def printImages(results):
     for i in range(amt_of_images):
         # Get the GCS URI and similarity score
         gcs_uri = image_results_list[i][0]  # Example: 'gs://vertex_search_images/graestrimmer.png'
-        text = f"Similarity score: {image_results_list[i][1]}"  # Display the similarity score
+        text = f"Similarity score: {image_results_list[i][1]:.2f}"  # Display the similarity score with 2 decimal places
         
         # Convert GCS URI to HTTP URL
         http_url = convert_gcs_to_http(gcs_uri)
@@ -43,25 +37,46 @@ def printImages(results):
         response = requests.get(http_url)
         img = Image.open(BytesIO(response.content))
         
-        # Get the original size of the image
-        original_width, original_height = img.size
-        
-        # Resize the image to half its original size
-        img_resized = img.resize((original_width // 2, original_height // 2))
+        # Get the original size of the image and resize
+        img_resized = img.resize((200, 200))  # Fixed size for uniform appearance
         
         # Store the resized image and the text in the list
         images_and_text.append((img_resized, text))
 
-    # Display all images at once in columns (5 images per row)
-    cols = st.columns(5)
-    
-    for i, (img, text) in enumerate(images_and_text):
-        with cols[i % 5]:  # Use modulus to loop across 5 columns
-            st.image(img, caption=text)
+    # Display images in a more visually appealing layout
+    for img, text in images_and_text:
+        with st.container():  # Container for styling
+            # Create a "card" effect with background and padding
+            st.markdown(
+                """
+                <div style="
+                    border-radius: 10px;
+                    padding: 10px;
+                    margin: 10px;
+                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                    background-color: #f9f9f9;
+                    text-align: center;
+                ">
+                """,
+                unsafe_allow_html=True
+            )
+            # Display the image
+            st.image(img, use_column_width=True)
+
+            # Display similarity score below the image
+            st.markdown(
+                f"""
+                <p style='color: #555; font-size: 18px; font-weight: bold;'>{text}</p>
+                """,
+                unsafe_allow_html=True
+            )
             
+            # Close the "card" container
+            st.markdown("</div>", unsafe_allow_html=True)
+
 
 # Streamlit app
-st.title("Image Search Application")
+st.title("🌟 Image Search Application 🌟")
 
 # User input for search query
 user_query = st.text_input("Enter your search query:")
@@ -102,10 +117,8 @@ if st.button("Search"):
         # Execute the results query
         results = client.query(results_query)
 
-
         # Display the images using printImages function
         printImages(results)
     else:
         st.warning("Please enter a search query.")
-
 
