@@ -18,12 +18,9 @@ st.markdown(
         text-align: center;
         transition: transform 0.3s;
         cursor: pointer;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: inline-block;
+        width: 150px;
+        height: 150px;
     }
     
     .task-box:hover {
@@ -42,18 +39,8 @@ st.markdown(
         color: #333;
     }
 
-    .button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .button-container button {
-        width: 100%;
-        height: 100%;
-        background: none;
-        border: none;
-        padding: 0;
+    form {
+        display: inline;
     }
 
     </style>
@@ -83,46 +70,51 @@ vertexai.init(project=st.secrets["project"], location=st.secrets["location"], cr
 def set_task(task_name):
     st.session_state['selected_task'] = task_name
 
+# Handle form submissions based on task clicked
+if st.experimental_get_query_params().get("task"):
+    set_task(st.experimental_get_query_params().get("task")[0])
+
 # Task selection using visual blocks (simulated click with session state)
 st.markdown("## Select a Task")
+
+# Interactive task boxes with clickable forms
 col1, col2, col3 = st.columns(3)
 
-# Interactive task boxes with buttons
 with col1:
-    if st.button("", key="brainstorm_task"):
-        set_task("Brainstorm")
     st.markdown(
         """
-        <div class="task-box">
-            <img src="https://img.icons8.com/ios/50/000000/idea.png"/>
-            <p class="task-text">Brainstorm</p>
-        </div>
+        <form action="?task=Brainstorm" method="get">
+            <button type="submit" class="task-box">
+                <img src="https://img.icons8.com/ios/50/000000/idea.png"/>
+                <p class="task-text">Brainstorm</p>
+            </button>
+        </form>
         """, 
         unsafe_allow_html=True
     )
 
 with col2:
-    if st.button("", key="article_task"):
-        set_task("Article Writer")
     st.markdown(
         """
-        <div class="task-box">
-            <img src="https://img.icons8.com/ios/50/000000/typewriter-with-paper.png"/>
-            <p class="task-text">Article Writer</p>
-        </div>
+        <form action="?task=Article Writer" method="get">
+            <button type="submit" class="task-box">
+                <img src="https://img.icons8.com/ios/50/000000/typewriter-with-paper.png"/>
+                <p class="task-text">Article Writer</p>
+            </button>
+        </form>
         """, 
         unsafe_allow_html=True
     )
 
 with col3:
-    if st.button("", key="reader_task"):
-        set_task("Document Reader")
     st.markdown(
         """
-        <div class="task-box">
-            <img src="https://img.icons8.com/ios/50/000000/read.png"/>
-            <p class="task-text">Document Reader</p>
-        </div>
+        <form action="?task=Document Reader" method="get">
+            <button type="submit" class="task-box">
+                <img src="https://img.icons8.com/ios/50/000000/read.png"/>
+                <p class="task-text">Document Reader</p>
+            </button>
+        </form>
         """, 
         unsafe_allow_html=True
     )
