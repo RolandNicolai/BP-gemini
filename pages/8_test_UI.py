@@ -43,20 +43,13 @@ st.markdown(
     }
     
     </style>
-    
-    <script>
-    function chooseTask(task) {
-        const streamlitTask = document.getElementById('streamlit-task')
-        streamlitTask.value = task;
-        streamlitTask.dispatchEvent(new Event('change'));
-    }
-    </script>
     """, 
     unsafe_allow_html=True
 )
 
-# Hidden input field to store the selected task value
-selected_task = st.text_input("Selected Task", key="streamlit-task", label_visibility="collapsed")
+# Initialize session state if not already done
+if 'selected_task' not in st.session_state:
+    st.session_state['selected_task'] = None
 
 # Logo and header
 LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
@@ -72,15 +65,20 @@ current_date_str = today.strftime('%Y-%m-%dT%H:%M:%S')
 credentials = service_account.Credentials.from_service_account_info(st.secrets["vertexAI_service_account"])
 vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
 
-# Define blocks for Brainstorm, Article Writer, and Document Reader
+# Handle user interaction when a task block is clicked
+def set_task(task_name):
+    st.session_state['selected_task'] = task_name
+
+# Task selection blocks
 st.markdown("## Select a Task")
 col1, col2, col3 = st.columns(3)
 
-# Interactive task boxes
 with col1:
+    if st.button("", key="brainstorm_task"):
+        set_task("Brainstorm")
     st.markdown(
-        """
-        <div class="task-box" onclick="chooseTask('Brainstorm')">
+        f"""
+        <div class="task-box">
             <img src="https://img.icons8.com/ios/50/000000/idea.png"/>
             <p class="task-text">Brainstorm</p>
         </div>
@@ -89,9 +87,11 @@ with col1:
     )
 
 with col2:
+    if st.button("", key="article_task"):
+        set_task("Article Writer")
     st.markdown(
-        """
-        <div class="task-box" onclick="chooseTask('Article Writer')">
+        f"""
+        <div class="task-box">
             <img src="https://img.icons8.com/ios/50/000000/typewriter-with-paper.png"/>
             <p class="task-text">Article Writer</p>
         </div>
@@ -100,9 +100,11 @@ with col2:
     )
 
 with col3:
+    if st.button("", key="reader_task"):
+        set_task("Document Reader")
     st.markdown(
-        """
-        <div class="task-box" onclick="chooseTask('Document Reader')">
+        f"""
+        <div class="task-box">
             <img src="https://img.icons8.com/ios/50/000000/read.png"/>
             <p class="task-text">Document Reader</p>
         </div>
@@ -110,33 +112,11 @@ with col3:
         unsafe_allow_html=True
     )
 
-# Load different models based on selected task
-if selected_task:
-    st.markdown(f"## You selected {selected_task} mode")
+# Task-specific actions based on the selected task
+if st.session_state['selected_task']:
+    st.markdown(f"## You selected {st.session_state['selected_task']} mode")
 
     generation_config = {"temperature": 0.7, "max_output_tokens": 512}
     
-    if selected_task == "Brainstorm":
-        model_brainstorm = GenerativeModel("gemini-1.5-pro-001", generation_config=generation_config)
-        prompt = st.text_input("Enter your brainstorming topic")
-        if prompt:
-            chat = model_brainstorm.start_chat()
-            response = chat.send_message(prompt).candidates[0].content
-            st.write(response)
-            
-    elif selected_task == "Article Writer":
-        model_writer = GenerativeModel("gemini-1.5-pro-002", generation_config=generation_config)
-        prompt = st.text_input("Enter the article topic")
-        if prompt:
-            chat = model_writer.start_chat()
-            response = chat.send_message(prompt).candidates[0].content
-            st.write(response)
-    
-    elif selected_task == "Document Reader":
-        model_reader = GenerativeModel("gemini-1.5-pro-003", generation_config=generation_config)
-        uploaded_file = st.file_uploader("Upload a document", type=["txt", "pdf"])
-        if uploaded_file:
-            chat = model_reader.start_chat()
-            doc_content = uploaded_file.read().decode("utf-8") if uploaded_file.type == "text/plain" else "PDF file uploaded."
-            response = chat.send_message(f"Summarize the following document: {doc_content}").candidates[0].content
-            st.write(response)
+    if st.session_state['selected_task'] == "Brainstorm":
+        model_brainstorm = GenerativeModel("gemini-1.5-pro-001", generation_conf
