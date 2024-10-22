@@ -13,6 +13,12 @@ import tensorflow as tf
 import matplotlib.pyplot as plt
 
 
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["vertexAI_service_account"]
+)
+client = bigquery.Client(credentials=credentials)
+
+
 def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
