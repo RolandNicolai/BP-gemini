@@ -38,8 +38,12 @@ def printImages(results):
         response = requests.get(http_url)
         img = Image.open(BytesIO(response.content))
         
-        # Display the image and similarity score in Streamlit
-        st.image(img, caption=text, use_column_width=True)
+        # Resize the image to 50x50 pixels
+        img_resized = img.resize((50, 50))
+        
+        # Display the resized image in Streamlit
+        st.image(img_resized, caption=text, width=50)  # The width will be set, height will auto-scale
+
 
 # Example query to fetch the images (replace this with your actual query result fetching logic)
 inspect_obj_table_query = """
