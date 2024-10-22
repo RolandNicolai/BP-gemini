@@ -39,10 +39,6 @@ st.markdown(
         color: #333;
     }
 
-    form {
-        display: inline;
-    }
-
     </style>
     """, 
     unsafe_allow_html=True
@@ -52,74 +48,55 @@ st.markdown(
 if 'selected_task' not in st.session_state:
     st.session_state['selected_task'] = None
 
-# Logo and header
-LOGO_URL_LARGE = "https://bonnierpublications.com/app/themes/bonnierpublications/assets/img/logo.svg"
-st.image(LOGO_URL_LARGE)
-st.header('Bonnier Data Assistant', divider='rainbow')
-
-# Define timezone and current time
-copenhagen_tz = pytz.timezone('Europe/Copenhagen')
-today = datetime.datetime.now(copenhagen_tz)
-current_date_str = today.strftime('%Y-%m-%dT%H:%M:%S')
-
-# Authenticate credentials
-credentials = service_account.Credentials.from_service_account_info(st.secrets["vertexAI_service_account"])
-vertexai.init(project=st.secrets["project"], location=st.secrets["location"], credentials=credentials)
-
 # Task selection function
-def set_task(task_name):
+def select_task(task_name):
     st.session_state['selected_task'] = task_name
 
-# Handle form submissions based on task clicked
-if st.experimental_get_query_params().get("task"):
-    set_task(st.experimental_get_query_params().get("task")[0])
-
-# Task selection using visual blocks (simulated click with session state)
+# Display task boxes without a page refresh
 st.markdown("## Select a Task")
-
-# Interactive task boxes with clickable forms
 col1, col2, col3 = st.columns(3)
 
+# Interactive task boxes with callbacks
 with col1:
+    if st.button(" ", key="brainstorm_task"):
+        select_task("Brainstorm")
     st.markdown(
         """
-        <form action="?task=Brainstorm" method="get">
-            <button type="submit" class="task-box">
-                <img src="https://img.icons8.com/ios/50/000000/idea.png"/>
-                <p class="task-text">Brainstorm</p>
-            </button>
-        </form>
+        <div class="task-box" onclick="document.getElementById('brainstorm_task').click()">
+            <img src="https://img.icons8.com/ios/50/000000/idea.png"/>
+            <p class="task-text">Brainstorm</p>
+        </div>
         """, 
         unsafe_allow_html=True
     )
 
 with col2:
+    if st.button(" ", key="article_task"):
+        select_task("Article Writer")
     st.markdown(
         """
-        <form action="?task=Article Writer" method="get">
-            <button type="submit" class="task-box">
-                <img src="https://img.icons8.com/ios/50/000000/typewriter-with-paper.png"/>
-                <p class="task-text">Article Writer</p>
-            </button>
-        </form>
+        <div class="task-box" onclick="document.getElementById('article_task').click()">
+            <img src="https://img.icons8.com/ios/50/000000/typewriter-with-paper.png"/>
+            <p class="task-text">Article Writer</p>
+        </div>
         """, 
         unsafe_allow_html=True
     )
 
 with col3:
+    if st.button(" ", key="reader_task"):
+        select_task("Document Reader")
     st.markdown(
         """
-        <form action="?task=Document Reader" method="get">
-            <button type="submit" class="task-box">
-                <img src="https://img.icons8.com/ios/50/000000/read.png"/>
-                <p class="task-text">Document Reader</p>
-            </button>
-        </form>
+        <div class="task-box" onclick="document.getElementById('reader_task').click()">
+            <img src="https://img.icons8.com/ios/50/000000/read.png"/>
+            <p class="task-text">Document Reader</p>
+        </div>
         """, 
         unsafe_allow_html=True
     )
 
-# Load different models based on the selected task
+# Show selected task details
 if st.session_state['selected_task']:
     st.markdown(f"## You selected {st.session_state['selected_task']} mode")
 
