@@ -18,6 +18,12 @@ st.markdown(
         text-align: center;
         transition: transform 0.3s;
         cursor: pointer;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     
     .task-box:hover {
@@ -36,12 +42,20 @@ st.markdown(
         color: #333;
     }
 
-    .selected-box {
-        background-color: #f0f0f0;
-        box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-        transform: translateY(-10px);
+    .button-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
-    
+
+    .button-container button {
+        width: 100%;
+        height: 100%;
+        background: none;
+        border: none;
+        padding: 0;
+    }
+
     </style>
     """, 
     unsafe_allow_html=True
@@ -73,7 +87,7 @@ def set_task(task_name):
 st.markdown("## Select a Task")
 col1, col2, col3 = st.columns(3)
 
-# Interactive task boxes
+# Interactive task boxes with buttons
 with col1:
     if st.button("", key="brainstorm_task"):
         set_task("Brainstorm")
