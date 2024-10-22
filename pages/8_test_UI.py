@@ -7,6 +7,30 @@ import time
 import datetime
 import pytz
 
+import io
+from PIL import Image
+import matplotlib.pyplot as plt
+import tensorflow as tf
+
+def printImages(results):
+ image_results_list = list(results)
+ amt_of_images = len(image_results_list)
+
+ fig, axes = plt.subplots(nrows=amt_of_images, ncols=2, figsize=(50, 50))
+ fig.tight_layout()
+ fig.subplots_adjust(hspace=0.5)
+ for i in range(amt_of_images):
+   gcs_uri = image_results_list[i][0]
+   text = image_results_list[i][1]
+   f = tf.io.gfile.GFile(gcs_uri, 'rb')
+   stream = io.BytesIO(f.read())
+   img = Image.open(stream)
+   axes[i, 0].axis('off')
+   axes[i, 0].imshow(img)
+   axes[i, 1].axis('off')
+   axes[i, 1].text(0, 0, text, fontsize=20)
+ plt.show()
+
 email = st.experimental_user.email
 
 user_first_name = email.split(".")[0]
