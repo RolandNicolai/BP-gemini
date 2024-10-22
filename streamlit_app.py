@@ -13,7 +13,7 @@ UI_test = st.Page("pages/8_test_UI.py", title = "UI_test")
 
 
 
-pg = st.navigation([hjem, data_assistent, SQL_assistent, pdf_assistent, translation_engine, alpha_data, pdf_upload])
+pg = st.navigation([hjem, data_assistent, SQL_assistent, pdf_assistent, translation_engine, alpha_data, pdf_upload, UI_test])
 #st.set_page_config(page_title="Data manager", page_icon=":material/edit:")
 pg.run()
 
