@@ -28,14 +28,6 @@ credentials = service_account.Credentials.from_service_account_info(
     st.secrets["vertexAI_service_account"]
 )
 client = bigquery.Client(credentials=credentials)
-import io
-from PIL import Image
-import tensorflow as tf
-import streamlit as st
-from google.cloud import bigquery
-
-# Initialize BigQuery client
-client = bigquery.Client()
 
 def printImages(results):
     image_results_list = list(results)
