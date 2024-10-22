@@ -47,5 +47,5 @@ LIMIT 10;
 results = client.query(inspect_obj_table_query)
 
 # Display images using Streamlit
-printImages(results)
+printImages(inspect_obj_table_query)
 
