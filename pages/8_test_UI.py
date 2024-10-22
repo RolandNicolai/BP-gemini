@@ -60,21 +60,52 @@ def printImages(results):
             st.image(img, caption=text)
             
 
+# Streamlit app
+st.title("Image Search Application")
 
-# Example query to fetch the images (replace this with your actual query result fetching logic)
-inspect_obj_table_query = """
-SELECT uri, content_type
-FROM LLM_vertex.gds_images
-WHERE content_type = 'image/png'
-Order by uri
-LIMIT 5;
-"""
+# User input for search query
+user_query = st.text_input("Enter your search query:")
 
-# Assuming 'client.query' fetches the result set
-# Replace the following line with the actual result from the query execution
-results = client.query(inspect_obj_table_query)
+# Button to perform the search
+if st.button("Search"):
+    if user_query:
+        # Perform the search query
+        search_query = f"""CREATE OR REPLACE TABLE `bonnier-deliverables.LLM_vertex.GDS_query_embeddings`
+        AS
+        SELECT * FROM ML.GENERATE_EMBEDDING(
+        MODEL `bonnier-deliverables.ML_generate_text.ml_generate_text_v1`,
+        (
+            SELECT '{user_query}' AS content
+        )
+        );
+        """
 
-# Display images using Streamlit
-printImages(results)
+        client.query(search_query).result()
+
+        results_query = """WITH query_embedding AS (
+          SELECT ml_generate_embedding_result AS embedding
+          FROM `bonnier-deliverables.LLM_vertex.GDS_query_embeddings`
+        )
+
+        SELECT
+          base.uri,
+          (1 - distance) AS similarity_score
+        FROM
+          VECTOR_SEARCH(
+            TABLE `bonnier-deliverables.LLM_vertex.gds_images_embeddings`,
+            'ml_generate_embedding_result',
+            (SELECT embedding FROM query_embedding),
+            top_k => 5,
+            distance_type => 'COSINE'
+          );"""
+
+        # Execute the results query
+        results = client.query(results_query)
+
+
+        # Display the images using printImages function
+        printImages(results)
+    else:
+        st.warning("Please enter a search query.")
 
 
