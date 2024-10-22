@@ -17,20 +17,28 @@ client = bigquery.Client(credentials=credentials)
 
 
 
+
+def convert_gcs_to_http(gcs_uri):
+    # Replace 'gs://' with 'https://storage.googleapis.com/'
+    return gcs_uri.replace('gs://', 'https://storage.googleapis.com/')
+
 def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
 
     for i in range(amt_of_images):
-        # Get the GCS URI (which should be an HTTP URL) and the associated text
-        gcs_uri = image_results_list[i][0]  # Example: 'https://storage.googleapis.com/your_bucket/your_image.jpg'
-        text = image_results_list[i][1]
+        # Get the GCS URI and similarity score
+        gcs_uri = image_results_list[i][0]  # Example: 'gs://vertex_search_images/graestrimmer.png'
+        text = f"Similarity score: {image_results_list[i][1]}"  # Display the similarity score
+        
+        # Convert GCS URI to HTTP URL
+        http_url = convert_gcs_to_http(gcs_uri)
         
         # Fetch the image from the URI using requests
-        response = requests.get(gcs_uri)
+        response = requests.get(http_url)
         img = Image.open(BytesIO(response.content))
         
-        # Display the image in Streamlit
+        # Display the image and similarity score in Streamlit
         st.image(img, caption=text, use_column_width=True)
 
 # Example query to fetch the images (replace this with your actual query result fetching logic)
@@ -47,5 +55,6 @@ LIMIT 10;
 results = client.query(inspect_obj_table_query)
 
 # Display images using Streamlit
-printImages(inspect_obj_table_query)
+printImages(results)
+
 
