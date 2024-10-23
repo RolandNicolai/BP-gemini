@@ -13,7 +13,7 @@ Image_Search = st.Page("pages/8_Image_Search.py", title = "Image Search")
 
 
 
-pg = st.navigation([hjem, data_assistent, SQL_assistent, pdf_assistent, translation_engine, alpha_data, pdf_upload, UI_test])
+pg = st.navigation([hjem, data_assistent, SQL_assistent, pdf_assistent, translation_engine, alpha_data, pdf_upload, Image_Search])
 #st.set_page_config(page_title="Data manager", page_icon=":material/edit:")
 pg.run()
 
