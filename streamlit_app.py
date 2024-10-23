@@ -8,7 +8,7 @@ pdf_assistent = st.Page("pages/4_PDF_Assistent.py", title="PDF Assistent")
 translation_engine = st.Page("pages/5_Translation_Engine.py", title="Translation Engine")
 alpha_data = st.Page("pages/6_data_assistent_alpha.py", title = "data ver alpha")
 pdf_upload = st.Page("pages/7_article_search_upload.py", title = "PDF upload")
-UI_test = st.Page("pages/8_test_UI.py", title = "UI_test")
+Image_Search = st.Page("pages/8_Image_Search.py", title = "Image Search")
 
 
 
