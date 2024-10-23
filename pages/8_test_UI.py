@@ -48,10 +48,10 @@ def printImages(results):
         img_resized = img.resize((original_width // 2, original_height // 2))  # Resizing to half of original size
         
         # Store the resized image and the text in the list
-        images_and_text.append((img_resized, text))
+        images_and_text.append((img_resized, text, http_url))
 
     # Display images in a visually appealing layout
-    for img, text in images_and_text:
+    for img, text, http_url in images_and_text:
         with st.container():  # Container for styling
             # Create a "card" effect with background and padding
             st.markdown(
@@ -74,6 +74,7 @@ def printImages(results):
             st.markdown(
                 f"""
                 <p style='color: #555; font-size: 18px; font-weight: bold;'>{text}</p>
+                <p style='color: #888; font-size: 14px;'>GCS URL: <a href='{http_url}'>{http_url}</a></p>
                 """,
                 unsafe_allow_html=True
             )
@@ -128,4 +129,3 @@ if st.button("Search"):
         printImages(results)
     else:
         st.warning("Indtast søgeord")
-
