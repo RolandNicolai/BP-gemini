@@ -55,20 +55,7 @@ def printImages(results):
     for idx, (img, text, http_url) in enumerate(images_and_text):
         col = cols[idx % 2]  # Alternate between columns
         with col:
-            # Create a "card" effect with background and padding
-            st.markdown(
-                """
-                <div style="
-                    border-radius: 10px;
-                    padding: 10px;
-                    margin: 10px;
-                    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                    background-color: #f9f9f9;
-                    text-align: center;
-                ">
-                """,
-                unsafe_allow_html=True
-            )
+
             # Display the image
             st.image(img, use_column_width=True)
 
