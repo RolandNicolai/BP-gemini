@@ -71,7 +71,7 @@ def printImages(results):
             # Close the "card" container
             st.markdown("</div>", unsafe_allow_html=True)
 # Streamlit app
-st.title("🌟 Billedsøgning 🌟")
+st.title("Billedsøgning 📷")
 
 # User input for search query
 user_query = st.text_input("Indtast søgeord her:")
