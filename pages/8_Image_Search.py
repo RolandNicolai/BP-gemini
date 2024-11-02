@@ -1,3 +1,28 @@
+import streamlit as st
+from google.oauth2 import service_account
+#from vertexai.generative_models import FunctionDeclaration, GenerativeModel, Part, Tool
+import vertexai
+from google.cloud import bigquery
+import time
+import datetime
+import pytz
+import streamlit as st
+import streamlit as st
+from PIL import Image
+import requests
+from io import BytesIO
+
+credentials = service_account.Credentials.from_service_account_info(
+    st.secrets["vertexAI_service_account"]
+)
+client = bigquery.Client(credentials=credentials)
+
+
+def convert_gcs_to_http(gcs_uri):
+    # Replace 'gs://' with 'https://storage.googleapis.com/'
+    return gcs_uri.replace('gs://', 'https://storage.googleapis.com/')
+
+
 def printImages(results):
     image_results_list = list(results)
     amt_of_images = len(image_results_list)
