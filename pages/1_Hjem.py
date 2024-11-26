@@ -123,7 +123,6 @@ st.html(
 </gen-search-widget>
 
 <!-- Element that opens the widget on click. It does not have to be an input -->
-<input placeholder="Search here" id="searchWidgetTrigger" />
-)
+<input placeholder="Search here" id="searchWidgetTrigger" />)
 
         
