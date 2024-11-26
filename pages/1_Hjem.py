@@ -120,15 +120,22 @@ widget_code = """
 <!-- Widget JavaScript bundle -->
 <script src="https://cloud.google.com/ai/gen-app-builder/client?hl=en_GB"></script>
 
-<!-- Search widget element is not visible by default -->
+<!-- Search widget element -->
 <gen-search-widget
   configId="d77c7c91-dd51-4eb4-8012-1d2353aa36e7"
   location="eu"
   triggerId="searchWidgetTrigger">
 </gen-search-widget>
 
-<!-- Element that opens the widget on click. It does not have to be an input -->
+<!-- Input trigger -->
 <input placeholder="Search here" id="searchWidgetTrigger" />
+
+<script>
+  document.querySelector('gen-search-widget').addEventListener('error', (e) => {
+    console.error("Widget error:", e.detail);
+  });
+</script>
+
 """
 
 # Display the widget using Streamlit's HTML component
