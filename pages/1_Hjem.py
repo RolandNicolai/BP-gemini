@@ -132,7 +132,7 @@ widget_code = """
 """
 
 # Display the widget using Streamlit's HTML component
-st.components.v1.html(widget_code, height=300)
+st.components.v1.html(widget_code, height=1000)
 
 
 
