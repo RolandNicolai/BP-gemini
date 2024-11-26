@@ -111,24 +111,50 @@ with st.popover("Om applikationen - Sikkerhed/Modeller"):
     #st.divider()
 
 
-# Title for the app
+from langchain_google_community import (
+    VertexAIMultiTurnSearchRetriever,
+    VertexAISearchRetriever,
+)
 
-# Embed the HTML and JavaScript
-widget_code = """
-<!-- Widget JavaScript bundle -->
-<script src="https://cloud.google.com/ai/gen-app-builder/client?hl=en_GB"></script>
+# Constants for Vertex AI
+PROJECT_ID = "bonnier-deliverables"
+LOCATION_ID = "eu"
+DATA_STORE_ID = "gds-dk-pdf_1731687021249"
 
-<!-- Search widget element is not visible by default -->
-<gen-search-widget
-  configId="d77c7c91-dd51-4eb4-8012-1d2353aa36e7"
-  location="eu"
-  triggerId="searchWidgetTrigger">
-</gen-search-widget>
+# Initialize the retriever
+retriever = VertexAIMultiTurnSearchRetriever(
+    project_id=PROJECT_ID, location_id=LOCATION_ID, data_store_id=DATA_STORE_ID
+)
 
-<!-- Element that opens the widget on click. It does not have to be an input -->
-<input placeholder="Search here" id="searchWidgetTrigger" />
-"""
+# Streamlit UI
+st.title("Vertex AI Document Search")
+query = st.text_input("Enter your query:", "")
 
-# Display the widget using Streamlit's HTML component
-st.components.v1.html(widget_code, height=300)
+if query:
+    # Fetch search results
+    result = retriever.invoke(query)
+    
+    if result:
+        st.write(f"Found {len(result)} documents.")
+        for doc in result:
+            # Display document metadata (e.g., title, description, etc.)
+            st.subheader(doc.get("title", "Untitled Document"))
+            st.write(doc.get("snippet", "No description available."))
+
+            # If the document is a PDF, preview it
+            pdf_url = doc.get("uri")  # Assuming `uri` contains the PDF link
+            if pdf_url.endswith(".pdf"):
+                st.write("Preview:")
+                st.markdown(f"[Download PDF]({pdf_url})", unsafe_allow_html=True)
+                st.components.v1.html(
+                    f"""
+                    <iframe src="{pdf_url}" width="100%" height="600px" style="border: none;"></iframe>
+                    """,
+                    height=600,
+                )
+            else:
+                st.write("This document is not a PDF.")
+    else:
+        st.write("No documents found.")
+
         
