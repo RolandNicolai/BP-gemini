@@ -111,8 +111,11 @@ with st.popover("Om applikationen - Sikkerhed/Modeller"):
     #st.divider()
 
 
-st.html(
-    <!-- Widget JavaScript bundle -->
+# Title for the app
+
+# Embed the HTML and JavaScript
+widget_code = """
+<!-- Widget JavaScript bundle -->
 <script src="https://cloud.google.com/ai/gen-app-builder/client?hl=en_GB"></script>
 
 <!-- Search widget element is not visible by default -->
@@ -123,6 +126,9 @@ st.html(
 </gen-search-widget>
 
 <!-- Element that opens the widget on click. It does not have to be an input -->
-<input placeholder="Search here" id="searchWidgetTrigger" />)
+<input placeholder="Search here" id="searchWidgetTrigger" />
+"""
 
+# Display the widget using Streamlit's HTML component
+st.components.v1.html(widget_code, height=300)
         
